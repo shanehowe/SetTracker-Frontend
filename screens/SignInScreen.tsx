@@ -1,15 +1,11 @@
 import { View, SafeAreaView } from "react-native";
 import { Avatar, Divider, useTheme } from "react-native-paper";
-import { NavigationProp } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { SignInForm } from "../components/Auth/SignInForm";
 import { AuthButtons } from "../components/Auth/AuthButtons";
+import { ScreenProps } from "../interfaces";
 
-interface SignInScreenProps {
-  navigation: NavigationProp<any>
-}
-
-export const SignInScreen = ({ navigation }: SignInScreenProps) => {
+export const SignInScreen = ({ navigation }: ScreenProps) => {
   const theme = useTheme();
 
   return (

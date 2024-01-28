@@ -1,13 +1,9 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { AuthButtons } from "../components/Auth/AuthButtons";
-import { Divider, useTheme, Text, Avatar, Button } from "react-native-paper";
-import { NavigationProp } from "@react-navigation/native";
+import {  useTheme, Text, Avatar, Button } from "react-native-paper";
+import { ScreenProps } from "../interfaces";
 
-interface SignUpScreenProps {
-    navigation: NavigationProp<any>;
-}
-
-export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
+export const SignUpScreen = ({ navigation }: ScreenProps) => {
     const theme = useTheme();
 
     const goToSignIn = () => {
