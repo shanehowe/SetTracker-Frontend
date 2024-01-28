@@ -6,7 +6,7 @@ interface AuthContextProps {
 
 type AuthContextType = {
     isSignedIn: boolean;
-    signIn: () => void;
+    signIn: (username: string, password: string) => void;
     signOut: () => void;
 };
 
@@ -19,7 +19,7 @@ const AuthContext = React.createContext<AuthContextType>({
 const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     const [isSignedIn, setIsSignedIn] = React.useState(false);
 
-    const signIn = () => {
+    const signIn = (username: string, password: string) => {
         setIsSignedIn(true);
     };
 

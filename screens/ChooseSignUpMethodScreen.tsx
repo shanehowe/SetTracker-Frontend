@@ -3,7 +3,7 @@ import { AuthButtons } from "../components/Auth/AuthButtons";
 import {  useTheme, Text, Avatar, Button } from "react-native-paper";
 import { ScreenProps } from "../interfaces";
 
-export const SignUpScreen = ({ navigation }: ScreenProps) => {
+export const ChooseSignUpMethod = ({ navigation }: ScreenProps) => {
     const theme = useTheme();
 
     const goToSignIn = () => {

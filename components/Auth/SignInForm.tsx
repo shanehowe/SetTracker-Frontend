@@ -4,6 +4,7 @@ import { useState } from "react";
 import { NavigationProp } from "@react-navigation/native";
 import { PasswordInput } from "../PasswordInput";
 import { useField } from "../../hooks/useField";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface SignInFormProps {
   navigation: NavigationProp<any>;
@@ -12,6 +13,7 @@ interface SignInFormProps {
 export const SignInForm = ({ navigation }: SignInFormProps) => {
   const [showForm, setShowForm] = useState(false);
 
+  const auth = useAuth();
   const emailField = useField("email");
   const passwordField = useField("password");
 
@@ -20,7 +22,13 @@ export const SignInForm = ({ navigation }: SignInFormProps) => {
   };
 
   const handleSignIn = () => {
-    Alert.alert(`Signing in with ${emailField.value} and ${passwordField.value}`)
+    const trimmedEmail = emailField.value.trim();
+    const trimmedPassword = passwordField.value.trim();
+    if (trimmedEmail && trimmedPassword) {
+      auth.signIn(trimmedEmail, trimmedPassword);
+    } else {
+      Alert.alert("Error", "Please fill in all fields");
+    }
   };
 
   return (
