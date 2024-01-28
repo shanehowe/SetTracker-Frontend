@@ -1,16 +1,21 @@
 import { View, SafeAreaView } from "react-native";
-import { Avatar, useTheme } from "react-native-paper";
+import { Avatar, Divider, useTheme } from "react-native-paper";
+import { NavigationProp } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { SignInForm } from "../components/Auth/SignInForm";
 import { AuthButtons } from "../components/Auth/AuthButtons";
 
-export const SignInScreen = () => {
+interface SignInScreenProps {
+  navigation: NavigationProp<any>
+}
+
+export const SignInScreen = ({ navigation }: SignInScreenProps) => {
   const theme = useTheme();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View
-        style={[styles.container, { backgroundColor: theme.colors.background }]}
+        style={[styles.container]}
       >
         <Avatar.Icon
           style={{
@@ -22,8 +27,8 @@ export const SignInScreen = () => {
           size={100}
           icon="lock"
         />
-        <SignInForm />
-
+        <SignInForm navigation={navigation} />
+        <Divider style={{ marginVertical: 20 }} theme={{ colors: { primary: 'black' }}} />
         <AuthButtons />
       </View>
     </SafeAreaView>
