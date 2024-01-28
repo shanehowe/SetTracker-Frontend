@@ -5,7 +5,7 @@ import { Divider, Button } from "react-native-paper";
 export const AuthButtons = () => {
   return (
     <View style={styles.oAuthView}>
-      <Divider style={{ marginVertical: 20 }} />
+
       <Button
         style={[{ marginTop: 20 }, styles.googleButton]}
         mode="contained"
