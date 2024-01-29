@@ -11,7 +11,7 @@ export default function App() {
 
   const colorScheme = useColorScheme();
 
-  const paperTheme = colorScheme === "dark" ? theme.dark : theme.dark;
+  const paperTheme = colorScheme === "dark" ? theme.dark : theme.light;
 
   return (
     <AuthProvidor>
