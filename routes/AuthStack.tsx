@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SignInScreen } from '../screens/SignInScreen';
+import { ChooseSignInMethodScreen } from '../screens/ChooseSignInMethodScreen';
 import { ChooseSignUpMethod } from '../screens/ChooseSignUpMethodScreen';
 
 const Stack = createNativeStackNavigator();
@@ -9,7 +9,7 @@ export const AuthStack = () => {
         <Stack.Navigator initialRouteName='SignIn'>
             <Stack.Screen 
                 name="SignIn"
-                component={SignInScreen}
+                component={ChooseSignInMethodScreen}
                 options={{
                     headerShown: false,
                 }}
