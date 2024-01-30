@@ -1,8 +1,7 @@
 import React from "react";
 import { ScreenProps } from "../interfaces";
 import { SafeAreaView, View, StyleSheet } from "react-native";
-import { Text, TextInput, useTheme, Button } from "react-native-paper";
-import { PasswordInput } from "../components/PasswordInput";
+import { Text, useTheme } from "react-native-paper";
 import { SignInForm } from "../components/Auth/SignInForm";
 import { DontHaveAnAccountButton } from "../components/Buttons/DontHaveAnAccountButton";
 
