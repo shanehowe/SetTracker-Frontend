@@ -11,7 +11,7 @@ export const ChooseSignUpMethod = ({ navigation }: ScreenProps) => {
     }
 
     return (
-        <SafeAreaView 
+        <View 
             style={[
                 {backgroundColor: theme.colors.background, flex: 1}
             ]}
@@ -50,7 +50,7 @@ export const ChooseSignUpMethod = ({ navigation }: ScreenProps) => {
                     </Button>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
