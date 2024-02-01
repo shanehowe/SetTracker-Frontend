@@ -10,6 +10,7 @@ import { StyleSheet, View } from "react-native";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import workoutFolderService from "../../services/workoutFolders";
 import { useState } from "react";
+import { useSnack } from "../../contexts/SnackbarContext";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
@@ -24,6 +25,7 @@ export const AddWorkoutFolderModal = ({
 
   const theme = useTheme();
   const queryClient = useQueryClient();
+  const snackService = useSnack();
 
   const addWorkoutFolderMutation = useMutation({
     mutationFn: async (folderName: string) => {
@@ -36,6 +38,11 @@ export const AddWorkoutFolderModal = ({
         createdFolder,
       ]);
       hideModal();
+      setFolderName("");
+      snackService.success(`Created folder ${createdFolder.name}`);
+    },
+    onError: (error) => {
+      snackService.error(error.message);
     },
   });
 
