@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WorkoutFoldersStack } from "./WorkoutFoldersStack";
 import { Icon, useTheme, Appbar } from "react-native-paper";
+import { Snackbar } from "../components/Notifications/Snackbar";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,7 @@ export const AppBottomTab = () => {
         <Appbar.Content title="Workout Tracker" />
         <Appbar.Action icon="dots-vertical" onPress={() => {}} />
       </Appbar.Header>
+      <Snackbar />
       <Tab.Navigator
         initialRouteName="WorkoutFoldersTab"
         screenOptions={({ route }) => {
