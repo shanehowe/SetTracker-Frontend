@@ -3,6 +3,7 @@ import { useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { Router } from './routes/Router';
 import { AuthProvidor } from './contexts/AuthContext';
+import { SnackbarProvider } from './contexts/SnackbarContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { theme } from './theme/theme';
 
@@ -20,8 +21,10 @@ export default function App() {
     <AuthProvidor>
       <QueryClientProvider client={queryClient} >
       <PaperProvider theme={paperTheme}>
+        <SnackbarProvider>
           <Router />
           <StatusBar style="auto" />
+        </SnackbarProvider>
       </PaperProvider>
       </QueryClientProvider>
     </AuthProvidor>
