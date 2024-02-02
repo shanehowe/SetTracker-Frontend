@@ -14,3 +14,8 @@ export type SnackbarAction = {
     type: 'OPEN_SNACKBAR' | 'CLOSE_SNACKBAR';
     payload?: SnackbarState;
 };
+
+export type ValidationResult = {
+    isValid: boolean;
+    message: string;
+};
