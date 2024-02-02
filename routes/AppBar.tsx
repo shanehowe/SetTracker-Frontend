@@ -17,8 +17,8 @@ export const AppBottomTab = () => {
           borderBottomWidth: 1,
         }}
       >
-        <Appbar.Content title="Workout Tracker" />
-        <Appbar.Action icon="dots-vertical" onPress={() => {}} />
+        <Appbar.Content title="App name" />
+        <Appbar.Action icon="dots-vertical" />
       </Appbar.Header>
       <Snackbar />
       <Tab.Navigator
