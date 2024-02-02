@@ -11,6 +11,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import workoutFolderService from "../../services/workoutFolders";
 import { useState } from "react";
 import { useSnack } from "../../contexts/SnackbarContext";
+import { isValidFolderName } from "../../utils/validation";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
@@ -51,7 +52,13 @@ export const AddWorkoutFolderModal = ({
   };
 
   const handleAddFolder = () => {
-    addWorkoutFolderMutation.mutate(folderName);
+    const trimmedFolderName = folderName.trim();
+    const validationResult = isValidFolderName(trimmedFolderName);
+    if (!validationResult.isValid) {
+      snackService.error(validationResult.message);
+      return;
+    }
+    addWorkoutFolderMutation.mutate(trimmedFolderName);
   };
 
   return (
