@@ -11,7 +11,7 @@ export const AvatarHeading = ({ title, icon }: AvatarHeadingProps) => {
     const theme = useTheme();
 
     return (
-        <View style={styles.avatarSection}>
+        <View style={styles.avatarSection} testID="container-view">
           <Avatar.Icon
             style={{
               backgroundColor: theme.colors.primary,
@@ -21,8 +21,9 @@ export const AvatarHeading = ({ title, icon }: AvatarHeadingProps) => {
             }}
             size={100}
             icon={icon}
+            testID="avatar-icon"
           />
-          <Text variant="titleMedium" style={styles.text}>
+          <Text variant="titleMedium" style={styles.text} testID="title">
             {title}
           </Text>
         </View>

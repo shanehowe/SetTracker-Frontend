@@ -33,6 +33,7 @@ export const PasswordInput = ({
           onPress={toggleShowPassword}
         />
       }
+      testID="password-input"
     />
   );
 };

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons";
 import { useTheme, Text, Button } from "react-native-paper";
-import { AvatarHeading } from "../../components/Auth/AvatarHeading";
+import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
 import { ScreenProps } from "../../interfaces";
 
 export const ChooseSignUpMethod = ({ navigation }: ScreenProps) => {

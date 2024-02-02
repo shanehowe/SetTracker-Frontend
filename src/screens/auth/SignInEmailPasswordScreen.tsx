@@ -2,7 +2,7 @@ import React from "react";
 import { ScreenProps } from "../../interfaces";
 import { SafeAreaView, View, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
-import { SignInForm } from "../../components/Auth/SignInForm";
+import { SignInForm } from "../../components/Auth/SignInForm/SignInForm";
 import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton";
 
 export const SignInEmailPasswordScreen = ({ navigation }: ScreenProps) => {

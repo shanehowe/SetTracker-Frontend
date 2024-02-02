@@ -1,8 +1,8 @@
 import { Alert, StyleSheet } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import { PasswordInput } from "../PasswordInput";
-import { useField } from "../../hooks/useField";
-import { useAuth } from "../../contexts/AuthContext";
+import { PasswordInput } from "../../PasswordInput";
+import { useField } from "../../../hooks/useField";
+import { useAuth } from "../../../contexts/AuthContext";
 
 
 export const SignInForm = () => {
@@ -27,6 +27,7 @@ export const SignInForm = () => {
         label="Email"
         mode="outlined"
         onChangeText={emailField.onChange}
+        testID="email-input"
       />
       <PasswordInput
         label="Password"
@@ -38,6 +39,7 @@ export const SignInForm = () => {
         mode="contained"
         style={[styles.extraSpacing, styles.fullWidth]}
         onPress={handleSignIn}
+        testID="login-button"
       >
         Log In
       </Button>
@@ -45,6 +47,7 @@ export const SignInForm = () => {
       <Button
         mode="outlined"
         style={[styles.defaultSpacing, styles.fullWidth]}
+        testID="forgot-password-button"
       >
         Forgot Password?
       </Button>
