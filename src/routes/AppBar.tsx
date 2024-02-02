@@ -18,7 +18,7 @@ export const AppBottomTab = () => {
         }}
       >
         <Appbar.Content title="App name" />
-        <Appbar.Action icon="dots-vertical" />
+        <Appbar.Action icon="menu" />
       </Appbar.Header>
       <Snackbar />
       <Tab.Navigator
@@ -31,14 +31,12 @@ export const AppBottomTab = () => {
               borderTopWidth: 1,
             },
             tabBarActiveTintColor: theme.colors.primary,
-            tabBarIcon: ({ focused, color, size }) => {
+            tabBarIcon: ({ color, size }) => {
               let iconName;
               if (route.name === "WorkoutFoldersTab") {
                 iconName = "folder";
-                if (!focused) {
-                  iconName += "-outline";
-                }
               } else if (route.name === "AccountTab") {
+                iconName = "account";
               }
               return (
                 <Icon
