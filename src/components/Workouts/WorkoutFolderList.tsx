@@ -1,9 +1,9 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { WorkoutFolder } from "../../types";
 import { WorkoutFolderItem } from "./WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../services/workoutFolders";
-import { Card, List } from "react-native-paper";
+import { Card, List, Text } from "react-native-paper";
 
 export const WorkoutFolderList = () => {
   const {
@@ -24,7 +24,8 @@ export const WorkoutFolderList = () => {
       mode="contained"
       style={styles.card}
     >
-      <List.Section>
+      {workoutFolders?.length ? (
+        <List.Section>
         {workoutFolders!.map((folder, index) => (
           <WorkoutFolderItem
             key={folder.id}
@@ -33,6 +34,11 @@ export const WorkoutFolderList = () => {
           />
         ))}
       </List.Section>
+      ) : (
+        <Text style={styles.text}>
+          No workout folders. Click the button below to create one!
+        </Text>
+      )}
     </Card>
   );
 };
@@ -42,5 +48,9 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     marginTop: 10,
+  },
+  text: {
+    textAlign: "center",
+    padding: 20,
   }
 });
