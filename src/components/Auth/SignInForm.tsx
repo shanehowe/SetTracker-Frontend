@@ -1,4 +1,4 @@
-import { Alert } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { PasswordInput } from "../PasswordInput";
 import { useField } from "../../hooks/useField";
@@ -32,14 +32,11 @@ export const SignInForm = () => {
         label="Password"
         mode="outlined"
         onChangeText={passwordField.onChange}
-        style={{ marginTop: 20 }}
+        style={styles.defaultSpacing}
       />
       <Button
         mode="contained"
-        style={{
-          width: "100%",
-          marginTop: 40,
-        }}
+        style={[styles.extraSpacing, styles.fullWidth]}
         onPress={handleSignIn}
       >
         Log In
@@ -47,13 +44,22 @@ export const SignInForm = () => {
 
       <Button
         mode="outlined"
-        style={{
-          width: "100%",
-          marginTop: 20,
-        }}
+        style={[styles.defaultSpacing, styles.fullWidth]}
       >
         Forgot Password?
       </Button>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  defaultSpacing: {
+    marginTop: 20,
+  },
+  extraSpacing: {
+    marginTop: 40,
+  },
+  fullWidth: {
+    width: "100%",
+  },
+});

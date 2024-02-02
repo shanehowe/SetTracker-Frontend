@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons";
 import { ScreenProps } from "../../interfaces";
 import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton";
+import { AvatarHeading } from "../../components/Auth/AvatarHeading";
 
 export const ChooseSignInMethodScreen = ({ navigation }: ScreenProps) => {
   const theme = useTheme();
@@ -21,21 +22,7 @@ export const ChooseSignInMethodScreen = ({ navigation }: ScreenProps) => {
       style={[{ backgroundColor: theme.colors.background, flex: 1 }]}
     >
       <View style={styles.container}>
-        <View style={styles.avatarSection}>
-          <Avatar.Icon
-            style={{
-              backgroundColor: theme.colors.primary,
-              alignSelf: "center",
-              flex: 0,
-              marginBottom: 20,
-            }}
-            size={100}
-            icon="lock"
-          />
-          <Text variant="titleMedium" style={styles.text}>
-            Sign in to your account
-          </Text>
-        </View>
+        <AvatarHeading title="Choose a method of signing in" icon="lock"/>
         <View style={styles.buttonsView}>
           <Button
             mode="contained"
@@ -65,15 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     paddingLeft: 20,
     paddingRight: 20,
-  },
-  text: {
-    marginVertical: 10,
-    textAlign: "center",
-  },
-  avatarSection: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   buttonsView: {
     flex: 1,

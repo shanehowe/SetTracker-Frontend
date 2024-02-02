@@ -8,10 +8,6 @@ import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAcco
 export const SignInEmailPasswordScreen = ({ navigation }: ScreenProps) => {
   const theme = useTheme();
 
-  const goToChooseSignUpMethod = () => {
-    navigation.navigate("SignUp");
-  }
-
   return (
     <SafeAreaView style={{ backgroundColor: theme.colors.background, flex: 1 }}>
       <View style={styles.container}>

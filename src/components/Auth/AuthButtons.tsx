@@ -7,7 +7,7 @@ export const AuthButtons = () => {
     <View style={styles.oAuthView}>
 
       <Button
-        style={[{ marginTop: 20 }, styles.googleButton]}
+        style={[styles.button, styles.googleButton]}
         mode="contained"
         icon="google"
         onPress={() => console.log("Pressed")}
@@ -15,7 +15,7 @@ export const AuthButtons = () => {
         Continue with Google
       </Button>
       <Button
-        style={[{ marginTop: 20 }, styles.facebookButton]}
+        style={[styles.button, styles.facebookButton]}
         mode="contained"
         icon="facebook"
         onPress={() => console.log("Pressed")}
@@ -47,4 +47,7 @@ const styles = StyleSheet.create({
     googleButton: {
       backgroundColor: "#4285F4",
     },
+    button: {
+      marginTop: 20,
+    }
   });
