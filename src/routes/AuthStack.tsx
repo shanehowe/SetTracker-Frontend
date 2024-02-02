@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ChooseSignInMethodScreen } from '../screens/ChooseSignInMethodScreen';
-import { ChooseSignUpMethod } from '../screens/ChooseSignUpMethodScreen';
-import { SignInEmailPasswordScreen } from '../screens/SignInEmailPasswordScreen';
+import { ChooseSignInMethodScreen } from '../screens/auth/ChooseSignInMethodScreen';
+import { ChooseSignUpMethod } from '../screens/auth/ChooseSignUpMethodScreen';
+import { SignInEmailPasswordScreen } from '../screens/auth/SignInEmailPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 

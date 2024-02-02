@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import { AuthButtons } from "../components/Auth/AuthButtons";
+import { AuthButtons } from "../../components/Auth/AuthButtons";
 import {  useTheme, Text, Avatar, Button } from "react-native-paper";
-import { ScreenProps } from "../interfaces";
+import { ScreenProps } from "../../interfaces";
 
 export const ChooseSignUpMethod = ({ navigation }: ScreenProps) => {
     const theme = useTheme();

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { WorkoutFoldersScreen } from "../screens/WorkoutFoldersScreen";
+import { WorkoutFoldersScreen } from "../screens/workouts/WorkoutFoldersScreen";
 
 const Stack = createNativeStackNavigator();
 
