@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WorkoutFoldersStack } from "./WorkoutFoldersStack";
 import { Icon, useTheme, Appbar } from "react-native-paper";
-import { Snackbar } from "../components/Notifications/Snackbar";
+import { Snackbar } from "../components/Notifications/Snackbar/Snackbar";
 
 const Tab = createBottomTabNavigator();
 
