@@ -29,6 +29,7 @@ export const PasswordInput = ({
       style={style}
       right={
         <TextInput.Icon
+          testID="password-input-icon"
           icon={showPassword ? "eye-off" : "eye"}
           onPress={toggleShowPassword}
         />

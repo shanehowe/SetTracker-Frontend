@@ -1,6 +1,6 @@
 import { Alert, StyleSheet } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import { PasswordInput } from "../../PasswordInput";
+import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useField } from "../../../hooks/useField";
 import { useAuth } from "../../../contexts/AuthContext";
 
