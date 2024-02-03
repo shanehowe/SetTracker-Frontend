@@ -3,7 +3,7 @@ import { Avatar, Text, useTheme, Button } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons/AuthButtons";
 import { ScreenProps } from "../../interfaces";
-import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton";
+import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton/DontHaveAnAccountButton";
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
 
 export const ChooseSignInMethodScreen = ({ navigation }: ScreenProps) => {

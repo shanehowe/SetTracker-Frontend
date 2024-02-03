@@ -6,7 +6,12 @@ interface AddWorkoutFolderFABProps {
 }
 
 export const AddWorkoutFolderFAB = ({ onPress }: AddWorkoutFolderFABProps) => {
-    return <FAB icon="folder-plus" onPress={onPress} style={styles.fabStyle} />;
+    return <FAB
+              icon="folder-plus"
+              onPress={onPress}
+              style={styles.fabStyle}
+              testID="add-folder-fab"
+            />;
 }
 
 const styles = StyleSheet.create({

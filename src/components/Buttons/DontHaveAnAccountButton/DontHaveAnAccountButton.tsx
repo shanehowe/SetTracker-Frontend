@@ -16,6 +16,7 @@ export const DontHaveAnAccountButton = () => {
       style={{
         width: "100%",
       }}
+      testID="dont-have-account-button"
     >
       Don't have an account yet? Sign Up
     </Button>
