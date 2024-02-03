@@ -1,5 +1,5 @@
 import { Divider, List, useTheme } from "react-native-paper";
-import { WorkoutFolder } from "../../types";
+import { WorkoutFolder } from "../../../types";
 import { Fragment } from "react";
 
 interface WorkoutFolderItemProps {
@@ -19,9 +19,14 @@ export const WorkoutFolderItem = ({
         onPress={() => console.log(`Pressed ${folder.name}`)}
         title={folder.name}
         left={(props) => (
-          <List.Icon {...props} icon="folder" color={theme.colors.primary} />
+          <List.Icon
+            {...props}
+            icon="folder"
+            color={theme.colors.primary}
+          />
         )}
         right={(props) => <List.Icon {...props} icon="chevron-right" />}
+        testID="workout-folder-item"
       />
 
       {showDivider && (
@@ -31,6 +36,7 @@ export const WorkoutFolderItem = ({
             alignSelf: "center",
             backgroundColor: theme.colors.outline,
           }}
+          testID="workout-folder-divider"
         />
       )}
     </Fragment>

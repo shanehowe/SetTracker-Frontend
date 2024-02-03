@@ -17,7 +17,7 @@ const AuthContext = React.createContext<AuthContextType>({
 });
 
 const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
-    const [isSignedIn, setIsSignedIn] = React.useState(false);
+    const [isSignedIn, setIsSignedIn] = React.useState(true);
 
     const signIn = (username: string, password: string) => {
         setIsSignedIn(true);
