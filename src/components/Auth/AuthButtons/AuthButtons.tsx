@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Divider, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 export const AuthButtons = () => {
   return (
@@ -11,6 +11,7 @@ export const AuthButtons = () => {
         mode="contained"
         icon="google"
         onPress={() => console.log("Pressed")}
+        testID="google-auth-button"
       >
         Continue with Google
       </Button>
@@ -19,6 +20,7 @@ export const AuthButtons = () => {
         mode="contained"
         icon="facebook"
         onPress={() => console.log("Pressed")}
+        testID="facebook-auth-button"
       >
         Continue with Facebook
       </Button>

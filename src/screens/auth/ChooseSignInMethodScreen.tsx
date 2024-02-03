@@ -1,7 +1,7 @@
 import { View, SafeAreaView } from "react-native";
 import { Avatar, Text, useTheme, Button } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import { AuthButtons } from "../../components/Auth/AuthButtons";
+import { AuthButtons } from "../../components/Auth/AuthButtons/AuthButtons";
 import { ScreenProps } from "../../interfaces";
 import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton";
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";

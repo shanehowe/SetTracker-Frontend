@@ -2,7 +2,6 @@ import { render, fireEvent } from "@testing-library/react-native";
 import { SignInForm } from "../SignInForm";
 import { Alert } from 'react-native';
 
-jest.spyOn(Alert, 'alert');
 const mockSignIn = jest.fn();
 jest.mock("../../../../contexts/AuthContext", () => ({
   useAuth: () => ({
@@ -41,6 +40,7 @@ describe("SignInForm", () => {
   });
 
   it("shows an Alert when password is blank", () => {
+    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     const { getByTestId } = render(<SignInForm />);
 
     const loginButton = getByTestId("login-button");
@@ -48,10 +48,12 @@ describe("SignInForm", () => {
 
     fireEvent.changeText(emailInput, "email@email.com");
     fireEvent.press(loginButton);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(alertSpy).toHaveBeenCalled();
+    alertSpy.mockRestore();
   });
 
   it("shows an Alert when email is blank", () => {
+    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     const { getByTestId } = render(<SignInForm />);
 
     const loginButton = getByTestId("login-button");
@@ -59,6 +61,7 @@ describe("SignInForm", () => {
 
     fireEvent.changeText(passwordInput, "testing");
     fireEvent.press(loginButton);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(alertSpy).toHaveBeenCalled();
+    alertSpy.mockRestore();
   });
 })
