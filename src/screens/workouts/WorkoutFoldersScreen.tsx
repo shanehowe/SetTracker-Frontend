@@ -3,8 +3,8 @@ import { ScreenProps } from "../../interfaces";
 import { Button, Text, useTheme } from "react-native-paper";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { AddWorkoutFolderFAB } from "../../components/Buttons/AddWorkoutFolderFAB/AddWorkoutFolderFAB";
-import { WorkoutFolderList } from "../../components/Workouts/WorkoutFolderList";
-import { AddWorkoutFolderModal } from "../../components/Workouts/AddWorkoutFolderModal";
+import { WorkoutFolderList } from "../../components/Workouts/WorkoutFolderList/WorkoutFolderList";
+import { AddWorkoutFolderModal } from "../../components/Workouts/AddWorkoutFolderModal/AddWorkoutFolderModal";
 
 export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
   const [modalVisible, setModalVisible] = React.useState(false);

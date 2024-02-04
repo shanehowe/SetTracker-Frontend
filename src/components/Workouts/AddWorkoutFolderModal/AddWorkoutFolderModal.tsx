@@ -8,10 +8,10 @@ import {
 } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import workoutFolderService from "../../services/workoutFolders";
+import workoutFolderService from "../../../services/workoutFolders";
 import { useState } from "react";
-import { useSnack } from "../../contexts/SnackbarContext";
-import { isValidFolderName } from "../../utils/validation";
+import { useSnack } from "../../../contexts/SnackbarContext";
+import { isValidFolderName } from "../../../utils/validation";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
@@ -53,6 +53,7 @@ export const AddWorkoutFolderModal = ({
 
   const handleAddFolder = () => {
     const trimmedFolderName = folderName.trim();
+    console.log(trimmedFolderName)
     const validationResult = isValidFolderName(trimmedFolderName);
     if (!validationResult.isValid) {
       snackService.error(validationResult.message);
@@ -70,6 +71,7 @@ export const AddWorkoutFolderModal = ({
           styles.modal,
           { backgroundColor: theme.colors.background },
         ]}
+        testID="add-workout-folder-modal"
       >
         <View>
           <Text variant="titleMedium">Add Workout Folder</Text>
@@ -80,11 +82,16 @@ export const AddWorkoutFolderModal = ({
             onChangeText={handleFolderNameChange}
             mode="outlined"
             label="Folder Name"
+            testID="add-folder-text-input"
           />
         </View>
 
         <View style={styles.footer}>
-          <Button mode="contained" onPress={handleAddFolder}>
+          <Button
+            mode="contained"
+            onPress={handleAddFolder}
+            testID="add-button"
+          >
             Add Folder
           </Button>
           <Button mode="outlined" onPress={hideModal}>
