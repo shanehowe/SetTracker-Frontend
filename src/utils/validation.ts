@@ -1,7 +1,7 @@
 import { ValidationResult } from '../types';
 
 const hasInvalidCharacters = (input: string): boolean => {
-    const invalidCharacters = ['/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ';', '`'];
+    const invalidCharacters = ['/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '.', ';', '`', '\''];
     return invalidCharacters.some(invalidCharacter => input.includes(invalidCharacter));
 };
 

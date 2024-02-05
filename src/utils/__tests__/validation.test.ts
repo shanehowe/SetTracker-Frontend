@@ -1,4 +1,4 @@
-import { isValidFolderName } from "../validation";
+import { isValidFolderName, } from "../validation";
 
 describe("isValidFolderName", () => {
   it("succeeds given a valid name", () => {
@@ -22,5 +22,115 @@ describe("isValidFolderName", () => {
     const result = isValidFolderName(reallyLongName);
     expect(result.isValid).toBe(false);
     expect(result.message).toEqual('Folder name cannot be longer than 20 characters');
-  })
+  });
+
+  it("fails when given a folder name with \"'\"", () => {
+    const invalidCharsFolder = "hel'lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"/\"", () => {
+    const invalidCharsFolder = "hel/lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"\\\"", () => {
+    const invalidCharsFolder = "hel\\lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"?\"", () => {
+    const invalidCharsFolder = "hel?lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"%\"", () => {
+    const invalidCharsFolder = "hel%lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"*\"", () => {
+    const invalidCharsFolder = "hel*lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \":\"", () => {
+    const invalidCharsFolder = "hel:lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"|\"", () => {
+    const invalidCharsFolder = "hel|lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \"<\"", () => {
+    const invalidCharsFolder = "hel<lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \">\"", () => {
+    const invalidCharsFolder = "hel>lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
+
+  it("fails when given a folder name with \".\"", () => {
+    const invalidCharsFolder = "hel.lo"
+
+    const result = isValidFolderName(invalidCharsFolder);
+    expect(result.isValid).toBe(false);
+    expect(result.message).toEqual(
+      'Folder name cannot contain any of the following characters: / \\ ? % * : | " < > .'
+    );
+  });
 });
