@@ -19,7 +19,11 @@ export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
       <AddWorkoutFolderModal visible={modalVisible} hideModal={hideModal} />
       
       <View style={styles.allExercisesButtonContainer}>
-        <Button mode="contained" style={styles.allExercisesButton}>
+        <Button
+          mode="contained"
+          style={styles.allExercisesButton}
+          onPress={() => navigation.navigate("AllExercises")}
+        >
           All Exercises
         </Button>
       </View>
