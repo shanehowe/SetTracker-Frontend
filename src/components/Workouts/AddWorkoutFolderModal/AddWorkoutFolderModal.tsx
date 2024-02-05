@@ -7,11 +7,11 @@ import {
   useTheme,
 } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import workoutFolderService from "../../../services/workoutFolders";
 import { useState } from "react";
 import { useSnack } from "../../../contexts/SnackbarContext";
 import { isValidFolderName } from "../../../utils/validation";
+import { WorkoutFolder } from "../../../types";
+import { useAddFolderMutation } from "../../../hooks/useAddFolderMutation";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
@@ -25,27 +25,22 @@ export const AddWorkoutFolderModal = ({
   const [folderName, setFolderName] = useState("");
 
   const theme = useTheme();
-  const queryClient = useQueryClient();
   const snackService = useSnack();
 
-  const addWorkoutFolderMutation = useMutation({
-    mutationFn: async (folderName: string) => {
-      const response = await workoutFolderService.create(folderName);
-      return response;
-    },
-    onSuccess: (createdFolder) => {
-      queryClient.setQueryData(["workoutFolders"], (oldFolders: any) => [
-        ...oldFolders,
-        createdFolder,
-      ]);
-      hideModal();
-      setFolderName("");
-      snackService.success(`Created folder ${createdFolder.name}`);
-    },
-    onError: (error) => {
-      snackService.error(error.message);
-    },
-  });
+  const onAddWorkoutFolderSuccess = (data: WorkoutFolder) => {
+    snackService.success(`Created folder ${data.name}`);
+    hideModal();
+    setFolderName("");
+  };
+
+  const onAddWorkoutFolderError = (error: Error) => {
+    snackService.error(error.message);
+  };
+
+  const addWorkoutFolderMutation = useAddFolderMutation(
+    onAddWorkoutFolderSuccess,
+    onAddWorkoutFolderError
+  );
 
   const handleFolderNameChange = (text: string) => {
     setFolderName(text);
@@ -53,7 +48,6 @@ export const AddWorkoutFolderModal = ({
 
   const handleAddFolder = () => {
     const trimmedFolderName = folderName.trim();
-    console.log(trimmedFolderName)
     const validationResult = isValidFolderName(trimmedFolderName);
     if (!validationResult.isValid) {
       snackService.error(validationResult.message);
@@ -94,7 +88,11 @@ export const AddWorkoutFolderModal = ({
           >
             Add Folder
           </Button>
-          <Button mode="outlined" onPress={hideModal}>
+          <Button
+            mode="outlined"
+            onPress={hideModal}
+            testID="cancel-modal-button"
+          >
             Cancel
           </Button>
         </View>
