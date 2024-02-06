@@ -4,6 +4,10 @@ export type WorkoutFolder = {
     exercises: string[];
 }
 
+export type Exercise = {
+    name: string
+}
+
 export type SnackbarState = {
     open: boolean;
     message: string;
