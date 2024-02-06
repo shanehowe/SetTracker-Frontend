@@ -1,7 +1,16 @@
-import { Card, Divider, List, useTheme } from "react-native-paper";
+import { Card, Divider, List, useTheme, Text } from "react-native-paper";
+import { useExercises } from "../../../hooks/useExercises";
+import { ExerciseItem } from "../ExerciseItem/ExerciseItem";
+
+interface AllExerciseListProps {
+  searchFilter: string,
+};
 
 export const AllExerciseList = () => {
   const theme = useTheme();
+  const { isError, isLoading, error, exercises } = useExercises("");
+
+  if (isLoading) return <Text>Loading...</Text>
 
   return (
     <Card
@@ -11,29 +20,14 @@ export const AllExerciseList = () => {
       <List.Section
         testID="all-exercises-list"
       >
-        <List.Item title="Dumbbell Bench Press"
-          right={(props) => <List.Icon {...props} icon="chevron-right" />}
-        />
-        <Divider
-          style={{
-            width: "100%",
-            alignSelf: "center",
-            backgroundColor: theme.colors.outline,
-          }}
-        />
-        <List.Item title="Barbell Squat"
-          right={(props) => <List.Icon {...props}  icon="chevron-right" />}
-        />
-        <Divider
-          style={{
-            width: "100%",
-            alignSelf: "center",
-            backgroundColor: theme.colors.outline,
-          }}
-        />
-        <List.Item title="Latt Pull Down"
-          right={(props) => <List.Icon {...props}  icon="chevron-right" />}
-        />
+        {exercises.map((exercise, idx) => (
+            <ExerciseItem
+              key={exercise.name}
+              exercise={exercise}
+              handleOnPress={() => {}}
+              showDivider={idx !== exercises.length - 1}
+            />
+        ))}
       </List.Section>
     </Card>
   );
