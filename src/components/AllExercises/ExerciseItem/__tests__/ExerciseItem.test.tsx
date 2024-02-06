@@ -48,7 +48,7 @@ describe("ExerciseItem", () => {
       <ExerciseItem
         exercise={{ name: "some name" }}
         handleOnPress={() => {}}
-        showDivider={false}
+        showDivider={true}
       />
     );
 
