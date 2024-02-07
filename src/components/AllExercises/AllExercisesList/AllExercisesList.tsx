@@ -1,14 +1,15 @@
-import { Card, Divider, List, useTheme, Text } from "react-native-paper";
+import { Card, List, useTheme, Text } from "react-native-paper";
 import { useExercises } from "../../../hooks/useExercises";
 import { ExerciseItem } from "../ExerciseItem/ExerciseItem";
+import { EmptyExerciseList } from "../EmptyExerciseList/EmptyExerciseList";
 
 interface AllExerciseListProps {
   searchFilter: string,
 };
 
-export const AllExerciseList = () => {
+export const AllExerciseList = ({ searchFilter }: AllExerciseListProps) => {
   const theme = useTheme();
-  const { isError, isLoading, error, exercises } = useExercises("");
+  const { isError, isLoading, error, exercises } = useExercises(searchFilter);
 
   if (isLoading) return <Text>Loading...</Text>
 
@@ -20,7 +21,8 @@ export const AllExerciseList = () => {
       <List.Section
         testID="all-exercises-list"
       >
-        {exercises.map((exercise, idx) => (
+        {exercises.length === 0 && <EmptyExerciseList />}
+        {exercises && exercises.map((exercise, idx) => (
             <ExerciseItem
               key={exercise.name}
               exercise={exercise}

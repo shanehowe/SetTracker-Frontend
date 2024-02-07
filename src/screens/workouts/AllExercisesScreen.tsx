@@ -3,9 +3,15 @@ import { ScreenProps } from "../../interfaces";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Searchbar } from "../../components/AllExercises/Searchbar/Searchbar";
 import { AllExerciseList } from "../../components/AllExercises/AllExercisesList/AllExercisesList";
+import { useState } from "react";
 
 export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
+  const [searchFilter, setSearchFilter] = useState("");
   const theme = useTheme();
+
+  const handleSearchChange = (text: string) => {
+    setSearchFilter(text);
+  };
 
   return (
     <View
@@ -16,7 +22,7 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
     >
       <ScrollView >
         <View style={styles.container}>
-          <Searchbar />
+          <Searchbar handleSearchChange={handleSearchChange} searchFilter={searchFilter} />
         </View>
 
         <View>
@@ -29,7 +35,7 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
         </View>
 
         <View style={styles.container}>
-          <AllExerciseList />
+          <AllExerciseList searchFilter={searchFilter} />
         </View>
       </ScrollView>
     </View>
