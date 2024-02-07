@@ -8,7 +8,6 @@ interface AllExerciseListProps {
 };
 
 export const AllExerciseList = ({ searchFilter }: AllExerciseListProps) => {
-  const theme = useTheme();
   const { isError, isLoading, error, exercises } = useExercises(searchFilter);
 
   if (isLoading) return <Text>Loading...</Text>
