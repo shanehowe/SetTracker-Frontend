@@ -1,13 +1,17 @@
 import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-export const EmptyExerciseList = () => {
+interface EmptyExerciseListProps {
+  showModal: () => void;
+};
+
+export const EmptyExerciseList = ({ showModal }: EmptyExerciseListProps) => {
   return (
     <View style={styles.container} testID="empty-exercise-list-container">
       <Text variant="bodyMedium" testID="cant-find-exericse-text">
         Can't find that exercise?
       </Text>
-      <Button onPress={() => {}} testID="add-user-exercise-button">
+      <Button onPress={showModal} testID="add-user-exercise-button">
         Add it here
       </Button>
     </View>
