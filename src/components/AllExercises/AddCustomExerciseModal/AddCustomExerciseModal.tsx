@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Keyboard, KeyboardEvent } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Keyboard,
+  KeyboardEvent,
+  Platform,
+} from "react-native";
 import {
   Modal,
   Button,
@@ -30,11 +36,19 @@ export const AddCustomExerciseModal = ({
       }
     };
 
-    const subscription = Keyboard.addListener(
-      "keyboardWillChangeFrame",
-      onKeyboardChange
-    );
-    return () => subscription.remove();
+    if (Platform.OS === "ios") {
+      const subscription = Keyboard.addListener(
+        "keyboardWillChangeFrame",
+        onKeyboardChange
+      );
+      return () => subscription.remove();
+    }
+
+    const subscriptions = [
+      Keyboard.addListener("keyboardDidHide", onKeyboardChange),
+      Keyboard.addListener("keyboardDidShow", onKeyboardChange),
+    ];
+    return () => subscriptions.forEach((subscription) => subscription.remove());
   }, []);
 
   return (
