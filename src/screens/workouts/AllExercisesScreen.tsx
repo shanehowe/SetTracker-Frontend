@@ -4,14 +4,19 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Searchbar } from "../../components/AllExercises/Searchbar/Searchbar";
 import { AllExerciseList } from "../../components/AllExercises/AllExercisesList/AllExercisesList";
 import { useState } from "react";
+import { AddCustomExerciseModal } from "../../components/AllExercises/AddCustomExerciseModal/AddCustomExerciseModal";
 
 export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
   const [searchFilter, setSearchFilter] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
   const theme = useTheme();
 
   const handleSearchChange = (text: string) => {
     setSearchFilter(text);
   };
+
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => setModalVisible(false);
 
   return (
     <View
@@ -35,9 +40,16 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
         </View>
 
         <View style={styles.container}>
-          <AllExerciseList searchFilter={searchFilter} />
+          <AllExerciseList
+            searchFilter={searchFilter}
+            showModal={showModal}
+          />
         </View>
       </ScrollView>
+      <AddCustomExerciseModal
+        visible={modalVisible}
+        hideModal={hideModal}
+      />
     </View>
   );
 };
