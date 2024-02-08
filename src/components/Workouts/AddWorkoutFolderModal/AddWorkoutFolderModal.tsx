@@ -6,8 +6,14 @@ import {
   Button,
   useTheme,
 } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
-import { useState } from "react";
+import {
+  Keyboard,
+  Platform,
+  StyleSheet,
+  View,
+  KeyboardEvent,
+} from "react-native";
+import { useEffect, useState } from "react";
 import { useSnack } from "../../../contexts/SnackbarContext";
 import { isValidFolderName } from "../../../utils/validation";
 import { WorkoutFolder } from "../../../types";
@@ -23,6 +29,7 @@ export const AddWorkoutFolderModal = ({
   hideModal,
 }: AddWorkoutFolderModalProps) => {
   const [folderName, setFolderName] = useState("");
+  const [bottom, setBottom] = useState(0);
 
   const theme = useTheme();
   const snackService = useSnack();
@@ -56,6 +63,30 @@ export const AddWorkoutFolderModal = ({
     addWorkoutFolderMutation.mutate(trimmedFolderName);
   };
 
+  useEffect(() => {
+    const onKeyboardChange = (event: KeyboardEvent) => {
+      if (event.endCoordinates.screenY < event.startCoordinates!.screenY) {
+        setBottom(event.endCoordinates.height / 2);
+      } else {
+        setBottom(0);
+      }
+    };
+
+    if (Platform.OS === "ios") {
+      const subscription = Keyboard.addListener(
+        "keyboardWillChangeFrame",
+        onKeyboardChange
+      );
+      return () => subscription.remove();
+    }
+
+    const subscriptions = [
+      Keyboard.addListener("keyboardDidHide", onKeyboardChange),
+      Keyboard.addListener("keyboardDidShow", onKeyboardChange),
+    ];
+    return () => subscriptions.forEach((subscription) => subscription.remove());
+  }, []);
+
   return (
     <Portal>
       <Modal
@@ -63,7 +94,7 @@ export const AddWorkoutFolderModal = ({
         onDismiss={hideModal}
         contentContainerStyle={[
           styles.modal,
-          { backgroundColor: theme.colors.background },
+          { backgroundColor: theme.colors.background, bottom },
         ]}
         testID="add-workout-folder-modal"
       >
