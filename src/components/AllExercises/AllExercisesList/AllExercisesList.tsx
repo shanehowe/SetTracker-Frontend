@@ -4,10 +4,11 @@ import { ExerciseItem } from "../ExerciseItem/ExerciseItem";
 import { EmptyExerciseList } from "../EmptyExerciseList/EmptyExerciseList";
 
 interface AllExerciseListProps {
-  searchFilter: string,
+  searchFilter: string;
+  showModal: () => void;
 };
 
-export const AllExerciseList = ({ searchFilter }: AllExerciseListProps) => {
+export const AllExerciseList = ({ searchFilter, showModal }: AllExerciseListProps) => {
   const { isError, isLoading, error, exercises } = useExercises(searchFilter);
 
   if (isLoading) return <Text>Loading...</Text>
@@ -20,7 +21,7 @@ export const AllExerciseList = ({ searchFilter }: AllExerciseListProps) => {
       <List.Section
         testID="all-exercises-list"
       >
-        {exercises.length === 0 && <EmptyExerciseList />}
+        {exercises.length === 0 && <EmptyExerciseList showModal={showModal} />}
         {exercises && exercises.map((exercise, idx) => (
             <ExerciseItem
               key={exercise.name}
