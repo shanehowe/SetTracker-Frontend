@@ -18,6 +18,7 @@ import { useSnack } from "../../../contexts/SnackbarContext";
 import { isValidFolderName } from "../../../utils/validation";
 import { WorkoutFolder } from "../../../types";
 import { useAddFolderMutation } from "../../../hooks/useAddFolderMutation";
+import { useKeyboardAdjustment } from "../../../hooks/useKeyboardAdjustment";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
@@ -29,7 +30,7 @@ export const AddWorkoutFolderModal = ({
   hideModal,
 }: AddWorkoutFolderModalProps) => {
   const [folderName, setFolderName] = useState("");
-  const [bottom, setBottom] = useState(0);
+  const bottom = useKeyboardAdjustment();
 
   const theme = useTheme();
   const snackService = useSnack();
@@ -62,30 +63,6 @@ export const AddWorkoutFolderModal = ({
     }
     addWorkoutFolderMutation.mutate(trimmedFolderName);
   };
-
-  useEffect(() => {
-    const onKeyboardChange = (event: KeyboardEvent) => {
-      if (event.endCoordinates.screenY < event.startCoordinates!.screenY) {
-        setBottom(event.endCoordinates.height / 2);
-      } else {
-        setBottom(0);
-      }
-    };
-
-    if (Platform.OS === "ios") {
-      const subscription = Keyboard.addListener(
-        "keyboardWillChangeFrame",
-        onKeyboardChange
-      );
-      return () => subscription.remove();
-    }
-
-    const subscriptions = [
-      Keyboard.addListener("keyboardDidHide", onKeyboardChange),
-      Keyboard.addListener("keyboardDidShow", onKeyboardChange),
-    ];
-    return () => subscriptions.forEach((subscription) => subscription.remove());
-  }, []);
 
   return (
     <Portal>

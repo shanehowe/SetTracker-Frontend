@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
-  Keyboard,
-  KeyboardEvent,
-  Platform,
 } from "react-native";
 import {
   Modal,
@@ -14,6 +10,7 @@ import {
   TextInput,
   useTheme,
 } from "react-native-paper";
+import { useKeyboardAdjustment } from "../../../hooks/useKeyboardAdjustment";
 
 interface AddCustomExerciseModalProps {
   visible: boolean;
@@ -24,32 +21,8 @@ export const AddCustomExerciseModal = ({
   visible,
   hideModal,
 }: AddCustomExerciseModalProps) => {
-  const [bottom, setBottom] = useState(0);
+  const bottom = useKeyboardAdjustment();
   const theme = useTheme();
-
-  useEffect(() => {
-    const onKeyboardChange = (event: KeyboardEvent) => {
-      if (event.endCoordinates.screenY < event.startCoordinates!.screenY) {
-        setBottom(event.endCoordinates.height / 2);
-      } else {
-        setBottom(0);
-      }
-    };
-
-    if (Platform.OS === "ios") {
-      const subscription = Keyboard.addListener(
-        "keyboardWillChangeFrame",
-        onKeyboardChange
-      );
-      return () => subscription.remove();
-    }
-
-    const subscriptions = [
-      Keyboard.addListener("keyboardDidHide", onKeyboardChange),
-      Keyboard.addListener("keyboardDidShow", onKeyboardChange),
-    ];
-    return () => subscriptions.forEach((subscription) => subscription.remove());
-  }, []);
 
   return (
     <Portal>
