@@ -1,7 +1,4 @@
-import {
-  View,
-  StyleSheet,
-} from "react-native";
+import { View, StyleSheet } from "react-native";
 import {
   Modal,
   Button,
@@ -11,6 +8,10 @@ import {
   useTheme,
 } from "react-native-paper";
 import { useKeyboardAdjustment } from "../../../hooks/useKeyboardAdjustment";
+import { useAddCustomExerciseMutation } from "../../../hooks/useAddCustomExerciseMutation";
+import { useSnack } from "../../../contexts/SnackbarContext";
+import { Exercise } from "../../../types";
+import { useState } from "react";
 
 interface AddCustomExerciseModalProps {
   visible: boolean;
@@ -21,8 +22,24 @@ export const AddCustomExerciseModal = ({
   visible,
   hideModal,
 }: AddCustomExerciseModalProps) => {
+  const [exerciseName, setExerciseName] = useState("");
   const bottom = useKeyboardAdjustment();
   const theme = useTheme();
+  const snackService = useSnack();
+
+  const handleAddCustomExerciseSuccess = (createdExercise: Exercise) => {
+    snackService.success(`Added ${createdExercise.name}!`);
+    hideModal();
+  };
+
+  const handleAddCustomExerciseError = (error: Error) => {
+    snackService.error(error.message);
+  };
+
+  const addCustomExerciseMutation = useAddCustomExerciseMutation(
+    handleAddCustomExerciseSuccess,
+    handleAddCustomExerciseError
+  );
 
   return (
     <Portal>
@@ -42,13 +59,18 @@ export const AddCustomExerciseModal = ({
 
           <View>
             <TextInput
+              onChangeText={(text) => setExerciseName(text)}
               mode="outlined"
               label="Exercise Name"
               testID="exercise-name-input"
             />
           </View>
           <View style={styles.footer}>
-            <Button testID="add-button" mode="contained">
+            <Button
+              testID="add-button"
+              mode="contained"
+              onPress={() => addCustomExerciseMutation.mutate(exerciseName)}
+            >
               Add Exercise
             </Button>
 
