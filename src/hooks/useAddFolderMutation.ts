@@ -9,14 +9,17 @@ export const useAddFolderMutation = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (folderName: string) => workoutFolderService.create(folderName),
+    mutationFn: async (folderName: string) =>
+      workoutFolderService.create(folderName),
     onSuccess: (createdFolder) => {
-      queryClient.setQueryData<WorkoutFolder[]>(["workoutFolders"], (oldFolders: any) => [
-        ...oldFolders,
-        createdFolder,
-      ]);
+      queryClient.setQueryData<WorkoutFolder[]>(
+        ["workoutFolders"],
+        (oldFolders) => {
+          return oldFolders ? [...oldFolders, createdFolder] : [createdFolder];
+        }
+      );
       onSuccess(createdFolder);
     },
     onError,
-  })
+  });
 };
