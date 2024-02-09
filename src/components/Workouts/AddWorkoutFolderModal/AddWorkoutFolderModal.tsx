@@ -6,14 +6,8 @@ import {
   Button,
   useTheme,
 } from "react-native-paper";
-import {
-  Keyboard,
-  Platform,
-  StyleSheet,
-  View,
-  KeyboardEvent,
-} from "react-native";
-import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { useState } from "react";
 import { useSnack } from "../../../contexts/SnackbarContext";
 import { isValidFolderName } from "../../../utils/validation";
 import { WorkoutFolder } from "../../../types";
