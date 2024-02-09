@@ -16,11 +16,13 @@ import { useState } from "react";
 interface AddCustomExerciseModalProps {
   visible: boolean;
   hideModal: () => void;
+  handleSearchChange: (text: string) => void;
 }
 
 export const AddCustomExerciseModal = ({
   visible,
   hideModal,
+  handleSearchChange
 }: AddCustomExerciseModalProps) => {
   const [exerciseName, setExerciseName] = useState("");
   const bottom = useKeyboardAdjustment();
@@ -30,6 +32,8 @@ export const AddCustomExerciseModal = ({
   const handleAddCustomExerciseSuccess = (createdExercise: Exercise) => {
     snackService.success(`Added ${createdExercise.name}!`);
     hideModal();
+    setExerciseName("");
+    handleSearchChange(createdExercise.name);
   };
 
   const handleAddCustomExerciseError = (error: Error) => {

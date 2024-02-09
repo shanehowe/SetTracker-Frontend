@@ -47,6 +47,7 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
         </View>
       </ScrollView>
       <AddCustomExerciseModal
+        handleSearchChange={handleSearchChange}
         visible={modalVisible}
         hideModal={hideModal}
       />
