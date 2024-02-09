@@ -2,6 +2,13 @@ import { fireEvent, render } from "@testing-library/react-native";
 import { AddCustomExerciseModal } from "../AddCustomExerciseModal";
 import { AllTheProviders } from "../../../../test-utils";
 
+const mockedMutation = jest.fn();
+jest.mock("../../../../hooks/useAddCustomExerciseMutation", () => ({
+  useAddCustomExerciseMutation: () => ({
+    mutate: mockedMutation
+  })
+}));
+
 describe("Add Custom Exercise Modal", () => {
   it("should render correctly", () => {
     const { getByTestId } = render(
@@ -64,5 +71,21 @@ describe("Add Custom Exercise Modal", () => {
     fireEvent.press(cancelButton);
 
     expect(hideModal).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls the addCustomExerciseMutation when the add button is pressed", () => {
+    const hideModal = jest.fn();
+    const { getByTestId } = render(
+      <AddCustomExerciseModal
+        visible={true}
+        hideModal={hideModal}
+      />,
+      { wrapper: AllTheProviders }
+    );
+
+    const addButton = getByTestId("add-button");
+    fireEvent.press(addButton);
+
+    expect(mockedMutation).toHaveBeenCalledTimes(1);
   });
 });
