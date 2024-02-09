@@ -1,25 +1,26 @@
 export type WorkoutFolder = {
-    id: string;
-    name: string;
-    exercises: string[];
-}
+  id: string;
+  name: string;
+  exercises: string[];
+};
 
 export type Exercise = {
-    name: string
-}
+  id: string;
+  name: string;
+};
 
 export type SnackbarState = {
-    open: boolean;
-    message: string;
-    severity: 'success' | 'info' | 'error' | undefined;
+  open: boolean;
+  message: string;
+  severity: "success" | "info" | "error" | undefined;
 };
 
 export type SnackbarAction = {
-    type: 'OPEN_SNACKBAR' | 'CLOSE_SNACKBAR';
-    payload?: SnackbarState;
+  type: "OPEN_SNACKBAR" | "CLOSE_SNACKBAR";
+  payload?: SnackbarState;
 };
 
 export type ValidationResult = {
-    isValid: boolean;
-    message: string;
+  isValid: boolean;
+  message: string;
 };
