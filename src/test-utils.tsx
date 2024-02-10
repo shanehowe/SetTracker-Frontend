@@ -3,6 +3,7 @@ import React from "react";
 import { AuthProvidor } from "./contexts/AuthContext";
 import { PaperProvider } from "react-native-paper";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
+import { NavigationContainer } from "@react-navigation/native";
 
 interface WrappperArgs {
   children: React.ReactNode
@@ -30,9 +31,11 @@ export const AllTheProviders = ({ children }: WrappperArgs) => {
     <AuthProvidor>
       <QueryClientProvider client={mockedQueryClient} >
         <PaperProvider>
+          <NavigationContainer>
           <SnackbarProvider>
             { children }
           </SnackbarProvider>
+          </NavigationContainer>
         </PaperProvider>
       </QueryClientProvider>
     </AuthProvidor>
