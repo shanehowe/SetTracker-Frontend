@@ -13,6 +13,7 @@ describe("Add Custom Exercise Modal", () => {
   it("should render correctly", () => {
     const { getByTestId } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={() => {}}
       />,
@@ -24,6 +25,7 @@ describe("Add Custom Exercise Modal", () => {
   it("should render the correct title", () => {
     const { getByText } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={() => {}}
       />,
@@ -35,6 +37,7 @@ describe("Add Custom Exercise Modal", () => {
   it("should render the correct input fields", () => {
     const { getByTestId } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={() => {}}
       />,
@@ -47,6 +50,7 @@ describe("Add Custom Exercise Modal", () => {
   it("should render the correct buttons", () => {
     const { getByTestId } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={() => {}}
       />,
@@ -61,6 +65,7 @@ describe("Add Custom Exercise Modal", () => {
     const hideModal = jest.fn();
     const { getByTestId } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={hideModal}
       />,
@@ -77,6 +82,7 @@ describe("Add Custom Exercise Modal", () => {
     const hideModal = jest.fn();
     const { getByTestId } = render(
       <AddCustomExerciseModal
+        handleSearchChange={() => {}}
         visible={true}
         hideModal={hideModal}
       />,
