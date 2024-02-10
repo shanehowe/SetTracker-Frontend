@@ -1,8 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { WorkoutFoldersScreen } from "../screens/workouts/WorkoutFoldersScreen";
 import { AllExercisesScreen } from "../screens/workouts/AllExercisesScreen";
+import { FolderExercisesScreen } from "../screens/workouts/FolderExercisesScreen";
+import { RootStackParamList } from "../types";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export const WorkoutFoldersStack = () => {
   return (
@@ -20,6 +22,11 @@ export const WorkoutFoldersStack = () => {
         name="AllExercises"
         component={AllExercisesScreen}
         options={{ headerShown: false}}
+      />
+      <Stack.Screen
+        name="FolderExercises"
+        component={FolderExercisesScreen}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
