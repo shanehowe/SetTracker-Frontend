@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { WorkoutFolderItem } from "../WorkoutFolderItem";
 import { WorkoutFolder } from "../../../../types";
+import { AllTheProviders } from "../../../../test-utils";
 
 describe("WorkoutFolderItem", () => {
   const testFolder: WorkoutFolder = {
@@ -11,7 +12,8 @@ describe("WorkoutFolderItem", () => {
 
   it("renders correctly", () => {
     const { getByTestId } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={false} />
+      <WorkoutFolderItem folder={testFolder} showDivider={false} />,
+      { wrapper: AllTheProviders }
     );
 
     expect(getByTestId("workout-folder-item")).toBeDefined();
@@ -19,7 +21,8 @@ describe("WorkoutFolderItem", () => {
 
   it("renders the correct folder name", () => {
     const { getByText } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={false} />
+      <WorkoutFolderItem folder={testFolder} showDivider={false} />,
+      { wrapper: AllTheProviders }
     );
     
     expect(getByText("Test Folder")).toBeDefined();
@@ -27,7 +30,8 @@ describe("WorkoutFolderItem", () => {
 
   it("renders a divider when showDivider is true", () => {
     const { getByTestId } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={true} />
+      <WorkoutFolderItem folder={testFolder} showDivider={true} />,
+      { wrapper: AllTheProviders }
     );
 
     expect(getByTestId("workout-folder-divider")).toBeDefined();

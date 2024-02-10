@@ -1,8 +1,10 @@
 import { render } from "@testing-library/react-native";
 import { WorkoutFolderList } from "../WorkoutFolderList";
 import { useQuery } from "@tanstack/react-query";
+import { AllTheProviders } from "../../../../test-utils";
 
 jest.mock("@tanstack/react-query", () => ({
+  ...jest.requireActual("@tanstack/react-query"),
   useQuery: jest.fn(),
 }));
 
@@ -12,7 +14,10 @@ describe("WorkoutFolderList", () => {
       isLoading: true,
     });
 
-    const { getByText } = render(<WorkoutFolderList />);
+    const { getByText } = render(
+    <WorkoutFolderList />,
+    { wrapper: AllTheProviders }
+    );
 
     expect(getByText("Loading...")).toBeTruthy();
   });
@@ -22,7 +27,10 @@ describe("WorkoutFolderList", () => {
       error: { message: "Error" },
     });
 
-    const { getByText } = render(<WorkoutFolderList />);
+    const { getByText } = render(
+      <WorkoutFolderList />,
+      { wrapper: AllTheProviders }
+    );
 
     expect(getByText("Error")).toBeTruthy();
   });
@@ -32,7 +40,10 @@ describe("WorkoutFolderList", () => {
       data: [],
     });
 
-    const { getByText } = render(<WorkoutFolderList />);
+    const { getByText } = render(
+      <WorkoutFolderList />,
+      { wrapper: AllTheProviders }
+    );
 
     expect(
       getByText("No workout folders. Click the button below to create one!")
@@ -55,7 +66,10 @@ describe("WorkoutFolderList", () => {
       ],
     });
 
-    const { getByTestId } = render(<WorkoutFolderList />);
+    const { getByTestId } = render(
+      <WorkoutFolderList />,
+      { wrapper: AllTheProviders }
+    );
 
     expect(getByTestId("workout-folders-list")).toBeTruthy();
   });
