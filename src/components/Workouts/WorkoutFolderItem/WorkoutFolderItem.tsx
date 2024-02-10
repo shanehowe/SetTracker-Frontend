@@ -1,6 +1,7 @@
 import { Divider, List, useTheme } from "react-native-paper";
-import { WorkoutFolder } from "../../../types";
+import { WorkoutFolder, RootStackParamList } from "../../../types";
 import { Fragment } from "react";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 interface WorkoutFolderItemProps {
   folder: WorkoutFolder;
@@ -12,11 +13,18 @@ export const WorkoutFolderItem = ({
   showDivider,
 }: WorkoutFolderItemProps) => {
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const goToFolderExercises = () => {
+    navigation.navigate("FolderExercises", {
+      folderId: folder.id,
+    });
+  };
 
   return (
     <Fragment key={folder.id}>
       <List.Item
-        onPress={() => console.log(`Pressed ${folder.name}`)}
+        onPress={goToFolderExercises}
         title={folder.name}
         left={(props) => (
           <List.Icon
