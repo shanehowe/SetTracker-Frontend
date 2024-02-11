@@ -1,10 +1,10 @@
 import { Text, useTheme } from "react-native-paper";
 import { ScreenProps } from "../../interfaces";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Searchbar } from "../../components/AllExercises/Searchbar/Searchbar";
-import { AllExerciseList } from "../../components/AllExercises/AllExercisesList/AllExercisesList";
+import { Searchbar } from "../../components/Workouts/Searchbar/Searchbar";
+import { AllExerciseList } from "../../components/Workouts/AllExercisesList/AllExercisesList";
 import { useState } from "react";
-import { AddCustomExerciseModal } from "../../components/AllExercises/AddCustomExerciseModal/AddCustomExerciseModal";
+import { AddCustomExerciseModal } from "../../components/Workouts/AddCustomExerciseModal/AddCustomExerciseModal";
 
 export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
   const [searchFilter, setSearchFilter] = useState("");
