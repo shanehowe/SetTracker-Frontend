@@ -6,6 +6,7 @@ export const useExercises = (filter: string) => {
   const { error, isError, isLoading, data } = useQuery({
     queryKey: ["allExercises"],
     queryFn: exerciseService.getAll,
+    refetchOnMount: false,
   });
 
   const exercises = useMemo(() => {
