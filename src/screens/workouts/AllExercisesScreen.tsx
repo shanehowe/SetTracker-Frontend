@@ -25,16 +25,16 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
         backgroundColor: theme.colors.background,
       }}
     >
-      <ScrollView >
+      <ScrollView>
         <View style={styles.container}>
-          <Searchbar handleSearchChange={handleSearchChange} searchFilter={searchFilter} />
+          <Searchbar
+            handleSearchChange={handleSearchChange}
+            searchFilter={searchFilter}
+          />
         </View>
 
         <View>
-          <Text
-            variant="titleMedium"
-            style={styles.centerText}
-          >
+          <Text variant="titleMedium" style={styles.centerText}>
             All Exercises
           </Text>
         </View>
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   centerText: {
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
