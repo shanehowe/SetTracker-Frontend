@@ -21,7 +21,7 @@ describe("AllExerciseList", () => {
     }));
   
     const { getByTestId } = render(
-      <AllExerciseList searchFilter=""/>,
+      <AllExerciseList searchFilter="" showModal={() => {}}/>,
       { wrapper: queryClientWrapper }
     );
     
@@ -41,7 +41,7 @@ describe("AllExerciseList", () => {
     }));
   
     const { getByTestId } = render(
-      <AllExerciseList searchFilter=""/>,
+      <AllExerciseList searchFilter="" showModal={() => {}}/>,
       { wrapper: queryClientWrapper }
     );
 
@@ -61,7 +61,7 @@ describe("AllExerciseList", () => {
     }));
   
     const { getByText} = render(
-      <AllExerciseList searchFilter=""/>,
+      <AllExerciseList searchFilter="" showModal={() => {}}/>,
       { wrapper: queryClientWrapper }
     );
 
