@@ -12,7 +12,6 @@ export const WorkoutFolderFabGroup = () => {
   return (
     <Portal>
       <FAB.Group
-        label="Folder Options"
         style={styles.fabStyle}
         testID="workout-folder-fab-group"
         open={open}
