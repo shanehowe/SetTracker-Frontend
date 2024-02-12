@@ -1,7 +1,10 @@
 import { Text, useTheme } from "react-native-paper";
 import { ScrollView } from "react-native";
 import { ScreenProps } from "../../interfaces";
-import { WorkoutFolderFabGroup } from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
+import {
+  WorkoutFolderFabGroup
+} from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
+import { FolderHeading } from "../../components/Workouts/FolderHeading/FolderHeading";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -24,7 +27,7 @@ export const FolderExercisesScreen = ({
         backgroundColor: theme.colors.background,
       }}
     >
-      <Text>Folder Exercises Screen</Text>
+      <FolderHeading folderName="Test Folder" />
       <WorkoutFolderFabGroup />
     </ScrollView>
   );
