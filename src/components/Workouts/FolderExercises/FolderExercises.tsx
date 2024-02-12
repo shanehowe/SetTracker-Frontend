@@ -1,22 +1,22 @@
 import { Card, Divider, List } from "react-native-paper";
+import { ExerciseList } from "../ExerciseList/ExerciseList";
+import { Exercise } from "../../../types";
 
-export const FolderExercises = () => {
+interface FolderExercisesProps {
+  exercises: Exercise[];
+}
+
+export const FolderExercises = ({ exercises }: FolderExercisesProps) => {
   return (
     <Card
       testID="folder-exercises-container"
       mode="contained"
       style={{
-        width: "95%",
+        width: "90%",
         alignSelf: 'center'
       }}
-    >
-      <List.Section>
-        <List.Item title="Hello" />
-        <Divider />
-        <List.Item title="Hello" />
-        <Divider />
-        <List.Item title="Hello" />
-      </List.Section>
+      >
+      <ExerciseList exercises={exercises}/>
     </Card>
   );
 };
