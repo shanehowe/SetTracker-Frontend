@@ -1,7 +1,7 @@
 export type WorkoutFolder = {
   id: string;
   name: string;
-  exercises: string[];
+  exercises: Exercise[];
 };
 
 export type Exercise = {
