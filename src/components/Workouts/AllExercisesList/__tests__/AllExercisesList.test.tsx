@@ -45,7 +45,7 @@ describe("AllExerciseList", () => {
       { wrapper: queryClientWrapper }
     );
 
-    const exerciseList = getByTestId("all-exercises-list");
+    const exerciseList = getByTestId("exercise-list");
     expect(exerciseList).toBeTruthy();
   });
 
@@ -60,11 +60,11 @@ describe("AllExerciseList", () => {
       ]
     }));
   
-    const { getByText} = render(
+    const { getByTestId } = render(
       <AllExerciseList searchFilter="" showModal={() => {}}/>,
       { wrapper: queryClientWrapper }
     );
 
-    expect(getByText("Loading...")).toBeTruthy();
+    expect(getByTestId("loading-comp")).toBeTruthy();
   })
 });
