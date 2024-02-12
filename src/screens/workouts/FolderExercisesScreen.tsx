@@ -5,6 +5,7 @@ import {
   WorkoutFolderFabGroup
 } from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
 import { FolderHeading } from "../../components/Workouts/FolderHeading/FolderHeading";
+import { FolderExercises } from "../../components/Workouts/FolderExercises/FolderExercises";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -28,6 +29,7 @@ export const FolderExercisesScreen = ({
       }}
     >
       <FolderHeading folderName="Test Folder" />
+      <FolderExercises/>
       <WorkoutFolderFabGroup />
     </ScrollView>
   );
