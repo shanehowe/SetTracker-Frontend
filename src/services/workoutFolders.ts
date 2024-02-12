@@ -5,12 +5,20 @@ const workoutFolders: WorkoutFolder[] = [
   {
     id: "1",
     name: "Chest Day",
-    exercises: ["Bench Press", "Incline Bench Press", "Decline Bench Press"],
+    exercises: [
+      { id: "1", name: "Bent Over Row" },
+      { id: "2", name: "Pull Ups" },
+      { id: "3", name: "Bicep Curls" },
+    ],
   },
   {
     id: "2",
     name: "Back and Biceps",
-    exercises: ["Deadlift", "Pull Ups", "Rows"],
+    exercises: [
+      { id: "1", name: "Bent Over Row" },
+      { id: "2", name: "Pull Ups" },
+      { id: "3", name: "Bicep Curls" },
+    ],
   },
 ];
 
@@ -27,9 +35,18 @@ const create = (folderName: string) => {
   return newFolder;
 };
 
+const getById = (folderId: string) => {
+  const folder = workoutFolders.find((folder) => folder.id === folderId);
+  if (!folder) {
+    throw new Error("Folder not found");
+  }
+  return folder;
+};
+
 const workoutFolderService = {
   getAll,
   create,
+  getById,
 };
 
 export default workoutFolderService;
