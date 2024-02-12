@@ -40,10 +40,7 @@ export const AllExercisesScreen = ({ navigation }: ScreenProps) => {
         </View>
 
         <View style={styles.container}>
-          <AllExerciseList
-            searchFilter={searchFilter}
-            showModal={showModal}
-          />
+          <AllExerciseList searchFilter={searchFilter} showModal={showModal} />
         </View>
       </ScrollView>
       <AddCustomExerciseModal
