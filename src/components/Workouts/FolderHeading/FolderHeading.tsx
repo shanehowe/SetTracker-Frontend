@@ -8,8 +8,8 @@ interface FolderHeadingProps {
 export const FolderHeading = ({ folderName }: FolderHeadingProps) => {
   return (
     <View style={styles.folderHeadingContainer}>
-      <Text variant="titleLarge" testID="folder-heading">{folderName}</Text>
       <Icon testID="folder-heading-icon" source="folder-open" size={25} />
+      <Text variant="titleLarge" testID="folder-heading">{folderName}</Text>
     </View>
   );
 };
