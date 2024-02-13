@@ -1,6 +1,6 @@
-import { View } from "react-native";
 import { Exercise } from "../../../types";
 import { ExerciseCheckbox } from "../ExerciseCheckbox/ExerciseCheckbox";
+import { Card } from "react-native-paper";
 
 interface ExerciseCheckboxListProps {
   exercises: Exercise[];
@@ -14,8 +14,10 @@ export const ExerciseCheckboxList = ({
   onExerciseSelect,
 }: ExerciseCheckboxListProps) => {
   return (
-    <View
+    <Card
+      mode="contained"
       testID="exercise-checkbox-list"
+      style={{ width: "95%" }}
     >
       {exercises.map((exercise) => {
         const isSelected = selectedExercises.some(
@@ -31,6 +33,6 @@ export const ExerciseCheckboxList = ({
           />
         );
       })}
-    </View>
+    </Card>
   );
 };
