@@ -7,6 +7,8 @@ import {
 import { FolderHeading } from "../../components/Workouts/FolderHeading/FolderHeading";
 import { FolderExercises } from "../../components/Workouts/FolderExercises/FolderExercises";
 import { useFolder } from "../../hooks/useFolder";
+import { useFocusEffect } from "@react-navigation/native";
+import { useState } from "react";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -20,10 +22,18 @@ export const FolderExercisesScreen = ({
   route,
   navigation,
 }: FolderExercisesScreenProps) => {
+  const [visible, setVisible] = useState(false);
   const theme = useTheme();
 
   const folderId = route.params.folderId;
   const { isError, error, isLoading, folder } = useFolder(folderId);
+
+  useFocusEffect(() => {
+    setVisible(true);
+    return () => {
+      setVisible(false);
+    };
+  });
 
   if (isLoading) {
     return (
@@ -40,7 +50,7 @@ export const FolderExercisesScreen = ({
     >
       <FolderHeading folderName={folder!.name} />
       <FolderExercises exercises={folder!.exercises}/>
-      <WorkoutFolderFabGroup />
+      <WorkoutFolderFabGroup visible={visible} />
     </ScrollView>
   );
 };
