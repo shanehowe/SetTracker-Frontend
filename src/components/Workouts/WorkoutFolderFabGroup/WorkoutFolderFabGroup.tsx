@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { FAB, Portal, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../types";
 
-export const WorkoutFolderFabGroup = () => {
+interface WorkoutFolderFabGroupProps {
+  visible: boolean;
+}
+
+export const WorkoutFolderFabGroup = ({ visible }: WorkoutFolderFabGroupProps) => {
   const [state, setState] = useState({ open: false });
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onStateChange = ({ open }: { open: boolean }) => setState({ open });
   const { open } = state;
@@ -15,7 +22,7 @@ export const WorkoutFolderFabGroup = () => {
         style={styles.fabStyle}
         testID="workout-folder-fab-group"
         open={open}
-        visible
+        visible={visible}
         icon={open ? "close" : "folder-edit"}
         actions={[
           {
@@ -31,8 +38,8 @@ export const WorkoutFolderFabGroup = () => {
           },
           {
             icon: "plus-circle",
-            label: "Add Exercises",
-            onPress: () => console.log("Add Exercises"),
+            label: "Edit Exercises",
+            onPress: () => navigation.navigate("AddExercises"),
           },
         ]}
         onStateChange={onStateChange}

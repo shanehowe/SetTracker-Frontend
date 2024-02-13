@@ -5,7 +5,7 @@ import { AllTheProviders } from "../../../../test-utils";
 describe("WorkoutFolderFabGroup", () => {
   it("should render", () => {
     const { getByTestId } = render(
-      <WorkoutFolderFabGroup />,
+      <WorkoutFolderFabGroup visible={true} />,
       { wrapper: AllTheProviders }
     );
 
