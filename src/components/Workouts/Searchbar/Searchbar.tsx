@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Searchbar as PaperSearchbar } from "react-native-paper"
 
 interface SearchbarProps {
