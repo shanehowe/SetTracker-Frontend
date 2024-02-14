@@ -5,9 +5,12 @@ import { useState } from "react";
 import { useExercises } from "../../hooks/useExercises";
 import { ScreenProps } from "../../interfaces";
 import { Button, Text, useTheme } from "react-native-paper";
+import { useCheckboxGroup } from "../../hooks/useCheckboxGroup";
+import { Exercise } from "../../types";
 
 export const AddExercisesScreen = ({ navigation }: ScreenProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { selected, handleSelect } = useCheckboxGroup<Exercise>();
   const { isLoading, isError, error, exercises } = useExercises(searchQuery);
   const theme = useTheme();
 
@@ -38,8 +41,8 @@ export const AddExercisesScreen = ({ navigation }: ScreenProps) => {
       >
         <ExerciseCheckboxList
           exercises={exercises}
-          selectedExercises={[exercises[0]]}
-          onExerciseSelect={() => {}}
+          selectedExercises={selected}
+          onExerciseSelect={handleSelect}
         />
       </ScrollView>
       <View style={styles.buttonContainer}>
