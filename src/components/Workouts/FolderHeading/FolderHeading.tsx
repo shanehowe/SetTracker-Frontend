@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Text, Icon } from "react-native-paper";
+import { Text, Icon, useTheme } from "react-native-paper";
 
 interface FolderHeadingProps {
   folderName: string;
@@ -8,8 +8,8 @@ interface FolderHeadingProps {
 export const FolderHeading = ({ folderName }: FolderHeadingProps) => {
   return (
     <View style={styles.folderHeadingContainer}>
-      <Icon testID="folder-heading-icon" source="folder-open" size={25} />
-      <Text variant="titleLarge" testID="folder-heading">{folderName}</Text>
+      <Text variant="titleMedium" testID="folder-heading">{folderName}</Text>
+      <Icon testID="folder-heading-icon" source="information" size={23} />
     </View>
   );
 };
@@ -19,9 +19,11 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     gap: 12,
     marginTop: 20,
-    marginBottom: 16
+    marginBottom: 5,
+    width: "95%",
+    alignSelf: "center",
   }
 });
