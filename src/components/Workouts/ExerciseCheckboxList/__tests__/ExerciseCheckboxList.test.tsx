@@ -14,7 +14,7 @@ describe("ExerciseCheckboxList", () => {
     },
   ];
 
-  const selectedExercises = [{ id: "1", name: "Bench Press"}];
+  const selectedExercises = ["1"];
 
   it("should render correctly", () => {
     const { getByTestId } = render(
