@@ -1,9 +1,7 @@
 import { Text, useTheme } from "react-native-paper";
 import { ScrollView } from "react-native";
 import { ScreenProps } from "../../interfaces";
-import {
-  WorkoutFolderFabGroup
-} from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
+import { WorkoutFolderFabGroup } from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
 import { FolderHeading } from "../../components/Workouts/FolderHeading/FolderHeading";
 import { FolderExercises } from "../../components/Workouts/FolderExercises/FolderExercises";
 import { useFolder } from "../../hooks/useFolder";
@@ -14,6 +12,7 @@ interface FolderExercisesScreenProps extends ScreenProps {
   route: {
     params: {
       folderId: string;
+      updated?: boolean;
     };
   };
 }
@@ -36,9 +35,7 @@ export const FolderExercisesScreen = ({
   });
 
   if (isLoading) {
-    return (
-      <Text>Loading...</Text>
-    );
+    return <Text>Loading...</Text>;
   }
 
   return (
@@ -49,8 +46,8 @@ export const FolderExercisesScreen = ({
       }}
     >
       <FolderHeading folderName={folder!.name} />
-      <FolderExercises exercises={folder!.exercises}/>
-      <WorkoutFolderFabGroup visible={visible} />
+      <FolderExercises exercises={folder!.exercises} />
+      <WorkoutFolderFabGroup visible={visible} folderId={folderId} />
     </ScrollView>
   );
 };
