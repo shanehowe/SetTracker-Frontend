@@ -28,6 +28,6 @@ export type ValidationResult = {
 export type RootStackParamList = {
   WorkoutFolders: undefined;
   AllExercises: undefined;
-  FolderExercises: { folderId: string };
+  FolderExercises: { folderId: string, updated?: boolean };
   AddExercises: { folderId: string };
 };
