@@ -7,14 +7,51 @@ import { ScreenProps } from "../../interfaces";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useCheckboxGroup } from "../../hooks/useCheckboxGroup";
 import { Exercise } from "../../types";
+import { useFolder } from "../../hooks/useFolder";
+import { useUpdateExercisesMutation } from "../../hooks/useUpdateExercisesMutation";
+import { useSnack } from "../../contexts/SnackbarContext";
 
-export const AddExercisesScreen = ({ navigation }: ScreenProps) => {
+interface AddExercisesScreenProps extends ScreenProps {
+  route: {
+    params: {
+      folderId: string;
+    };
+  };
+}
+
+export const AddExercisesScreen = ({ navigation, route }: AddExercisesScreenProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const { selected, handleSelect } = useCheckboxGroup<Exercise>();
+
+  const folderData = useFolder(route.params.folderId);
+
+  const { selected, handleSelect } = useCheckboxGroup<string>(
+    folderData.folder?.exercises.map((exercise: Exercise) => exercise.id) || []
+  );
+
   const { isLoading, isError, error, exercises } = useExercises(searchQuery);
+
   const theme = useTheme();
+  const snack = useSnack();
+
+  const onSuccessCallback = () => {
+    navigation.navigate("FolderExercises", { folderId: route.params.folderId, updated: true });
+    snack.success("Exercises updated");
+  };
+
+  const onErrorCallback = () => {
+    snack.error("Error updating exercises");
+  };
+
+  const updateExercisesMutation = useUpdateExercisesMutation(
+    route.params.folderId,
+    onSuccessCallback,
+    onErrorCallback
+  );
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
+
+  const handleCancel = () => navigation.goBack();
+  const handleConfirm = () => updateExercisesMutation.mutate(selected);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -46,11 +83,11 @@ export const AddExercisesScreen = ({ navigation }: ScreenProps) => {
         />
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <Button mode="contained" onPress={() => navigation.goBack()}>
+        <Button mode="contained" onPress={handleConfirm}>
           Confirm Selection
         </Button>
 
-        <Button onPress={() => navigation.goBack()}>Cancel</Button>
+        <Button onPress={handleCancel}>Cancel</Button>
       </View>
     </View>
   );
