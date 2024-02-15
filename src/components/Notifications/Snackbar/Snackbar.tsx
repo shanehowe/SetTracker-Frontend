@@ -14,7 +14,7 @@ export const Snackbar = () => {
       <PaperSnackbar
         visible={snackState.open}
         onDismiss={close}
-        duration={PaperSnackbar.DURATION_MEDIUM}
+        duration={PaperSnackbar.DURATION_SHORT}
         icon={snackState.severity === "error" ? "alert" : "check"}
         onIconPress={close}
         testID="snackbar"
