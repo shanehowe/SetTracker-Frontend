@@ -1,10 +1,10 @@
-import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Checkbox, Text } from "react-native-paper";
 import { Exercise } from "../../../types";
 
 interface ExerciseCheckboxProps {
   isSelected: boolean;
-  onExerciseSelect: (exercise: Exercise) => void;
+  onExerciseSelect: (exerciseId: string) => void;
   exercise: Exercise
 }
 
@@ -17,13 +17,13 @@ export const ExerciseCheckbox = ({
     <TouchableOpacity
       testID="exercise-checkbox-container"
       style={styles.checkboxContainer}
-      onPress={() => onExerciseSelect(exercise)}
+      onPress={() => onExerciseSelect(exercise.id)}
     >
       <Text>{exercise.name}</Text>
       <Checkbox
         testID="exercise-checkbox"
         status={isSelected ? "checked" : "unchecked"}
-        onPress={() => onExerciseSelect(exercise)}
+        onPress={() => onExerciseSelect(exercise.id)}
       />
     </TouchableOpacity>
   );
