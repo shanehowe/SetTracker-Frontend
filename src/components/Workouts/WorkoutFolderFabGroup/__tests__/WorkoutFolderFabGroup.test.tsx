@@ -5,7 +5,11 @@ import { AllTheProviders } from "../../../../test-utils";
 describe("WorkoutFolderFabGroup", () => {
   it("should render", () => {
     const { getByTestId } = render(
-      <WorkoutFolderFabGroup visible={true} />,
+      <WorkoutFolderFabGroup
+        visible={true}
+        handleRenameFolderClick={() => {}}
+        folderId="1"
+      />,
       { wrapper: AllTheProviders }
     );
 
