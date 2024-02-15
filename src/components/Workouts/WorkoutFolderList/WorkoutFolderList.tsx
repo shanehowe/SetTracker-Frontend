@@ -4,8 +4,11 @@ import { WorkoutFolderItem } from "../WorkoutFolderItem/WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../../services/workoutFolders";
 import { Card, List, Text } from "react-native-paper";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const WorkoutFolderList = () => {
+  const [_, setForceRefresh] = useState(0);
   const {
     isLoading,
     error,
@@ -14,6 +17,13 @@ export const WorkoutFolderList = () => {
     queryKey: ["workoutFolders"],
     queryFn: workoutFolderService.getAll,
   });
+
+  // TODO (FIX): Forces a refresh of the workout folders list when the screen is focused
+  //       List is not being re-rendered after renaming a folder
+  //       So we need to force a refresh of the list when the screen is focused
+  useFocusEffect(useCallback(() => {
+    setForceRefresh((prev) => prev + 1);
+  }, []));
 
   if (isLoading) return <Text>Loading...</Text>;
 
