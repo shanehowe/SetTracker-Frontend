@@ -29,5 +29,5 @@ export type RootStackParamList = {
   WorkoutFolders: undefined;
   AllExercises: undefined;
   FolderExercises: { folderId: string };
-  AddExercises: undefined;
+  AddExercises: { folderId: string };
 };
