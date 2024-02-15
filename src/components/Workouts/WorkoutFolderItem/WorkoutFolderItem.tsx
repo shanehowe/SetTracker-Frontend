@@ -22,7 +22,7 @@ export const WorkoutFolderItem = ({
   };
 
   return (
-    <Fragment key={folder.id}>
+    <Fragment>
       <List.Item
         onPress={goToFolderExercises}
         title={folder.name}
