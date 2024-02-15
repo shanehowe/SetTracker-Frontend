@@ -6,9 +6,10 @@ import { RootStackParamList } from "../../../types";
 
 interface WorkoutFolderFabGroupProps {
   visible: boolean;
+  folderId: string;
 }
 
-export const WorkoutFolderFabGroup = ({ visible }: WorkoutFolderFabGroupProps) => {
+export const WorkoutFolderFabGroup = ({ visible, folderId }: WorkoutFolderFabGroupProps) => {
   const [state, setState] = useState({ open: false });
   const theme = useTheme();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -39,7 +40,7 @@ export const WorkoutFolderFabGroup = ({ visible }: WorkoutFolderFabGroupProps) =
           {
             icon: "plus-circle",
             label: "Edit Exercises",
-            onPress: () => navigation.navigate("AddExercises"),
+            onPress: () => navigation.navigate("AddExercises", { folderId }),
           },
         ]}
         onStateChange={onStateChange}
