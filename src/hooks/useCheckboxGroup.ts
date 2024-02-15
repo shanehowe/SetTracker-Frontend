@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export const useCheckboxGroup = <T>() => {
-  const [selected, setSelected] = useState<T[]>([]);
+export const useCheckboxGroup = <T>(alreadySelected: T[] = []) => {
+  const [selected, setSelected] = useState<T[]>([...alreadySelected]);
 
   const handleSelect = (value: T) => {
     if (selected.includes(value)) {
