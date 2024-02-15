@@ -7,9 +7,10 @@ import { RootStackParamList } from "../../../types";
 interface WorkoutFolderFabGroupProps {
   visible: boolean;
   folderId: string;
+  handleRenameFolderClick: () => void;
 }
 
-export const WorkoutFolderFabGroup = ({ visible, folderId }: WorkoutFolderFabGroupProps) => {
+export const WorkoutFolderFabGroup = ({ visible, folderId, handleRenameFolderClick }: WorkoutFolderFabGroupProps) => {
   const [state, setState] = useState({ open: false });
   const theme = useTheme();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -35,7 +36,7 @@ export const WorkoutFolderFabGroup = ({ visible, folderId }: WorkoutFolderFabGro
           {
             icon: "rename-box",
             label: "Rename folder",
-            onPress: () => console.log("Rename"),
+            onPress: handleRenameFolderClick,
           },
           {
             icon: "plus-circle",
