@@ -65,12 +65,22 @@ const remove = (folderId: string) => {
   return true;
 };
 
+const rename = (folderId: string, name: string) => {
+  const index = workoutFolders.findIndex((folder) => folder.id === folderId);
+  if (index === -1) {
+    throw new Error("Folder not found");
+  }
+  workoutFolders[index].name = name;
+  return workoutFolders[index];
+};
+
 const workoutFolderService = {
   getAll,
   create,
   getById,
   updateExercises,
   remove,
+  rename,
 };
 
 export default workoutFolderService;
