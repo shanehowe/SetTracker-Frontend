@@ -57,10 +57,9 @@ export const TextInputModal = ({
 
         <View style={styles.footer}>
           <Button mode="contained" onPress={onSubmit} testID="add-button">
-            Add Folder
+            Confirm
           </Button>
           <Button
-            mode="outlined"
             onPress={onDismiss}
             testID="cancel-modal-button"
           >
