@@ -55,11 +55,21 @@ const updateExercises = (folderId: string, exercises: string[]) => {
   return folder;
 };
 
+const remove = (folderId: string) => {
+  const folderIndex = workoutFolders.findIndex((folder) => folder.id === folderId);
+  if (folderIndex === -1) {
+    throw new Error("Folder not found");
+  }
+  workoutFolders.splice(folderIndex, 1);
+  return true;
+};
+
 const workoutFolderService = {
   getAll,
   create,
   getById,
   updateExercises,
+  remove,
 };
 
 export default workoutFolderService;
