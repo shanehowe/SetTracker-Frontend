@@ -8,9 +8,15 @@ interface WorkoutFolderFabGroupProps {
   visible: boolean;
   folderId: string;
   handleRenameFolderClick: () => void;
+  handleDeleteFolderClick: () => void;
 }
 
-export const WorkoutFolderFabGroup = ({ visible, folderId, handleRenameFolderClick }: WorkoutFolderFabGroupProps) => {
+export const WorkoutFolderFabGroup = ({
+  visible,
+  folderId,
+  handleRenameFolderClick,
+  handleDeleteFolderClick,
+}: WorkoutFolderFabGroupProps) => {
   const [state, setState] = useState({ open: false });
   const theme = useTheme();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -30,7 +36,7 @@ export const WorkoutFolderFabGroup = ({ visible, folderId, handleRenameFolderCli
           {
             icon: "delete",
             label: "Delete",
-            onPress: () => console.log("Delete"),
+            onPress: handleDeleteFolderClick,
             color: theme.colors.error,
           },
           {
