@@ -7,10 +7,12 @@ import { FolderExercises } from "../../components/Workouts/FolderExercises/Folde
 import { useFolder } from "../../hooks/useFolder";
 import { useFocusEffect } from "@react-navigation/native";
 import { useState } from "react";
-import { TextInputModal } from "../../components/Workouts/TextInputModal/TextInputModal";
+import { TextInputModal } from "../../components/Modals/TextInputModal/TextInputModal";
 import { useRenameFolderMutation } from "../../hooks/useRenameFolderMutation";
 import { useSnack } from "../../contexts/SnackbarContext";
 import { WorkoutFolder } from "../../types";
+import { ConfirmDeleteModal } from "../../components/Modals/ConfirmDeleteModal/ConfirmDeleteModal";
+import { useDeleteFolderMutation } from "../../hooks/useDeleteFolderMutation";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -27,6 +29,7 @@ export const FolderExercisesScreen = ({
 }: FolderExercisesScreenProps) => {
   const [visible, setVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
 
   const theme = useTheme();
@@ -35,23 +38,43 @@ export const FolderExercisesScreen = ({
   const folderId = route.params.folderId;
   const { isError, error, isLoading, folder } = useFolder(folderId);
 
-  const onSuccessCallback = (updatedFolder: WorkoutFolder) => {
+  const renameFolderOnSuccessCallback = (updatedFolder: WorkoutFolder) => {
     snack.success(`Folder renamed to ${updatedFolder.name}!`);
   };
-  const onErrorCallback = () => {
+  const renameFolderOnErrorCallback = () => {
     snack.error("Failed to rename folder");
   };
 
   const renameFolderMutation = useRenameFolderMutation(
     folderId,
-    onSuccessCallback,
-    onErrorCallback
+    renameFolderOnSuccessCallback,
+    renameFolderOnErrorCallback
   );
 
   const handleRenameFolder = () => {
     renameFolderMutation.mutate(newFolderName);
     setModalVisible(false);
-  }
+  };
+
+  const deleteFolderOnSuccessCallback = () => {
+    snack.success("Folder deleted");
+    navigation.navigate("WorkoutFolders");
+  };
+
+  const deleteFolderOnErrorCallback = () => {
+    snack.error("Error deleting folder");
+  };
+
+  const deleteFolderMutation = useDeleteFolderMutation(
+    folderId,
+    deleteFolderOnSuccessCallback,
+    deleteFolderOnErrorCallback
+  );
+
+  const handleDeleteFolder = () => {
+    deleteFolderMutation.mutate();
+    setDeleteModalVisible(false);
+  };
 
   useFocusEffect(() => {
     setVisible(true);
@@ -77,6 +100,7 @@ export const FolderExercisesScreen = ({
         visible={visible}
         folderId={folderId}
         handleRenameFolderClick={() => setModalVisible(true)}
+        handleDeleteFolderClick={() => setDeleteModalVisible(true)}
       />
       <TextInputModal
         visible={modalVisible}
@@ -86,6 +110,13 @@ export const FolderExercisesScreen = ({
         onSubmit={handleRenameFolder}
         onChageText={(text) => setNewFolderName(text)}
         testID="rename-folder-modal"
+      />
+      <ConfirmDeleteModal
+        visible={deleteModalVisible}
+        onDismiss={() => setDeleteModalVisible(false)}
+        onConfirm={handleDeleteFolder}
+        title="Delete Folder"
+        message="Are you sure you want to delete this folder?"
       />
     </ScrollView>
   );
