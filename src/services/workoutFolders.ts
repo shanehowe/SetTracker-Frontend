@@ -33,7 +33,6 @@ const create = (folderName: string) => {
     name: folderName,
     exercises: [],
   };
-  workoutFolders.push(newFolder);
   return newFolder;
 };
 
