@@ -4,7 +4,7 @@ import { useSnack } from "../../../contexts/SnackbarContext";
 import { isValidFolderName } from "../../../utils/validation";
 import { WorkoutFolder } from "../../../types";
 import { useAddFolderMutation } from "../../../hooks/useAddFolderMutation";
-import { TextInputModal } from "../TextInputModal/TextInputModal";
+import { TextInputModal } from "../../Modals/TextInputModal/TextInputModal";
 
 interface AddWorkoutFolderModalProps {
   visible: boolean;
