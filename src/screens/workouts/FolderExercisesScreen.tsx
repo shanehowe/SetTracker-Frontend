@@ -95,7 +95,7 @@ export const FolderExercisesScreen = ({
       }}
     >
       <FolderHeading folderName={folder!.name} />
-      <FolderExercises exercises={folder!.exercises} />
+      <FolderExercises exercises={folder!.exercises} folderId={folderId} />
       <WorkoutFolderFabGroup
         visible={visible}
         folderId={folderId}
