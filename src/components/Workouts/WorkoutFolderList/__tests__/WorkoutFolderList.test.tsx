@@ -73,4 +73,13 @@ describe("WorkoutFolderList", () => {
 
     expect(getByTestId("workout-folders-list")).toBeTruthy();
   });
+
+  it("renders a divider when showDivider is true", () => {
+    const { getByTestId } = render(
+      <WorkoutFolderList />,
+      { wrapper: AllTheProviders }
+    );
+
+    expect(getByTestId("workout-folder-divider")).toBeDefined();
+  });
 });
