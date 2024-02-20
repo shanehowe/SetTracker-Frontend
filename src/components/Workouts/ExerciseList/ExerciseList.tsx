@@ -4,9 +4,10 @@ import { List } from "react-native-paper";
 
 interface ExerciseListProps {
   exercises: Exercise[];
+  handleExerciseItemOnPress: () => void;
 }
 
-export const ExerciseList = ({ exercises }: ExerciseListProps) => {
+export const ExerciseList = ({ exercises, handleExerciseItemOnPress }: ExerciseListProps) => {
   return (
     <List.Section testID="exercise-list">
       {exercises &&
@@ -14,7 +15,7 @@ export const ExerciseList = ({ exercises }: ExerciseListProps) => {
           <ExerciseItem
             key={exercise.name}
             exercise={exercise}
-            handleOnPress={() => {}}
+            handleOnPress={handleExerciseItemOnPress}
             showDivider={idx !== exercises.length - 1}
           />
         ))}
