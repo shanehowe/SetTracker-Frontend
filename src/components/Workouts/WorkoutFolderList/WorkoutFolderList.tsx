@@ -3,8 +3,8 @@ import { WorkoutFolder } from "../../../types";
 import { WorkoutFolderItem } from "../WorkoutFolderItem/WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../../services/workoutFolders";
-import { Card, List, Text } from "react-native-paper";
-import { useCallback, useState } from "react";
+import { Card, Divider, List, Text, useTheme } from "react-native-paper";
+import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 export const WorkoutFolderList = () => {
@@ -18,31 +18,39 @@ export const WorkoutFolderList = () => {
     queryFn: workoutFolderService.getAll,
   });
 
+  const theme = useTheme();
+
   // TODO (FIX): Forces a refresh of the workout folders list when the screen is focused
   //       List is not being re-rendered after renaming a folder
   //       So we need to force a refresh of the list when the screen is focused
-  useFocusEffect(useCallback(() => {
-    setForceRefresh((prev) => prev + 1);
-  }, []));
+  useFocusEffect(
+    useCallback(() => {
+      setForceRefresh((prev) => prev + 1);
+    }, [])
+  );
 
   if (isLoading) return <Text>Loading...</Text>;
 
   if (error) return <Text>{error.message}</Text>;
 
   return (
-    <Card
-      testID="workout-folders-card"
-      mode="contained"
-      style={styles.card}
-    >
+    <Card testID="workout-folders-card" mode="contained" style={styles.card}>
       {workoutFolders?.length ? (
         <List.Section testID="workout-folders-list">
           {workoutFolders!.map((folder, index) => (
-            <WorkoutFolderItem
-              key={folder.id}
-              folder={folder}
-              showDivider={index !== workoutFolders!.length - 1}
-            />
+            <React.Fragment key={folder.id}>
+              <WorkoutFolderItem folder={folder} />
+              {index !== workoutFolders.length - 1 && (
+                <Divider
+                  style={{
+                    width: "100%",
+                    alignSelf: "center",
+                    backgroundColor: theme.colors.outline,
+                  }}
+                  testID="workout-folder-divider"
+                />
+              )}
+            </React.Fragment>
           ))}
         </List.Section>
       ) : (
