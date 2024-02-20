@@ -12,7 +12,7 @@ describe("WorkoutFolderItem", () => {
 
   it("renders correctly", () => {
     const { getByTestId } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={false} />,
+      <WorkoutFolderItem folder={testFolder} />,
       { wrapper: AllTheProviders }
     );
 
@@ -21,19 +21,11 @@ describe("WorkoutFolderItem", () => {
 
   it("renders the correct folder name", () => {
     const { getByText } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={false} />,
+      <WorkoutFolderItem folder={testFolder} />,
       { wrapper: AllTheProviders }
     );
     
     expect(getByText("Test Folder")).toBeDefined();
   });
 
-  it("renders a divider when showDivider is true", () => {
-    const { getByTestId } = render(
-      <WorkoutFolderItem folder={testFolder} showDivider={true} />,
-      { wrapper: AllTheProviders }
-    );
-
-    expect(getByTestId("workout-folder-divider")).toBeDefined();
-  });
 });
