@@ -2,6 +2,8 @@ import { ActivityIndicator, Card, Text } from "react-native-paper";
 import { useExercises } from "../../../hooks/useExercises";
 import { EmptyExerciseList } from "../EmptyExerciseList/EmptyExerciseList";
 import { ExerciseList } from "../ExerciseList/ExerciseList";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../types";
 
 interface AllExerciseListProps {
   searchFilter: string;
@@ -13,6 +15,12 @@ export const AllExerciseList = ({
   showModal,
 }: AllExerciseListProps) => {
   const { isError, isLoading, error, exercises } = useExercises(searchFilter);
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const goToSetHistoryScreen = () => {
+    navigation.navigate("SetHistory");
+  };
 
   let content = null;
   if (isLoading) {
@@ -27,7 +35,7 @@ export const AllExerciseList = ({
   } else if (exercises && exercises.length === 0) {
     content = <EmptyExerciseList showModal={showModal} />;
   } else {
-    content = <ExerciseList exercises={exercises} />;
+    content = <ExerciseList exercises={exercises} handleExerciseItemOnPress={goToSetHistoryScreen} />;
   }
 
   return (
