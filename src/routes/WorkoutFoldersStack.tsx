@@ -4,6 +4,7 @@ import { AllExercisesScreen } from "../screens/workouts/AllExercisesScreen";
 import { FolderExercisesScreen } from "../screens/workouts/FolderExercisesScreen";
 import { AddExercisesScreen } from "../screens/workouts/AddExercisesScreen";
 import { RootStackParamList } from "../types";
+import { SetHistoryScreen } from "../screens/workouts/SetHistoryScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -33,6 +34,11 @@ export const WorkoutFoldersStack = () => {
         name="AddExercises"
         component={AddExercisesScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SetHistory"
+        component={SetHistoryScreen}
+        options={{ headerShown: false}}
       />
     </Stack.Navigator>
   );
