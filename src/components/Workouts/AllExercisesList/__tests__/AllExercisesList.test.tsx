@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { AllExerciseList } from "../AllExercisesList";
 import { mockedQueryClient } from "../../../../test-utils";
-import { queryClientWrapper } from "../../../../test-utils";
+import { AllTheProviders } from "../../../../test-utils";
 import { useExercises } from '../../../../hooks/useExercises';
 
 jest.mock('../../../../hooks/useExercises');
@@ -22,7 +22,7 @@ describe("AllExerciseList", () => {
   
     const { getByTestId } = render(
       <AllExerciseList searchFilter="" showModal={() => {}}/>,
-      { wrapper: queryClientWrapper }
+      { wrapper: AllTheProviders }
     );
     
     const exerciseCardContainer = getByTestId("all-exercises-card");
@@ -42,7 +42,7 @@ describe("AllExerciseList", () => {
   
     const { getByTestId } = render(
       <AllExerciseList searchFilter="" showModal={() => {}}/>,
-      { wrapper: queryClientWrapper }
+      { wrapper: AllTheProviders }
     );
 
     const exerciseList = getByTestId("exercise-list");
@@ -62,7 +62,7 @@ describe("AllExerciseList", () => {
   
     const { getByTestId } = render(
       <AllExerciseList searchFilter="" showModal={() => {}}/>,
-      { wrapper: queryClientWrapper }
+      { wrapper: AllTheProviders }
     );
 
     expect(getByTestId("loading-comp")).toBeTruthy();
