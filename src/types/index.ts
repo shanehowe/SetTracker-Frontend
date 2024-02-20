@@ -30,4 +30,5 @@ export type RootStackParamList = {
   AllExercises: undefined;
   FolderExercises: { folderId: string, updated?: boolean };
   AddExercises: { folderId: string };
+  SetHistory: undefined;
 };
