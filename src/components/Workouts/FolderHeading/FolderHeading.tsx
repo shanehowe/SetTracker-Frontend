@@ -16,14 +16,15 @@ export const FolderHeading = ({ folderName }: FolderHeadingProps) => {
 
 const styles = StyleSheet.create({
   folderHeadingContainer: {
-    padding: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
     marginTop: 20,
     marginBottom: 5,
-    width: "95%",
+    width: "90%",
     alignSelf: "center",
   }
 });
