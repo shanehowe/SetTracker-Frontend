@@ -9,6 +9,13 @@ export type Exercise = {
   name: string;
 };
 
+export type ExerciseSet = {
+  id: string;
+  timeStamp: string;
+  weight: number;
+  reps: number;
+}
+
 export type SnackbarState = {
   open: boolean;
   message: string;

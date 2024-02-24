@@ -5,7 +5,8 @@ import { AllTheProviders } from "../../../../test-utils";
 describe("SetItem", () => {
   const timeStamp = new Date().toLocaleTimeString();
   const set = {
-    time: timeStamp,
+    id: "1",
+    timeStamp,
     weight: 60,
     reps: 10
   }
@@ -26,7 +27,7 @@ describe("SetItem", () => {
     );
 
     expect(getByText(timeStamp)).toBeTruthy();
-    expect(getByText("60")).toBeTruthy();
-    expect(getByText("10")).toBeTruthy()
+    expect(getByText("60KG")).toBeTruthy();
+    expect(getByText("10 reps")).toBeTruthy()
   });
 });
