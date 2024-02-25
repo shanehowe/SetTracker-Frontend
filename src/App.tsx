@@ -6,6 +6,7 @@ import { AuthProvidor } from "./contexts/AuthContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { theme } from "./theme/theme";
 
 import React from "react";
@@ -22,10 +23,12 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <PaperProvider theme={paperTheme}>
           <GestureHandlerRootView style= {{ flex: 1 }}>
+            <BottomSheetModalProvider>
             <SnackbarProvider>
               <Router />
               <StatusBar style="auto" />
             </SnackbarProvider>
+            </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PaperProvider>
       </QueryClientProvider>
