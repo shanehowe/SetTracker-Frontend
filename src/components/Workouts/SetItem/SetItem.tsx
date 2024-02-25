@@ -14,20 +14,21 @@ export const SetItem = ({ set }: SetItemProps) => {
     progress: Animated.AnimatedInterpolation<number>,
     dragX: Animated.AnimatedInterpolation<number>,
     dragInputRange: number[],
+    drageOutputRange: number[],
     icon: string,
     iconColor: string,
     additionalStyles?: object
   ) => {
     const trans = dragX.interpolate({
       inputRange: dragInputRange,
-      outputRange: [-20, 0, 0, 1],
+      outputRange: drageOutputRange,
     });
-  
+
     const opacity = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
     });
-  
+
     return (
       <Animated.View
         style={[
@@ -40,19 +41,34 @@ export const SetItem = ({ set }: SetItemProps) => {
       </Animated.View>
     );
   };
-  
+
   const renderLeftAction = (
     progress: Animated.AnimatedInterpolation<number>,
     dragX: Animated.AnimatedInterpolation<number>
   ) => {
-    return renderAction(progress, dragX, [0, 50, 100, 101], 'delete', theme.colors.error, { paddingLeft: 20 });
+    return renderAction(
+      progress,
+      dragX,
+      [0, 50, 100, 101],
+      [-20, 0, 0, 1],
+      "delete",
+      theme.colors.error,
+      { paddingLeft: 20 }
+    );
   };
-  
+
   const renderRightAction = (
     progress: Animated.AnimatedInterpolation<number>,
     dragX: Animated.AnimatedInterpolation<number>
   ) => {
-    return renderAction(progress, dragX, [-20, 50, 100, 101], 'refresh', theme.colors.primary);
+    return renderAction(
+      progress,
+      dragX,
+      [-20, 50, 100, 101],
+      [0, 0, 0, 1],
+      "refresh",
+      theme.colors.primary
+    );
   };
 
   return (
