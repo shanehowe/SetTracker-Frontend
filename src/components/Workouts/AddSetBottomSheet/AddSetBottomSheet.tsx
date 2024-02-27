@@ -4,62 +4,97 @@ import { NumberInput } from "../NumberInput/NumberInput";
 import { Button, useTheme } from "react-native-paper";
 import { useReducedMotion } from "react-native-reanimated";
 import { useMemo, useState, forwardRef } from "react";
+import { DateAndTimePicker } from "../DateAndTimePicker/DateAndTimePicker";
+import { View } from "react-native";
 
 interface AddSetBottomSheetProps {
   ref: React.RefObject<BottomSheetModal>;
-  handleSheetChanges: (index: number) => void;
   handleModalClose: () => void;
+  date: Date;
+  time: Date;
+  setDate: (date: Date) => void;
+  setTime: (time: Date) => void;
 }
 
-export const AddSetBottomSheet = forwardRef<BottomSheetModal, AddSetBottomSheetProps>(({
-  handleSheetChanges,
-  handleModalClose,
-}, ref) => {
-  const [weight, setWeight] = useState("");
-  const [reps, setReps] = useState("");
-  const reducedMotion = useReducedMotion();
-  const theme = useTheme();
+export const AddSetBottomSheet = forwardRef<
+  BottomSheetModal,
+  AddSetBottomSheetProps
+>(
+  (
+    { handleModalClose, date, time, setDate, setTime },
+    ref
+  ) => {
+    const [weight, setWeight] = useState("");
+    const [reps, setReps] = useState("");
 
-  const snapPoints = useMemo(() => ["75%"], []);
+    const reducedMotion = useReducedMotion();
+    const theme = useTheme();
 
-  return (
-    <BottomSheetModal
-      style={[{ backgroundColor: theme.colors.background }]}
-      ref={ref}
-      index={0}
-      snapPoints={snapPoints}
-      onChange={handleSheetChanges}
-      animateOnMount={!reducedMotion}
-    >
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={[{ backgroundColor: theme.colors.background }, styles.container]}
+    const snapPoints = useMemo(() => ["75%"], []);
+
+    return (
+      <BottomSheetModal
+        style={[{ backgroundColor: theme.colors.background }]}
+        ref={ref}
+        index={0}
+        snapPoints={snapPoints}
+        animateOnMount={!reducedMotion}
       >
-        <NumberInput
-          increment={0.25}
-          decrement={0.25}
-          value={weight}
-          onChange={setWeight}
-          label="Weight"
-        />
-        <NumberInput
-          increment={1}
-          decrement={1}
-          value={reps}
-          onChange={setReps}
-          label="Reps"
-        />
-        <Button onPress={handleModalClose}>Add Set</Button>
-      </KeyboardAvoidingView>
-    </BottomSheetModal>
-  );
-});
+        <View
+          style={[
+            {
+              backgroundColor: theme.colors.background,
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "space-between",
+            },
+          ]}
+        >
+          <KeyboardAvoidingView
+            behavior="padding"
+            style={[styles.center, { flex: 2 }]}
+          >
+            <NumberInput
+              increment={0.25}
+              decrement={0.25}
+              value={weight}
+              onChange={setWeight}
+              label="Weight"
+            />
+            <NumberInput
+              increment={1}
+              decrement={1}
+              value={reps}
+              onChange={setReps}
+              label="Reps"
+            />
+            <DateAndTimePicker
+              date={date}
+              time={time}
+              setDate={setDate}
+              setTime={setTime}
+            />
+          </KeyboardAvoidingView>
+          <View style={styles.buttonsContainer}>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={handleModalClose}
+            >
+              Add Set
+            </Button>
+            <Button onPress={handleModalClose}>Close</Button>
+          </View>
+        </View>
+      </BottomSheetModal>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
   input: {
     height: 40,
@@ -68,5 +103,21 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "80%",
     borderRadius: 5,
+  },
+  buttonsContainer: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%",
+    flex: 1,
+    marginTop: 10,
+    gap: 10,
+  },
+  button: {
+    width: "80%",
+    margin: 5,
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
