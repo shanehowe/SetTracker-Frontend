@@ -23,7 +23,6 @@ const getById = (exerciseId: string): Exercise => {
 
 const createCustom = (exerciseName: string): Exercise => {
   const id = Math.floor(Math.random() * 1000).toString();
-  exercises.push({ id, name: exerciseName });
   return { id, name: exerciseName };
 };
 
