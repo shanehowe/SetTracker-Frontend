@@ -10,6 +10,8 @@ import { Exercise } from "../../types";
 import { useFolder } from "../../hooks/useFolder";
 import { useUpdateExercisesMutation } from "../../hooks/useUpdateExercisesMutation";
 import { useSnack } from "../../contexts/SnackbarContext";
+import { EmptyExerciseList } from "../../components/Workouts/EmptyExerciseList/EmptyExerciseList";
+import { AddCustomExerciseModal } from "../../components/Workouts/AddCustomExerciseModal/AddCustomExerciseModal";
 
 interface AddExercisesScreenProps extends ScreenProps {
   route: {
@@ -19,8 +21,12 @@ interface AddExercisesScreenProps extends ScreenProps {
   };
 }
 
-export const AddExercisesScreen = ({ navigation, route }: AddExercisesScreenProps) => {
+export const AddExercisesScreen = ({
+  navigation,
+  route,
+}: AddExercisesScreenProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [addExerciseModalVisible , setAddExerciseModalVisible] = useState(false);
 
   const folderData = useFolder(route.params.folderId);
 
@@ -33,8 +39,14 @@ export const AddExercisesScreen = ({ navigation, route }: AddExercisesScreenProp
   const theme = useTheme();
   const snack = useSnack();
 
+  const hideModal = () => setAddExerciseModalVisible(false);
+  const showModal = () => setAddExerciseModalVisible(true);
+
   const onSuccessCallback = () => {
-    navigation.navigate("FolderExercises", { folderId: route.params.folderId, updated: true });
+    navigation.navigate("FolderExercises", {
+      folderId: route.params.folderId,
+      updated: true,
+    });
     snack.success("Exercises updated");
   };
 
@@ -64,6 +76,11 @@ export const AddExercisesScreen = ({ navigation, route }: AddExercisesScreenProp
         backgroundColor: theme.colors.background,
       }}
     >
+      <AddCustomExerciseModal
+        visible={addExerciseModalVisible}
+        handleSearchChange={onChangeSearch}
+        hideModal={hideModal}
+      />
       <View style={styles.searchbarContainer}>
         <Searchbar
           searchFilter={searchQuery}
@@ -81,6 +98,7 @@ export const AddExercisesScreen = ({ navigation, route }: AddExercisesScreenProp
           selectedExercises={selected}
           onExerciseSelect={handleSelect}
         />
+        {exercises.length === 0 && <EmptyExerciseList showModal={showModal} />}
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button mode="contained" onPress={handleConfirm}>
