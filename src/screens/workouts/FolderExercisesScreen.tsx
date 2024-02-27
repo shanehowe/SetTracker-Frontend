@@ -1,5 +1,5 @@
 import { Text, useTheme } from "react-native-paper";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ScreenProps } from "../../interfaces";
 import { WorkoutFolderFabGroup } from "../../components/Workouts/WorkoutFolderFabGroup/WorkoutFolderFabGroup";
 import { FolderHeading } from "../../components/Workouts/FolderHeading/FolderHeading";
@@ -88,15 +88,18 @@ export const FolderExercisesScreen = ({
   }
 
   return (
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
     <ScrollView
-      style={{
-        flex: 1,
+      contentContainerStyle={{
         backgroundColor: theme.colors.background,
+        marginTop: 30,
       }}
     >
       <FolderHeading folderName={folder!.name} />
       <FolderExercises exercises={folder!.exercises} folderId={folderId} />
-      <WorkoutFolderFabGroup
+      
+    </ScrollView>
+    <WorkoutFolderFabGroup
         visible={visible}
         folderId={folderId}
         handleRenameFolderClick={() => setModalVisible(true)}
@@ -118,6 +121,6 @@ export const FolderExercisesScreen = ({
         title="Delete Folder"
         message="Are you sure you want to delete this folder?"
       />
-    </ScrollView>
+    </View>
   );
 };

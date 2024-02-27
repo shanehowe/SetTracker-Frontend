@@ -15,7 +15,7 @@ export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-    <ScrollView contentContainerStyle={[{ backgroundColor: theme.colors.background }]}>
+    <ScrollView contentContainerStyle={[{ backgroundColor: theme.colors.background, marginTop: 30 }]}>
       <AddWorkoutFolderModal visible={modalVisible} hideModal={hideModal} />
       
       <View style={styles.allExercisesButtonContainer}>
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   allExercisesButtonContainer: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 25,
     width: "100%",
+    marginBottom: 20,
   },
   allExercisesButton: {
-    width: "95%",
+    width: "90%",
   },
   cardTitle: {
     fontWeight: "bold",

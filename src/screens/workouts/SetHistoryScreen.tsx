@@ -40,7 +40,7 @@ export const SetHistoryScreen = ({ navigation }: ScreenProps) => {
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView
-        contentContainerStyle={{ backgroundColor: theme.colors.background }}
+        contentContainerStyle={{ backgroundColor: theme.colors.background, marginTop: 30}}
       >
         <SetItemGroup sets={sets} date={new Date().toDateString()} />
       </ScrollView>
