@@ -9,7 +9,10 @@ interface FolderExercisesProps {
   folderId: string;
 }
 
-export const FolderExercises = ({ exercises, folderId }: FolderExercisesProps) => {
+export const FolderExercises = ({
+  exercises,
+  folderId,
+}: FolderExercisesProps) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const goToSetHistoryScreen = () => {
@@ -19,7 +22,12 @@ export const FolderExercises = ({ exercises, folderId }: FolderExercisesProps) =
   let content;
 
   if (exercises && exercises.length > 0) {
-    content = <ExerciseList exercises={exercises} handleExerciseItemOnPress={goToSetHistoryScreen}/>;
+    content = (
+      <ExerciseList
+        exercises={exercises}
+        handleExerciseItemOnPress={goToSetHistoryScreen}
+      />
+    );
   } else {
     content = <EmptyFolderExerciseList folderId={folderId} />;
   }
@@ -29,10 +37,10 @@ export const FolderExercises = ({ exercises, folderId }: FolderExercisesProps) =
       mode="contained"
       style={{
         width: "90%",
-        alignSelf: 'center'
+        alignSelf: "center",
       }}
-      >
-      { content }
+    >
+      {content}
     </Card>
   );
 };
