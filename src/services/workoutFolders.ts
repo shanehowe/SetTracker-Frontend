@@ -50,7 +50,11 @@ const updateExercises = (folderId: string, exercises: string[]) => {
     throw new Error("Folder not found");
   }
   folder.exercises = exercises.map((exercise) => {
-    return exerciseService.getById(exercise);
+    try {
+      return exerciseService.getById(exercise);
+    } catch (error) {
+      return exerciseService.createCustom(exercise);
+    }
   });
   return folder;
 };
