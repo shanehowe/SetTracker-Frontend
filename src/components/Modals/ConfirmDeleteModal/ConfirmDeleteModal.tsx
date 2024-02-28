@@ -40,14 +40,14 @@ export const ConfirmDeleteModal = ({
           <Button
             testID="confirm-button"
             onPress={onConfirm}
-            textColor="white"
+            textColor={theme.colors.onError}
             buttonColor={theme.colors.error}
             icon={"delete"}
           >
             Confirm
           </Button>
 
-          <Button textColor="black" testID="cancel-button" onPress={onDismiss}>
+          <Button testID="cancel-button" onPress={onDismiss}>
             Cancel
           </Button>
         </View>
