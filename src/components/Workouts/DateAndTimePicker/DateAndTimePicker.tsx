@@ -1,4 +1,4 @@
-import { StyleSheet, View, Platform } from "react-native";
+import { StyleSheet, View, Platform, useColorScheme } from "react-native";
 import { useState } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -20,6 +20,7 @@ export const DateAndTimePicker = ({
 }: DateAndTimePickerProps) => {
   const [showDate, setShowDate] = useState(false);
   const [showTime, setShowTime] = useState(false);
+  const themeVariant = useColorScheme();
 
   const handleDateChange = (
     event: DateTimePickerEvent,
@@ -57,6 +58,7 @@ export const DateAndTimePicker = ({
             display="default"
             onChange={handleTimeChange}
             maximumDate={new Date()}
+            themeVariant={themeVariant ?? "light"}
           />
         )}
       </View>
@@ -76,6 +78,7 @@ export const DateAndTimePicker = ({
             display="default"
             onChange={handleDateChange}
             maximumDate={new Date()}
+            themeVariant={themeVariant ?? "light"}
           />
         )}
       </View>
