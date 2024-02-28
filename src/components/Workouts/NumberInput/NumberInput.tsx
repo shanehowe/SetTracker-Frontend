@@ -7,6 +7,7 @@ interface NumberInputProps {
   value: string;
   onChange: (value: string) => void;
   label: string;
+  inputAccessoryViewID?: string;
 }
 
 export const NumberInput = ({
@@ -15,6 +16,7 @@ export const NumberInput = ({
   value,
   onChange,
   label,
+  inputAccessoryViewID
 }: NumberInputProps) => {
   const theme = useTheme();
 
@@ -92,6 +94,7 @@ export const NumberInput = ({
           maxLength={6}
           returnKeyType="done"
           style={dynamicStyles.input}
+          inputAccessoryViewID={inputAccessoryViewID ?? undefined}
         />
         <IconButton
           icon="plus"
