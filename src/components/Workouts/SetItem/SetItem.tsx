@@ -53,7 +53,7 @@ export const SetItem = ({ set }: SetItemProps) => {
       [-20, 0, 0, 1],
       "delete",
       theme.colors.error,
-      { paddingLeft: 20 }
+      styles.leftView
     );
   };
 
@@ -67,7 +67,8 @@ export const SetItem = ({ set }: SetItemProps) => {
       [-20, 50, 100, 101],
       [0, 0, 0, 1],
       "refresh",
-      theme.colors.primary
+      theme.colors.primary,
+      styles.rightView
     );
   };
 
@@ -101,11 +102,17 @@ const styles = StyleSheet.create({
   },
   animatedView: {
     justifyContent: "center",
-    alignItems: "flex-start",
     color: "white",
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 5,
     paddingLeft: 10,
     paddingRight: 10,
   },
+  rightView: {
+    alignItems: "flex-start",
+  },
+  leftView: {
+    alignItems: "flex-end",
+    paddingLeft: 20
+  }
 });
