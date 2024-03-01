@@ -5,21 +5,45 @@ import { SetItemGroup } from "../../components/Workouts/SetItemGroup/SetItemGrou
 import { useCallback, useRef, useState } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AddSetBottomSheet } from "../../components/Workouts/AddSetBottomSheet/AddSetBottomSheet";
+import { SetHistory } from "../../components/Workouts/SetHistory/SetHistory";
 
-const sets = [
+
+const history = [
   {
-    id: "1",
-    timeStamp: new Date().toLocaleTimeString(),
-    weight: 50,
-    reps: 10,
+    date: new Date().toDateString(),
+    sets: [
+      {
+        id: "1",
+        timeStamp: new Date().toLocaleTimeString(),
+        weight: 50,
+        reps: 10,
+      },
+      {
+        id: "2",
+        timeStamp: new Date().toLocaleTimeString(),
+        weight: 50,
+        reps: 10,
+      },
+    ],
   },
   {
-    id: "2",
-    timeStamp: new Date().toLocaleTimeString(),
-    weight: 50,
-    reps: 10,
-  },
-];
+    date: new Date("2020-03-01").toDateString(),
+    sets: [
+      {
+        id: "4",
+        timeStamp: new Date().toLocaleTimeString(),
+        weight: 50,
+        reps: 10,
+      },
+      {
+        id: "5",
+        timeStamp: new Date().toLocaleTimeString(),
+        weight: 50,
+        reps: 10,
+      },
+    ],
+  }
+]
 
 export const SetHistoryScreen = ({ navigation }: ScreenProps) => {
   const [date, setDate] = useState<Date>(new Date());
@@ -42,7 +66,7 @@ export const SetHistoryScreen = ({ navigation }: ScreenProps) => {
       <ScrollView
         contentContainerStyle={{ backgroundColor: theme.colors.background, marginTop: 30}}
       >
-        <SetItemGroup sets={sets} date={new Date().toDateString()} />
+        <SetHistory history={history} />
       </ScrollView>
       <AddSetBottomSheet
         ref={ref}
