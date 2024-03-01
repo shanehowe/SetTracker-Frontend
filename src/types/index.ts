@@ -16,6 +16,11 @@ export type ExerciseSet = {
   reps: number;
 }
 
+export type SetHistory = {
+  date: string,
+  sets: ExerciseSet[]
+}
+
 export type SnackbarState = {
   open: boolean;
   message: string;
