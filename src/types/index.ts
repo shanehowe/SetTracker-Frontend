@@ -44,3 +44,9 @@ export type RootStackParamList = {
   AddExercises: { folderId: string };
   SetHistory: undefined;
 };
+
+export type AuthStackParamList = {
+  SignIn: undefined;
+  SignUp: undefined;
+  SignInEmailPassword: undefined;
+};
