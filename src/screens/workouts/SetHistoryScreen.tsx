@@ -1,7 +1,6 @@
 import { FAB, useTheme } from "react-native-paper";
 import { ScreenProps } from "../../interfaces";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { SetItemGroup } from "../../components/Workouts/SetItemGroup/SetItemGroup";
 import { useCallback, useRef, useState } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AddSetBottomSheet } from "../../components/Workouts/AddSetBottomSheet/AddSetBottomSheet";
