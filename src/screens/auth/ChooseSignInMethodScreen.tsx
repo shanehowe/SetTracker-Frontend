@@ -1,13 +1,28 @@
 import { View, SafeAreaView } from "react-native";
-import { Avatar, Text, useTheme, Button } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons/AuthButtons";
-import { ScreenProps } from "../../interfaces";
+import { AuthScreenProps } from "../../interfaces";
 import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton/DontHaveAnAccountButton";
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { AppleSignInButton } from "../../components/Auth/AppleSignInButton/AppleSignInButton";
+import { useEffect, useMemo, useState } from "react";
 
-export const ChooseSignInMethodScreen = ({ navigation }: ScreenProps) => {
+
+export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
+  const [appleSignInIsAvailable, setAppleSignInIsAvailable] = useState(false);
   const theme = useTheme();
+
+
+  useEffect(() => {
+    const checkAppleSignInAvailability = async () => {
+      const isAvailable = await AppleAuthentication.isAvailableAsync();
+      setAppleSignInIsAvailable(isAvailable);
+    };
+
+    checkAppleSignInAvailability();
+  }, []);
 
   const goToChooseSignUpMethod = () => {
     navigation.navigate("SignUp");
@@ -24,16 +39,7 @@ export const ChooseSignInMethodScreen = ({ navigation }: ScreenProps) => {
       <View style={styles.container}>
         <AvatarHeading title="Choose a method of signing in" icon="lock"/>
         <View style={styles.buttonsView}>
-          <Button
-            mode="contained"
-            style={{
-              width: "100%",
-              marginBottom: 20,
-            }}
-            onPress={goToSignInEmailPassword}
-          >
-            Sign In Email & Password
-          </Button>
+          {appleSignInIsAvailable &&  <AppleSignInButton /> }
           <Text>OR</Text>
           <AuthButtons />
         </View>
