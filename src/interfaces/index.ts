@@ -1,8 +1,12 @@
 import { NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, AuthStackParamList } from "../types";
 
 export interface ScreenProps {
   navigation: NavigationProp<RootStackParamList>;
+}
+
+export interface AuthScreenProps {
+  navigation: NavigationProp<AuthStackParamList>;
 }
 
 export interface SnackbarService {
