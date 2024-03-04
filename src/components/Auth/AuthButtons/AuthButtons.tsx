@@ -51,5 +51,12 @@ const styles = StyleSheet.create({
     },
     button: {
       marginTop: 20,
+      height: 60,
+      width: "90%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      alignSelf: "center",
+      borderRadius: 5,
     }
   });

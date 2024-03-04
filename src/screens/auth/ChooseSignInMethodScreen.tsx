@@ -7,7 +7,7 @@ import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAcco
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { AppleSignInButton } from "../../components/Auth/AppleSignInButton/AppleSignInButton";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
@@ -40,7 +40,6 @@ export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
         <AvatarHeading title="Choose a method of signing in" icon="lock"/>
         <View style={styles.buttonsView}>
           {appleSignInIsAvailable &&  <AppleSignInButton /> }
-          <Text>OR</Text>
           <AuthButtons />
         </View>
         <View style={styles.alreadyHaveAccountView}>
