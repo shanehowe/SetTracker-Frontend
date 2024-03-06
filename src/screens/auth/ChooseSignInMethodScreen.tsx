@@ -1,5 +1,5 @@
 import { View, SafeAreaView } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons/AuthButtons";
 import { AuthScreenProps } from "../../interfaces";
