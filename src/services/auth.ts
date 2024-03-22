@@ -1,17 +1,23 @@
+import Constants from "expo-constants";
+import axios from "axios";
+
+const API_URL = Constants.expoConfig?.extra?.apiUrl;
+
 let token: string | null = null;
 
 const setToken = (newToken: string) => {
   token = newToken;
 };
 
-type AppleSignInData = {
-  email: string;
-  identityToken: string;
-}
-
-type ProviderData = AppleSignInData;
-
-// For now just apple, but we could add more providers
-const signIn = async (provider: string, data: ProviderData) => {
-  
+const signIn = async (provider: string, token: string) => {
+  const payload = {
+    provider,
+    token,
+  };
+  const response = await axios.post(`${API_URL}/auth/signin`, payload);
+  return response.data;
 };
+
+const authService = { signIn, setToken };
+
+export default authService;
