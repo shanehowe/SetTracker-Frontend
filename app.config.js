@@ -12,7 +12,7 @@ export default {
     resizeMode: "contain",
     backgroundColor: "#ffffff",
   },
-  plugins: ["expo-apple-authentication"],
+  plugins: ["expo-apple-authentication", "expo-secure-store"],
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: false,
