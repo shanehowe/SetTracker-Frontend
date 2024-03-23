@@ -14,7 +14,6 @@ export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
   const [appleSignInIsAvailable, setAppleSignInIsAvailable] = useState(false);
   const theme = useTheme();
 
-
   useEffect(() => {
     const checkAppleSignInAvailability = async () => {
       const isAvailable = await AppleAuthentication.isAvailableAsync();
