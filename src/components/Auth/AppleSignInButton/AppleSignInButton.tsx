@@ -1,7 +1,9 @@
 import * as AppleAuthentication from 'expo-apple-authentication';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export const AppleSignInButton = () => {
-  
+  const auth = useAuth();
+
   const handleSignIn = async () => {
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -13,6 +15,11 @@ export const AppleSignInButton = () => {
       console.log(
         JSON.stringify(credential, null, 2)
       );
+
+      if (credential && credential.identityToken) {
+        auth.signIn('apple', credential.identityToken);
+      }
+
     } catch (e: Error | any) {
       if (e.code === 'ERR_CANCELED') {
         console.log('User cancelled Apple Sign in.');
