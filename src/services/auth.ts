@@ -1,7 +1,8 @@
 import Constants from "expo-constants";
 import axios from "axios";
 
-const API_URL = Constants.expoConfig?.extra?.apiUrl;
+// @ts-ignore
+const API_URL = Constants.expoConfig?.extras?.apiUrl;
 
 let token: string | null = null;
 

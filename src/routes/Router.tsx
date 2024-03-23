@@ -4,10 +4,10 @@ import { AppBottomTab } from "./AppBar";
 import { AuthStack } from "./AuthStack";
 
 export const Router = () => {
-    const { isSignedIn } = useAuth();
+    const { user } = useAuth();
     return (
         <NavigationContainer>
-            {isSignedIn ? <AppBottomTab /> : <AuthStack />}
+            {user !== null ? <AppBottomTab /> : <AuthStack />}
         </NavigationContainer>
     );
 };
