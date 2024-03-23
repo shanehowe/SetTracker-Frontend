@@ -50,3 +50,8 @@ export type AuthStackParamList = {
   SignUp: undefined;
   SignInEmailPassword: undefined;
 };
+
+export type User = {
+  id: string;
+  token: string;
+};
