@@ -8,6 +8,7 @@ describe("WorkoutFolderFabGroup", () => {
       <WorkoutFolderFabGroup
         visible={true}
         handleRenameFolderClick={() => {}}
+        handleDeleteFolderClick={() => {}}
         folderId="1"
       />,
       { wrapper: AllTheProviders }
