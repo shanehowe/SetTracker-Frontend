@@ -27,7 +27,7 @@ export default {
   web: {
     favicon: "./src/assets/favicon.png",
   },
-  extras: {
+  extra: {
     apiUrl: process.env.API_URL,
     env: process.env.ENV,
   },
