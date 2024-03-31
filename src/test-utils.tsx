@@ -29,7 +29,6 @@ export const queryClientWrapper = ({ children }: WrappperArgs) => {
 
 export const AllTheProviders = ({ children }: WrappperArgs) => {
   return (
-    <AuthProvidor>
       <QueryClientProvider client={mockedQueryClient}>
         <PaperProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
@@ -41,6 +40,5 @@ export const AllTheProviders = ({ children }: WrappperArgs) => {
           </GestureHandlerRootView>
         </PaperProvider>
       </QueryClientProvider>
-    </AuthProvidor>
   );
 };
