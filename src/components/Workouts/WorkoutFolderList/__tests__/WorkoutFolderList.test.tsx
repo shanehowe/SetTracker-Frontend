@@ -14,12 +14,12 @@ describe("WorkoutFolderList", () => {
       isLoading: true,
     });
 
-    const { getByText } = render(
+    const { getByTestId } = render(
     <WorkoutFolderList />,
     { wrapper: AllTheProviders }
     );
 
-    expect(getByText("Loading...")).toBeTruthy();
+    expect(getByTestId("folder-list-loader")).toBeTruthy();
   });
 
   it("should render error message when error", () => {
