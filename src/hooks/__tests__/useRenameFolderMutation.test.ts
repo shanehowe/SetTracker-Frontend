@@ -9,6 +9,12 @@ jest.spyOn(workoutFolderService, "getById").mockReturnValue({
   workouts: [],
 } as never);
 
+jest.spyOn(workoutFolderService, "updateFolder").mockReturnValue({
+  id: "1",
+  name: "Folder 1",
+  workouts: [],
+} as never);
+
 describe("useRenameFolderMutation", () => {
   it("should return an object with a mutate method", () => {
     const { result, unmount } = renderHook(
@@ -48,7 +54,7 @@ describe("useRenameFolderMutation", () => {
       { wrapper: AllTheProviders }
     );
 
-    jest.spyOn(workoutFolderService, "rename").mockImplementationOnce(() => {
+    jest.spyOn(workoutFolderService, "updateFolder").mockImplementationOnce(() => {
       throw new Error("Failed to rename folder") as never;
     });
 
