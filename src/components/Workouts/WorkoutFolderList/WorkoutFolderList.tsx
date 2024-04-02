@@ -3,7 +3,14 @@ import { WorkoutFolder } from "../../../types";
 import { WorkoutFolderItem } from "../WorkoutFolderItem/WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../../services/workoutFolders";
-import { Card, Divider, List, Text, useTheme } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Card,
+  Divider,
+  List,
+  Text,
+  useTheme,
+} from "react-native-paper";
 import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -29,7 +36,15 @@ export const WorkoutFolderList = () => {
     }, [])
   );
 
-  if (isLoading) return <Text>Loading...</Text>;
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        testID="folder-list-loader"
+        animating={true}
+        color={theme.colors.primary}
+      />
+    );
+  }
 
   if (error) return <Text>{error.message}</Text>;
 
