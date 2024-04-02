@@ -25,10 +25,13 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     
     React.useEffect(() => {
         const checkAuth = async () => {
-            const user: User = JSON.parse(await storage.get("loggedInUser") || "{}");
-            if (user) {
-                setUser(user);
-                authService.setToken(user.token);
+            try {
+                const user = await storage.get("loggedInUser");
+                if (user) {
+                    setUser(JSON.parse(user));
+                }
+            } catch (error) {
+                // do nothing
             }
         };
 
@@ -49,7 +52,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     };
 
     const signOut = async () => {
-        await storage.remove("token");
+        await storage.remove("loggedInUser");
         setUser(null);
     };
 
