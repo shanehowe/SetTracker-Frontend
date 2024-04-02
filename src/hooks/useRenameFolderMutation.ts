@@ -10,7 +10,8 @@ export const useRenameFolderMutation = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (name: string) => workoutFolderService.rename(folderId, name),
+    mutationFn: async (name: string) =>
+      workoutFolderService.updateFolder(folderId, { name }),
     onSuccess: (data) => {
       queryClient.setQueryData(["folder", folderId], data);
       queryClient.invalidateQueries({
