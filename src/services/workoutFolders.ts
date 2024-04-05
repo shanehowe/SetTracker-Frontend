@@ -58,7 +58,15 @@ const updateFolder = async (folderId: string, folder: Partial<WorkoutFolder>) =>
 const updateExercises = (folderId: string, exercises: string[]) => {
 };
 
-const remove = (folderId: string) => {
+const remove = async (folderId: string) => {
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+  const response = await axios.delete(
+    `${API_URL}/workout-folders/${folderId}`,
+    { headers }
+  );
+  return response.data;
 };
 
 const rename = (folderId: string, name: string) => {
@@ -70,7 +78,6 @@ const workoutFolderService = {
   getById,
   updateExercises,
   remove,
-  rename,
   updateFolder,
 };
 
