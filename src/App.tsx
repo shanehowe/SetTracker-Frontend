@@ -11,7 +11,13 @@ import { theme } from "./theme/theme";
 
 import React from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    }
+  }
+});
 
 export default function App() {
   const colorScheme = useColorScheme();
