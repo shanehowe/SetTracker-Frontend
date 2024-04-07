@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import workoutFolderService from "../services/workoutFolders";
+import { Exercise } from "../types";
 
 export const useUpdateExercisesMutation = (
   folderId: string,
@@ -9,8 +10,8 @@ export const useUpdateExercisesMutation = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (exercises: string[]) =>
-      workoutFolderService.updateExercises(folderId, exercises),
+    mutationFn: async (exercises: Exercise[]) =>
+      workoutFolderService.updateFolder(folderId, { exercises }),
     onSuccess: async (updated) => {
       await queryClient.invalidateQueries({ queryKey: ["folder", folderId] });
       onSuccessCallback();
