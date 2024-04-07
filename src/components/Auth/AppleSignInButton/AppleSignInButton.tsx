@@ -12,9 +12,6 @@ export const AppleSignInButton = () => {
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      console.log(
-        JSON.stringify(credential, null, 2)
-      );
 
       if (credential && credential.identityToken) {
         auth.signIn('apple', credential.identityToken);
