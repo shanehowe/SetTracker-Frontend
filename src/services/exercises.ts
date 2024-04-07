@@ -1,5 +1,9 @@
 import { Exercise } from "../types";
+import Constants from "expo-constants";
+import axios from "axios";
+import { token } from "./auth";
 
+const API_URL = Constants.expoConfig?.extra?.apiUrl;
 
 const exercises: Exercise[] = [
   { id: "1", name: "Bench" },
@@ -9,8 +13,12 @@ const exercises: Exercise[] = [
   { id: "5", name: "Bent Over Row" },
 ];
 
-const getAll = (): Exercise[] => {
-  return exercises;
+const getAll = async () => {
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  }
+  const response = await axios.get<Exercise[]>(`${API_URL}/exercises/`, { headers });
+  return response.data;
 };
 
 const getById = (exerciseId: string): Exercise => {
