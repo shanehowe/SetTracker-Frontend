@@ -4,8 +4,8 @@ import { Card } from "react-native-paper";
 
 interface ExerciseCheckboxListProps {
   exercises: Exercise[];
-  selectedExercises: string[];
-  onExerciseSelect: (exerciseId: string) => void;
+  selectedExercises: Exercise[];
+  onExerciseSelect: (exercise: Exercise) => void;
 }
 
 export const ExerciseCheckboxList = ({
@@ -21,7 +21,7 @@ export const ExerciseCheckboxList = ({
     >
       {exercises.map((exercise) => {
         const isSelected = selectedExercises.some(
-          (selectedExercise) => selectedExercise === exercise.id
+          (selectedExercise) => selectedExercise.id === exercise.id
         );
 
         return (
