@@ -13,7 +13,7 @@ export const ExerciseList = ({ exercises, handleExerciseItemOnPress }: ExerciseL
       {exercises &&
         exercises.map((exercise, idx) => (
           <ExerciseItem
-            key={exercise.name}
+            key={exercise.id}
             exercise={exercise}
             handleOnPress={handleExerciseItemOnPress}
             showDivider={idx !== exercises.length - 1}
