@@ -56,3 +56,7 @@ export type User = {
   id: string;
   token: string;
 };
+
+export type ApiException = {
+  detail: string
+}
