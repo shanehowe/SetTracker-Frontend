@@ -30,8 +30,13 @@ export const AddExercisesScreen = ({
 
   const folderData = useFolder(route.params.folderId);
 
-  const { selected, handleSelect } = useCheckboxGroup<string>(
-    folderData.folder?.exercises.map((exercise: Exercise) => exercise.id) || []
+  const compareFunction = (item: Exercise, compareItem: Exercise) => {
+    return item.id === compareItem.id;
+  }
+
+  const { selected, handleSelect } = useCheckboxGroup<Exercise>(
+    folderData.folder?.exercises.map((exercise: Exercise) => exercise) || [],
+    compareFunction
   );
 
   const { isLoading, isError, error, exercises } = useExercises(searchQuery);
