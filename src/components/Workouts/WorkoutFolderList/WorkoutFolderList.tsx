@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { WorkoutFolder } from "../../../types";
+import { ApiException, WorkoutFolder } from "../../../types";
 import { WorkoutFolderItem } from "../WorkoutFolderItem/WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../../services/workoutFolders";
@@ -11,8 +11,8 @@ import {
   Text,
   useTheme,
 } from "react-native-paper";
-import React, { useCallback, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import React, { useState } from "react";
+import { AxiosError } from 'axios';
 
 export const WorkoutFolderList = () => {
   const [_, setForceRefresh] = useState(0);
@@ -27,15 +27,6 @@ export const WorkoutFolderList = () => {
 
   const theme = useTheme();
 
-  // TODO (FIX): Forces a refresh of the workout folders list when the screen is focused
-  //       List is not being re-rendered after renaming a folder
-  //       So we need to force a refresh of the list when the screen is focused
-  useFocusEffect(
-    useCallback(() => {
-      setForceRefresh((prev) => prev + 1);
-    }, [])
-  );
-
   if (isLoading) {
     return (
       <ActivityIndicator
@@ -46,7 +37,17 @@ export const WorkoutFolderList = () => {
     );
   }
 
-  if (error) return <Text>{error.message}</Text>;
+  if (error) {
+    if ('response' in error) {
+      const apiResponse = (error as AxiosError).response?.data as ApiException;
+      if (apiResponse.detail === "Token expired") {
+        return <>
+          <Text>You're session has expired. We need you to log in again</Text>
+        </>
+      }
+    }
+    return <Text>{error.message}</Text>
+  };
 
   return (
     <Card testID="workout-folders-card" mode="contained" style={styles.card}>
