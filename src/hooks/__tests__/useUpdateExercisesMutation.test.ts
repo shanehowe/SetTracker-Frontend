@@ -22,11 +22,11 @@ describe("useUpdateExercisesMutation", () => {
     const onSuccessCallback = jest.fn();
     const onErrorCallback = jest.fn();
 
-    jest.spyOn(workoutFolderService, "updateExercises").mockImplementationOnce(() => {
+    jest.spyOn(workoutFolderService, "updateFolder").mockImplementationOnce(() => {
       return {
         id: "folder-id",
         name: "New Folder",
-        exercises: ["1", "2"],
+        exercises: [{id: "1", name: "name"}, {id: "2", name: "name"}],
       } as never;
     });
 
@@ -36,7 +36,7 @@ describe("useUpdateExercisesMutation", () => {
     );
 
     await act(async () => {
-      await result.current.mutateAsync(["1", "2"]);
+      await result.current.mutateAsync([{id: "1", name: "name"}, {id: "2", name: "name"}]);
     });
 
     await waitFor(() => {
@@ -56,12 +56,12 @@ describe("useUpdateExercisesMutation", () => {
       { wrapper: AllTheProviders }
     );
 
-    jest.spyOn(workoutFolderService, "updateExercises").mockImplementationOnce(() => {
+    jest.spyOn(workoutFolderService, "updateFolder").mockImplementationOnce(() => {
       throw new Error("Failed to update exercises") as never;
     });
 
     await act(async () => {
-      await result.current.mutateAsync(["1", "2"]).catch(() => {});
+      await result.current.mutateAsync([{id: "1", name: "name"}, {id: "2", name: "name"}]).catch(() => {});
     });
 
     await waitFor(() => {

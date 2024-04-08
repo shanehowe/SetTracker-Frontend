@@ -19,6 +19,7 @@ describe("useDeleteFolderMutation", () => {
   });
 
   it("calls the onSuccess callback when the mutation is successful", async () => {
+    jest.spyOn(workoutFolderService, "remove").mockImplementation(() => Promise.resolve());
     const onSuccess = jest.fn();
     const { result, unmount } = renderHook(
       () => useDeleteFolderMutation("1", onSuccess, () => {}),

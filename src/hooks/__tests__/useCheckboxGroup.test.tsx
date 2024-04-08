@@ -2,14 +2,17 @@ import { act, renderHook } from "@testing-library/react-native";
 import { useCheckboxGroup } from "../useCheckboxGroup";
 
 describe("useCheckboxGroup", () => {
+  const compareFn = (a: string, b: string) => {
+    return a === b;
+  }
   it("should return selected and handleSelect", () => {
-    const { result } = renderHook(() => useCheckboxGroup());
+    const { result } = renderHook(() => useCheckboxGroup([], compareFn));
     expect(result.current.selected).toEqual([]);
     expect(result.current.handleSelect).toBeInstanceOf(Function);
   });
 
   it("should add and remove selected item", () => {
-    const { result } = renderHook(() => useCheckboxGroup());
+    const { result } = renderHook(() => useCheckboxGroup([], compareFn));
     expect(result.current.selected).toEqual([]);
 
     act(() => {
@@ -29,7 +32,7 @@ describe("useCheckboxGroup", () => {
   });
 
   it("should not mutate selected", () => {
-    const { result } = renderHook(() => useCheckboxGroup());
+    const { result } = renderHook(() => useCheckboxGroup([], compareFn));
     expect(result.current.selected).toEqual([]);
 
     act(() => {

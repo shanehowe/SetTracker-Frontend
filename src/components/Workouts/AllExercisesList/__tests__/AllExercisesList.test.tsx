@@ -15,8 +15,8 @@ describe("AllExerciseList", () => {
       isError: false,
       error: null,
       exercises: [
-        { name: "exercise1" },
-        { name: "exercise2" },
+        { id: "1", name: "exercise1" },
+        { id: "2", name: "exercise2" },
       ]
     }));
   
@@ -35,8 +35,8 @@ describe("AllExerciseList", () => {
       isError: false,
       error: null,
       exercises: [
-        { name: "exercise1" },
-        { name: "exercise2" },
+        { id: "1", name: "exercise1" },
+        { id: "2", name: "exercise2" },
       ]
     }));
   
@@ -55,8 +55,8 @@ describe("AllExerciseList", () => {
       isError: false,
       error: null,
       exercises: [
-        { name: "exercise1" },
-        { name: "exercise2" },
+        { id: "1", name: "exercise1" },
+        { id: "2", name: "exercise2" },
       ]
     }));
   

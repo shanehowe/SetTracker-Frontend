@@ -2,6 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react-native";
 import { AllTheProviders, mockedQueryClient } from "../../test-utils";
 import { useAddCustomExerciseMutation } from "../useAddCustomExerciseMutation";
 import exerciseService from "../../services/exercises";
+import { Exercise } from "../../types";
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -22,6 +23,11 @@ describe("useAddCustomExerciseMutation", () => {
   });
 
   it("should call the onSuccess function when the mutation is successful", async () => {
+    jest
+      .spyOn(exerciseService, "createCustom")
+      .mockImplementation(() =>
+        Promise.resolve({ id: "1", name: "hello" } as Exercise)
+      );
     const onSuccess = jest.fn();
     const { result, unmount } = renderHook(
       () => useAddCustomExerciseMutation(onSuccess, () => {}),
@@ -50,7 +56,7 @@ describe("useAddCustomExerciseMutation", () => {
       { wrapper: AllTheProviders }
     );
 
-    jest.spyOn(exerciseService, "createCustom").mockImplementationOnce(() => {
+    jest.spyOn(exerciseService, "createCustom").mockRejectedValue(() => {
       throw new Error("Failed to create exercise") as never;
     });
 

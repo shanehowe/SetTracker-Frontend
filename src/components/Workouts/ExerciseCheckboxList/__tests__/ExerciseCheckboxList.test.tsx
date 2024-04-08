@@ -2,7 +2,6 @@ import { render } from "@testing-library/react-native";
 import { ExerciseCheckboxList } from "../ExerciseCheckboxList";
 
 describe("ExerciseCheckboxList", () => {
-
   const exercises = [
     {
       id: "1",
@@ -14,7 +13,12 @@ describe("ExerciseCheckboxList", () => {
     },
   ];
 
-  const selectedExercises = ["1"];
+  const selectedExercises = [
+    {
+      id: "1",
+      name: "Bench Press",
+    },
+  ];
 
   it("should render correctly", () => {
     const { getByTestId } = render(
