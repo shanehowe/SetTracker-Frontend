@@ -29,9 +29,15 @@ const getById = (exerciseId: string): Exercise => {
   return exercise;
 };
 
-const createCustom = (exerciseName: string): Exercise => {
-  const id = Math.floor(Math.random() * 1000).toString();
-  return { id, name: exerciseName };
+const createCustom = async (exerciseName: string): Promise<Exercise> => {
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  }
+  const payload = {
+    name: exerciseName
+  };
+  const response = await axios.post<Exercise>(`${API_URL}/exercises/`, payload, { headers });
+  return response.data;
 };
 
 const exerciseService = {
