@@ -12,13 +12,13 @@ export type Exercise = {
 
 export type ExerciseSet = {
   id: string;
-  timeStamp: string;
+  dateCreated: string;
   weight: number;
   reps: number;
 }
 
 export type SetHistory = {
-  date: string,
+  dateCreated: string,
   sets: ExerciseSet[]
 }
 
