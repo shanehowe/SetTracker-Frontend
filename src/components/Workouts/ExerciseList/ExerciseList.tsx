@@ -4,7 +4,7 @@ import { List } from "react-native-paper";
 
 interface ExerciseListProps {
   exercises: Exercise[];
-  handleExerciseItemOnPress: () => void;
+  handleExerciseItemOnPress: (exerciseId: string) => void;
 }
 
 export const ExerciseList = ({ exercises, handleExerciseItemOnPress }: ExerciseListProps) => {
