@@ -3,10 +3,10 @@ import { SetItem } from "../SetItem";
 import { AllTheProviders } from "../../../../test-utils";
 
 describe("SetItem", () => {
-  const timeStamp = new Date().toLocaleTimeString();
+  const dateCreated = "2024-04-17T17:18:03.310756+00:00";
   const set = {
     id: "1",
-    timeStamp,
+    dateCreated,
     weight: 60,
     reps: 10
   }
@@ -26,7 +26,7 @@ describe("SetItem", () => {
       { wrapper: AllTheProviders }
     );
 
-    expect(getByText(timeStamp)).toBeTruthy();
+    expect(getByText("6:18:03 PM")).toBeTruthy();
     expect(getByText("60KG")).toBeTruthy();
     expect(getByText("10 reps")).toBeTruthy()
   });
