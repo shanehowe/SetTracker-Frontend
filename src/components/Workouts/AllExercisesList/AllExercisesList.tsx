@@ -18,8 +18,8 @@ export const AllExerciseList = ({
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const goToSetHistoryScreen = () => {
-    navigation.navigate("SetHistory");
+  const goToSetHistoryScreen = (exerciseId: string) => {
+    navigation.navigate("SetHistory", { exerciseId });
   };
 
   let content = null;
