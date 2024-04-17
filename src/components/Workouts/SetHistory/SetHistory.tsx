@@ -22,7 +22,7 @@ export const SetHistory = ({ history }: SetHistoryProps) => {
     );
   } else {
     content = history.map((item) => (
-      <SetItemGroup key={item.date} date={item.date} sets={item.sets} />
+      <SetItemGroup key={item.dateCreated} date={item.dateCreated} sets={item.sets} />
     ));
   }
   return (
