@@ -12,7 +12,7 @@ import {
   useTheme,
 } from "react-native-paper";
 import React, { useState } from "react";
-import { AxiosError } from 'axios';
+import axios from "axios";
 
 export const WorkoutFolderList = () => {
   const [_, setForceRefresh] = useState(0);
@@ -38,13 +38,12 @@ export const WorkoutFolderList = () => {
   }
 
   if (error) {
-    if ('response' in error) {
-      const apiResponse = (error as AxiosError).response?.data as ApiException;
-      if (apiResponse.detail === "Token expired") {
-        return <>
-          <Text>You're session has expired. We need you to log in again</Text>
-        </>
-      }
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return (
+        <Text>
+          You're session has expired. We need you to log in again
+        </Text>
+      );
     }
     return <Text>{error.message}</Text>
   };
