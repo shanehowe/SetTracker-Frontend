@@ -19,8 +19,6 @@ export const SetHistoryScreen = ({
   navigation,
   route,
 }: SetHistoryScreenProps) => {
-  const [date, setDate] = useState<Date>(new Date());
-  const [time, setTime] = useState<Date>(new Date());
   const exerciseId = route.params.exerciseId;
   const theme = useTheme();
   const ref = useRef<BottomSheetModal>(null);
@@ -33,8 +31,6 @@ export const SetHistoryScreen = ({
   } = useSetHistory(exerciseId);
 
   const handlePresentModalPress = useCallback(() => {
-    setDate(new Date());
-    setTime(new Date());
     ref.current?.present();
   }, []);
 
@@ -64,10 +60,7 @@ export const SetHistoryScreen = ({
       <AddSetBottomSheet
         ref={ref}
         handleModalClose={handleModalClose}
-        date={date}
-        time={time}
-        setDate={setDate}
-        setTime={setTime}
+        exerciseId={exerciseId}
       />
       <FAB
         icon={"plus"}
