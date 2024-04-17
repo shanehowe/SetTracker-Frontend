@@ -43,7 +43,7 @@ export type RootStackParamList = {
   AllExercises: undefined;
   FolderExercises: { folderId: string, updated?: boolean };
   AddExercises: { folderId: string };
-  SetHistory: undefined;
+  SetHistory: { exerciseId: string };
 };
 
 export type AuthStackParamList = {
