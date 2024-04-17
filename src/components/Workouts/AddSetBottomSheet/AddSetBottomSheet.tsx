@@ -12,23 +12,42 @@ import { useMemo, useState, forwardRef } from "react";
 import { DateAndTimePicker } from "../DateAndTimePicker/DateAndTimePicker";
 import { View } from "react-native";
 import { WeightIncrementToolbar } from "../WeightIncrementToolBar/WeightIncrementToolBar";
+import { useAddSetMutation } from "../../../hooks/useAddSetMutation";
+import { useSnack } from "../../../contexts/SnackbarContext";
 
 interface AddSetBottomSheetProps {
   ref: React.RefObject<BottomSheetModal>;
   handleModalClose: () => void;
-  date: Date;
-  time: Date;
-  setDate: (date: Date) => void;
-  setTime: (time: Date) => void;
+  exerciseId: string;
 }
 
 export const AddSetBottomSheet = forwardRef<
   BottomSheetModal,
   AddSetBottomSheetProps
->(({ handleModalClose, date, time, setDate, setTime }, ref) => {
+>(({ handleModalClose, exerciseId }, ref) => {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
+
+  const snack = useSnack();
   const id = "weightId";
+
+  const addSetMutation = useAddSetMutation(
+    (createdSet) => {
+      snack.success("Set created!")
+      handleModalClose();
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  const handleAddSetPress = () => {
+    addSetMutation.mutate({
+      exerciseId,
+      weight: Number(weight),
+      reps: Number(reps),
+    });
+  };
 
   const handleWeightChange = (weightIncrement: number) => {
     let newWeight;
@@ -48,7 +67,7 @@ export const AddSetBottomSheet = forwardRef<
   const reducedMotion = useReducedMotion();
   const theme = useTheme();
 
-  const snapPoints = useMemo(() => ["75%"], []);
+  const snapPoints = useMemo(() => ["55%"], []);
 
   return (
     <BottomSheetModal
@@ -87,20 +106,12 @@ export const AddSetBottomSheet = forwardRef<
             onChange={setReps}
             label="Reps"
           />
-          {Platform.OS !== "web" && (
-            <DateAndTimePicker
-              date={date}
-              time={time}
-              setDate={setDate}
-              setTime={setTime}
-            />
-          )}
         </KeyboardAvoidingView>
         <View style={styles.buttonsContainer}>
           <Button
             style={styles.button}
             mode="contained"
-            onPress={handleModalClose}
+            onPress={handleAddSetPress}
           >
             Add Set
           </Button>
