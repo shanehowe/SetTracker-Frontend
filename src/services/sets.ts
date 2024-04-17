@@ -1,9 +1,7 @@
 import { SetHistory } from "../types";
-import Constants from "expo-constants";
 import axios from "axios";
 import { token } from "./auth";
-
-const API_URL = Constants.expoConfig?.extra?.apiUrl;
+import { API_URL } from "./common";
 
 const getSetHistory = async (exerciseId: string): Promise<SetHistory[]> => {
   const headers = {

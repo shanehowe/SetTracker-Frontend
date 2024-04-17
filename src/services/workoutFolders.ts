@@ -1,9 +1,7 @@
 import { WorkoutFolder } from "../types";
 import { token } from "./auth";
-import Constants from "expo-constants";
 import axios from "axios";
-
-const API_URL = Constants.expoConfig?.extra?.apiUrl;
+import { API_URL } from "./common";
 
 const getAll = async () => {
   const headers = {

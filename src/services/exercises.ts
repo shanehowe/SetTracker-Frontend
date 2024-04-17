@@ -1,9 +1,7 @@
 import { Exercise } from "../types";
-import Constants from "expo-constants";
 import axios from "axios";
 import { token } from "./auth";
-
-const API_URL = Constants.expoConfig?.extra?.apiUrl;
+import { API_URL } from "./common";
 
 const exercises: Exercise[] = [
   { id: "1", name: "Bench" },
