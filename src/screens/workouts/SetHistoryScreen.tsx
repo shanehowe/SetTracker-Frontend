@@ -1,54 +1,36 @@
-import { FAB, useTheme } from "react-native-paper";
+import { FAB, Text, useTheme } from "react-native-paper";
 import { ScreenProps } from "../../interfaces";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useCallback, useRef, useState } from "react";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AddSetBottomSheet } from "../../components/Workouts/AddSetBottomSheet/AddSetBottomSheet";
 import { SetHistory } from "../../components/Workouts/SetHistory/SetHistory";
+import { useSetHistory } from "../../hooks/useSetHistory";
 
+interface SetHistoryScreenProps extends ScreenProps {
+  route: {
+    params: {
+      exerciseId: string;
+    };
+  };
+}
 
-const history = [
-  {
-    date: new Date().toDateString(),
-    sets: [
-      {
-        id: "1",
-        timeStamp: new Date().toLocaleTimeString(),
-        weight: 50,
-        reps: 10,
-      },
-      {
-        id: "2",
-        timeStamp: new Date().toLocaleTimeString(),
-        weight: 50,
-        reps: 10,
-      },
-    ],
-  },
-  {
-    date: new Date("2020-03-01").toDateString(),
-    sets: [
-      {
-        id: "4",
-        timeStamp: new Date().toLocaleTimeString(),
-        weight: 50,
-        reps: 10,
-      },
-      {
-        id: "5",
-        timeStamp: new Date().toLocaleTimeString(),
-        weight: 50,
-        reps: 10,
-      },
-    ],
-  }
-]
-
-export const SetHistoryScreen = ({ navigation }: ScreenProps) => {
+export const SetHistoryScreen = ({
+  navigation,
+  route,
+}: SetHistoryScreenProps) => {
   const [date, setDate] = useState<Date>(new Date());
   const [time, setTime] = useState<Date>(new Date());
+  const exerciseId = route.params.exerciseId;
   const theme = useTheme();
   const ref = useRef<BottomSheetModal>(null);
+
+  const {
+    data: history,
+    isError,
+    isLoading,
+    error,
+  } = useSetHistory(exerciseId);
 
   const handlePresentModalPress = useCallback(() => {
     setDate(new Date());
@@ -60,12 +42,24 @@ export const SetHistoryScreen = ({ navigation }: ScreenProps) => {
     ref.current?.close();
   }, []);
 
+  let content;
+  if (isLoading || !history) {
+    content = <Text>Loading...</Text>;
+  } else if (isError && error) {
+    content = <>{error.message}</>;
+  } else {
+    content = <SetHistory history={history} />;
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView
-        contentContainerStyle={{ backgroundColor: theme.colors.background, marginTop: 30}}
+        contentContainerStyle={{
+          backgroundColor: theme.colors.background,
+          marginTop: 30,
+        }}
       >
-        <SetHistory history={history} />
+        {content}
       </ScrollView>
       <AddSetBottomSheet
         ref={ref}
