@@ -29,6 +29,7 @@ export default {
   },
   extra: {
     apiUrl: process.env.API_URL,
+    webUrl: process.env.WEB_URL,
     env: process.env.ENV,
   },
 };
