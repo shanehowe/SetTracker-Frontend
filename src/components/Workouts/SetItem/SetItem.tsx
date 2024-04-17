@@ -2,6 +2,7 @@ import { Animated, StyleSheet, View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { IconButton, Text, useTheme } from "react-native-paper";
 import { ExerciseSet } from "../../../types";
+import { formatUtcDateToLocalTimeString } from "../../../utils/dateUtils";
 
 interface SetItemProps {
   set: ExerciseSet;
@@ -80,7 +81,7 @@ export const SetItem = ({ set }: SetItemProps) => {
     >
       <View testID="set-item" style={styles.setItem}>
         <View>
-          <Text>{set.timeStamp}</Text>
+          <Text>{formatUtcDateToLocalTimeString(set.dateCreated)}</Text>
         </View>
         <View>
           <Text>{set.weight}KG</Text>
