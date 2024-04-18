@@ -5,6 +5,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import { AddWorkoutFolderFAB } from "../../components/Buttons/AddWorkoutFolderFAB/AddWorkoutFolderFAB";
 import { WorkoutFolderList } from "../../components/Workouts/WorkoutFolderList/WorkoutFolderList";
 import { AddWorkoutFolderModal } from "../../components/Workouts/AddWorkoutFolderModal/AddWorkoutFolderModal";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -12,6 +13,7 @@ export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
 
   const showModal = () => setModalVisible(true);
   const hideModal = () => setModalVisible(false);
+  const auth = useAuth();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -25,6 +27,9 @@ export const WorkoutFoldersScreen = ({ navigation }: ScreenProps) => {
           onPress={() => navigation.navigate("AllExercises")}
         >
           All Exercises
+        </Button>
+        <Button onPress={auth.signOut}>
+          Sign Out
         </Button>
       </View>
       <View>

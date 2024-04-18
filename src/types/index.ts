@@ -15,6 +15,7 @@ export type ExerciseSet = {
   dateCreated: string;
   weight: number;
   reps: number;
+  exerciseId: string
 }
 
 export type SetHistory = {

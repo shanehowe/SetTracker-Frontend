@@ -67,7 +67,7 @@ export const AddSetBottomSheet = forwardRef<
   const reducedMotion = useReducedMotion();
   const theme = useTheme();
 
-  const snapPoints = useMemo(() => ["55%"], []);
+  const snapPoints = useMemo(() => ["77%"], []);
 
   return (
     <BottomSheetModal

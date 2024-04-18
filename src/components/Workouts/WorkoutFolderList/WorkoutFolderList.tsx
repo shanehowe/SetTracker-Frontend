@@ -13,6 +13,7 @@ import {
 } from "react-native-paper";
 import React, { useState } from "react";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const WorkoutFolderList = () => {
   const [_, setForceRefresh] = useState(0);

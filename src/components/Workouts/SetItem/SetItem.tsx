@@ -3,6 +3,9 @@ import { Swipeable } from "react-native-gesture-handler";
 import { IconButton, Text, useTheme } from "react-native-paper";
 import { ExerciseSet } from "../../../types";
 import { formatUtcDateToLocalTimeString } from "../../../utils/dateUtils";
+import { useAddSetMutation } from "../../../hooks/useAddSetMutation";
+import { useRef } from "react";
+import { useSnack } from "../../../contexts/SnackbarContext";
 
 interface SetItemProps {
   set: ExerciseSet;
@@ -10,6 +13,34 @@ interface SetItemProps {
 
 export const SetItem = ({ set }: SetItemProps) => {
   const theme = useTheme();
+  const swipeableRef = useRef<Swipeable | null>(null);
+  const snack = useSnack();
+
+  const addSetOnSuccess = (createdSet: ExerciseSet) => {
+    closeSwipeable();
+    snack.success("Set logged successfully");
+  }
+
+  const addSetOnError = (error: Error) => {
+    console.error(error.message);
+  }
+
+  const addSetMutation = useAddSetMutation(
+    addSetOnSuccess,
+    addSetOnError
+  );
+
+  const closeSwipeable = () => {
+    swipeableRef.current?.close();
+  }
+
+  const handleAddSetPress = () => {
+    addSetMutation.mutate({
+      exerciseId: set.exerciseId,
+      weight: set.weight,
+      reps: set.reps
+    });
+  }
 
   const renderAction = (
     progress: Animated.AnimatedInterpolation<number>,
@@ -18,7 +49,8 @@ export const SetItem = ({ set }: SetItemProps) => {
     drageOutputRange: number[],
     icon: string,
     iconColor: string,
-    additionalStyles?: object
+    additionalStyles?: object,
+    onPressHandler?: () => void
   ) => {
     const trans = dragX.interpolate({
       inputRange: dragInputRange,
@@ -38,7 +70,7 @@ export const SetItem = ({ set }: SetItemProps) => {
           additionalStyles,
         ]}
       >
-        <IconButton icon={icon} size={20} iconColor={iconColor} />
+        <IconButton icon={icon} size={20} iconColor={iconColor} onPress={onPressHandler} />
       </Animated.View>
     );
   };
@@ -69,12 +101,14 @@ export const SetItem = ({ set }: SetItemProps) => {
       [0, 0, 0, 1],
       "refresh",
       theme.colors.primary,
-      styles.rightView
+      styles.rightView,
+      handleAddSetPress
     );
   };
 
   return (
     <Swipeable
+      ref={swipeableRef}
       dragOffsetFromLeftEdge={50}
       renderLeftActions={renderLeftAction}
       renderRightActions={renderRightAction}

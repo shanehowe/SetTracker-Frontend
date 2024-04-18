@@ -26,9 +26,18 @@ const createSet = async (exerciseId: string, weight: number, reps: number) => {
   return response.data;
 };
 
+const remove = async (setId: string) => {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await axios.delete(`${API_URL}/sets/${setId}`, { headers });
+  return response.data;
+};
+
 const setService = {
   getSetHistory,
-  createSet
+  createSet,
+  remove
 };
 
 export default setService;
