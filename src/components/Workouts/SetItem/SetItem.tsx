@@ -6,6 +6,7 @@ import { formatUtcDateToLocalTimeString } from "../../../utils/dateUtils";
 import { useAddSetMutation } from "../../../hooks/useAddSetMutation";
 import { useRef } from "react";
 import { useSnack } from "../../../contexts/SnackbarContext";
+import { useDeleteSetMutation } from "../../../hooks/useDeleteSetMutation";
 
 interface SetItemProps {
   set: ExerciseSet;
@@ -30,6 +31,21 @@ export const SetItem = ({ set }: SetItemProps) => {
     addSetOnError
   );
 
+  const deleteSetOnSuccess = () => {
+    closeSwipeable();
+    snack.success("Set has been removed");
+  }
+
+  const deleteSetOnError = (error: Error) => {
+    snack.error("Unable to delete set at this time.");
+    console.error(error);
+  }
+
+  const deleteSetMutation = useDeleteSetMutation(
+    deleteSetOnSuccess,
+    deleteSetOnError
+  );
+
   const closeSwipeable = () => {
     swipeableRef.current?.close();
   }
@@ -40,6 +56,10 @@ export const SetItem = ({ set }: SetItemProps) => {
       weight: set.weight,
       reps: set.reps
     });
+  }
+
+  const handleDeleteSetPress = () => {
+    deleteSetMutation.mutate(set.id);
   }
 
   const renderAction = (
@@ -86,7 +106,8 @@ export const SetItem = ({ set }: SetItemProps) => {
       [-20, 0, 0, 1],
       "delete",
       theme.colors.error,
-      styles.leftView
+      styles.leftView,
+      handleDeleteSetPress
     );
   };
 
