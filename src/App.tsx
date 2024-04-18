@@ -15,8 +15,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
-    }
-  }
+    },
+  },
 });
 
 export default function App() {
@@ -25,19 +25,19 @@ export default function App() {
   const paperTheme = colorScheme === "dark" ? theme.dark : theme.light;
 
   return (
-    <AuthProvidor>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvidor>
         <PaperProvider theme={paperTheme}>
-          <GestureHandlerRootView style= {{ flex: 1 }}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
-            <SnackbarProvider>
-              <Router />
-              <StatusBar style="auto" />
-            </SnackbarProvider>
+              <SnackbarProvider>
+                <Router />
+                <StatusBar style="auto" />
+              </SnackbarProvider>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PaperProvider>
-      </QueryClientProvider>
-    </AuthProvidor>
+      </AuthProvidor>
+    </QueryClientProvider>
   );
 }
