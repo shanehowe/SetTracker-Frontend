@@ -11,12 +11,10 @@ import {
   Text,
   useTheme,
 } from "react-native-paper";
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
-import { useFocusEffect } from "@react-navigation/native";
 
 export const WorkoutFolderList = () => {
-  const [_, setForceRefresh] = useState(0);
   const {
     isLoading,
     error,
@@ -41,13 +39,11 @@ export const WorkoutFolderList = () => {
   if (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       return (
-        <Text>
-          You're session has expired. We need you to log in again
-        </Text>
+        <Text>You're session has expired. We need you to log in again</Text>
       );
     }
-    return <Text>{error.message}</Text>
-  };
+    return <Text>{error.message}</Text>;
+  }
 
   return (
     <Card testID="workout-folders-card" mode="contained" style={styles.card}>
