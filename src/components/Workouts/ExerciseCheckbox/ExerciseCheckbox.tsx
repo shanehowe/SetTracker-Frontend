@@ -23,7 +23,6 @@ export const ExerciseCheckbox = ({
       <Checkbox
         testID="exercise-checkbox"
         status={isSelected ? "checked" : "unchecked"}
-        onPress={() => onExerciseSelect(exercise)}
       />
     </TouchableOpacity>
   );
