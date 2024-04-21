@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Divider, List, Surface, Text, useTheme } from "react-native-paper";
+import { Divider, List, Surface, useTheme } from "react-native-paper";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const SettingsScreen = () => {
