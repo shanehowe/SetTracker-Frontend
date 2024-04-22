@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WorkoutFoldersStack } from "./WorkoutFoldersStack";
 import { Icon, useTheme, Appbar } from "react-native-paper";
 import { Snackbar } from "../components/Notifications/Snackbar/Snackbar";
+import { SettingsScreen } from "../screens/account/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,23 +32,6 @@ export const AppBottomTab = () => {
               borderTopWidth: 1,
             },
             tabBarActiveTintColor: theme.colors.primary,
-            tabBarIcon: ({ color, size }) => {
-              let iconName;
-              if (route.name === "WorkoutFoldersTab") {
-                iconName = "folder";
-              } else if (route.name === "AccountTab") {
-                iconName = "account";
-              }
-              return (
-                <Icon
-                  source={
-                    route.name === "WorkoutFoldersTab" ? "folder" : "account"
-                  }
-                  color={color}
-                  size={size}
-                />
-              );
-            },
           };
         }}
       >
@@ -57,6 +41,20 @@ export const AppBottomTab = () => {
           options={{
             tabBarLabel: "Workouts",
             headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <Icon source={"folder"} color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="SettingsTab"
+          component={SettingsScreen}
+          options={{
+            tabBarLabel: "Settings",
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <Icon source={"cog"} color={color} size={size} />
+            ),
           }}
         />
       </Tab.Navigator>
