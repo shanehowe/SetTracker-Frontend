@@ -53,6 +53,11 @@ export type AuthStackParamList = {
   SignInEmailPassword: undefined;
 };
 
+export type SettingsStackParamList = {
+  Settings: undefined;
+  Appearance: undefined;
+}
+
 export type User = {
   id: string;
   token: string;
