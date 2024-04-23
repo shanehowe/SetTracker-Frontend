@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { WorkoutFoldersStack } from "./WorkoutFoldersStack";
 import { Icon, useTheme, Appbar } from "react-native-paper";
 import { Snackbar } from "../components/Notifications/Snackbar/Snackbar";
-import { SettingsScreen } from "../screens/account/SettingsScreen";
+import { SettingsScreenStack } from "./SettingsStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +48,7 @@ export const AppBottomTab = () => {
         />
         <Tab.Screen
           name="SettingsTab"
-          component={SettingsScreen}
+          component={SettingsScreenStack}
           options={{
             tabBarLabel: "Settings",
             headerShown: false,
