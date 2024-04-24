@@ -64,17 +64,6 @@ export const SnackbarProvider = ({ children }: any) => {
     });
   };
 
-  const info = (message: string) => {
-    dispatch({
-      type: "OPEN_SNACKBAR",
-      payload: {
-        open: true,
-        message,
-        severity: "info",
-      },
-    });
-  };
-
   const close = () => {
     dispatch({ type: "CLOSE_SNACKBAR" });
   };
