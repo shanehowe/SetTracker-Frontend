@@ -35,7 +35,6 @@ export const SnackbarContext = createContext<{
   snackService: {
     success: () => {},
     error: () => {},
-    info: () => {},
     close: () => {},
   },
 });
@@ -83,7 +82,6 @@ export const SnackbarProvider = ({ children }: any) => {
   const snackService = {
     success,
     error,
-    info,
     close,
   };
 
