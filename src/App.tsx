@@ -1,13 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "react-native";
-import { PaperProvider } from "react-native-paper";
 import { Router } from "./routes/Router";
 import { AuthProvidor } from "./contexts/AuthContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { theme } from "./theme/theme";
+import { AppThemeProvider } from "./contexts/AppThemeContext";
 
 import React from "react";
 
@@ -20,14 +18,10 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
-  const colorScheme = useColorScheme();
-
-  const paperTheme = colorScheme === "dark" ? theme.dark : theme.light;
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvidor>
-        <PaperProvider theme={paperTheme}>
+        <AppThemeProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <SnackbarProvider>
@@ -36,7 +30,7 @@ export default function App() {
               </SnackbarProvider>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
-        </PaperProvider>
+        </AppThemeProvider>
       </AuthProvidor>
     </QueryClientProvider>
   );
