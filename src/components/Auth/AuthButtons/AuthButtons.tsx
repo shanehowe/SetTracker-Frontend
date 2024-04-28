@@ -11,18 +11,10 @@ export const AuthButtons = () => {
         mode="contained"
         icon="google"
         onPress={() => console.log("Pressed")}
+        labelStyle={{ fontSize: 19, color: "white" }}
         testID="google-auth-button"
       >
         Continue with Google
-      </Button>
-      <Button
-        style={[styles.button, styles.facebookButton]}
-        mode="contained"
-        icon="facebook"
-        onPress={() => console.log("Pressed")}
-        testID="facebook-auth-button"
-      >
-        Continue with Facebook
       </Button>
     </View>
   );
@@ -42,9 +34,6 @@ const styles = StyleSheet.create({
     },
     oAuthView: {
       width: "100%",
-    },
-    facebookButton: {
-      backgroundColor: "#3b5998",
     },
     googleButton: {
       backgroundColor: "#4285F4",

@@ -9,11 +9,4 @@ describe("AuthButtons", () => {
     const googleButton = getByTestId("google-auth-button");
     expect(googleButton).toBeTruthy();
   });
-
-  it("renders a continue with facebook button", () => {
-    const { getByTestId } = render(<AuthButtons />);
-
-    const facebookButton = getByTestId("facebook-auth-button");
-    expect(facebookButton).toBeTruthy();
-  });
 });
