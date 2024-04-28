@@ -1,5 +1,5 @@
 import React from "react";
-import storage from "../utils/storage";
+import storage, { StoredConsts } from "../utils/storage";
 import authService from "../services/auth";
 import { User } from "../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -34,10 +34,13 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     }) => await authService.signIn(provider, token),
     onSuccess: async (user: User) => {
       queryClient.invalidateQueries();
-      queryClient.setQueryData(["user"], user)
+      queryClient.setQueryData(["user"], user);
       authService.setToken(user.token);
-      await storage.set("loggedInUser", JSON.stringify(user));
-      await storage.set("preferredTheme", JSON.stringify(user.preferences?.theme));
+      await storage.set(StoredConsts.LOGGED_IN_USER, JSON.stringify(user));
+      await storage.set(
+        StoredConsts.PREFERRED_THEME,
+        JSON.stringify(user.preferences?.theme)
+      );
       setUser(user);
     },
     onError: (error) => console.error(error),
@@ -46,7 +49,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   React.useEffect(() => {
     const checkAuth = async () => {
       try {
-        const storedUser = await storage.get("loggedInUser");
+        const storedUser = await storage.get(StoredConsts.LOGGED_IN_USER);
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser) as User;
           authService.setToken(parsedUser.token);
@@ -65,7 +68,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   };
 
   const signOut = async () => {
-    await storage.remove("loggedInUser");
+    await storage.remove(StoredConsts.LOGGED_IN_USER);
     setUser(null);
   };
 
