@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./common";
+import { User } from "../types";
 
 export let token: string | null = null;
 
@@ -12,7 +13,7 @@ const signIn = async (provider: string, token: string) => {
     provider,
     token,
   };
-  const response = await axios.post(`${API_URL}/auth/signin`, payload);
+  const response = await axios.post<User>(`${API_URL}/auth/signin`, payload);
   return response.data;
 };
 

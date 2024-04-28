@@ -1,9 +1,8 @@
 import React from "react";
-import storage from "../utils/storage";
+import storage, { StoredConsts } from "../utils/storage";
 import authService from "../services/auth";
-import { AxiosError } from "axios";
 import { User } from "../types";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface AuthContextProps {
   children: React.ReactNode;
@@ -25,14 +24,35 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const queryClient = useQueryClient();
 
+  const signInMutation = useMutation({
+    mutationFn: async ({
+      provider,
+      token,
+    }: {
+      provider: string;
+      token: string;
+    }) => await authService.signIn(provider, token),
+    onSuccess: async (user: User) => {
+      queryClient.invalidateQueries();
+      queryClient.setQueryData(["user"], user);
+      authService.setToken(user.token);
+      await storage.set(StoredConsts.LOGGED_IN_USER, JSON.stringify(user));
+      await storage.set(
+        StoredConsts.PREFERRED_THEME,
+        JSON.stringify(user.preferences?.theme)
+      );
+      setUser(user);
+    },
+    onError: (error) => console.error(error),
+  });
+
   React.useEffect(() => {
     const checkAuth = async () => {
       try {
-        const storedUser = await storage.get("loggedInUser");
+        const storedUser = await storage.get(StoredConsts.LOGGED_IN_USER);
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser) as User;
           authService.setToken(parsedUser.token);
-          console.log(parsedUser.token)
           setUser(parsedUser);
         }
       } catch (error) {
@@ -44,23 +64,11 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   }, []);
 
   const signIn = async (provider: string, token: string) => {
-    try {
-      const response = await authService.signIn(provider, token);
-      if (response) {
-        // If user was logged in with expired token
-        // react query may have cached the response.
-        queryClient.invalidateQueries();
-        authService.setToken(response.token);
-        await storage.set("loggedInUser", JSON.stringify(response));
-        setUser(response);
-      }
-    } catch (error: AxiosError | any) {
-      console.error(error.code, error.message);
-    }
+    signInMutation.mutate({ provider, token });
   };
 
   const signOut = async () => {
-    await storage.remove("loggedInUser");
+    await storage.remove(StoredConsts.LOGGED_IN_USER);
     setUser(null);
   };
 

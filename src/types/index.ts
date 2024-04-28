@@ -61,7 +61,12 @@ export type SettingsStackParamList = {
 export type User = {
   id: string;
   token: string;
+  preferences?: UserPreferences;
 };
+
+type UserPreferences = {
+  theme: string;
+}
 
 export type ApiException = {
   detail: string
