@@ -3,7 +3,6 @@ import { useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { AuthButtons } from "../../components/Auth/AuthButtons/AuthButtons";
 import { AuthScreenProps } from "../../interfaces";
-import { DontHaveAnAccountButton } from "../../components/Buttons/DontHaveAnAccountButton/DontHaveAnAccountButton";
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { AppleSignInButton } from "../../components/Auth/AppleSignInButton/AppleSignInButton";
@@ -23,14 +22,6 @@ export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
     checkAppleSignInAvailability();
   }, []);
 
-  const goToChooseSignUpMethod = () => {
-    navigation.navigate("SignUp");
-  };
-
-  const goToSignInEmailPassword = () => {
-    navigation.navigate("SignInEmailPassword");
-  };
-
   return (
     <SafeAreaView
       style={[{ backgroundColor: theme.colors.background, flex: 1 }]}
@@ -38,11 +29,8 @@ export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
       <View style={styles.container}>
         <AvatarHeading title="Choose a method of signing in" icon="lock"/>
         <View style={styles.buttonsView}>
-          {appleSignInIsAvailable &&  <AppleSignInButton /> }
+          {appleSignInIsAvailable && <AppleSignInButton /> }
           <AuthButtons />
-        </View>
-        <View style={styles.alreadyHaveAccountView}>
-          <DontHaveAnAccountButton />
         </View>
       </View>
     </SafeAreaView>
@@ -58,16 +46,9 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   buttonsView: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    width: "100%",
-  },
-  alreadyHaveAccountView: {
-    flex: 1,
+    flex: 2,
     alignItems: "center",
     justifyContent: "flex-start",
     width: "100%",
-    paddingTop: 20,
   },
 });

@@ -9,11 +9,6 @@ describe("OptionsList", () => {
     expect(getByTestId("options-list-surface")).toBeTruthy();
   });
 
-  it("Renders a list item with the text 'Account'", () => {
-    const { getByText } = render(<OptionsList />, { wrapper: AllTheProviders });
-    expect(getByText("Account")).toBeOnTheScreen();
-  });
-
   it("Renders a list item with the text 'Appearance'", () => {
     const { getByText } = render(<OptionsList />, { wrapper: AllTheProviders });
     expect(getByText("Appearance")).toBeOnTheScreen();

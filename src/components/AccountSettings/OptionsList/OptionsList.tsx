@@ -13,12 +13,6 @@ export const OptionsList = () => {
       testID="options-list-surface"
     >
       <List.Item
-        title="Account"
-        left={(props) => <List.Icon {...props} icon={"account"} />}
-        right={(props) => <List.Icon {...props} icon={"chevron-right"} />}
-      />
-      <Divider bold={true} />
-      <List.Item
         title="Appearance"
         left={(props) => <List.Icon {...props} icon={"eye"} />}
         right={(props) => <List.Icon {...props} icon={"chevron-right"} />}
