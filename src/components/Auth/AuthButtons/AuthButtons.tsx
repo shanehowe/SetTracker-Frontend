@@ -11,6 +11,7 @@ export const AuthButtons = () => {
         mode="contained"
         icon="google"
         onPress={() => console.log("Pressed")}
+        labelStyle={{ fontSize: 19, color: "white" }}
         testID="google-auth-button"
       >
         Continue with Google
