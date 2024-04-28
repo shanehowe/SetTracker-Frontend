@@ -3,11 +3,32 @@ import { WorkoutFoldersStack } from "./WorkoutFoldersStack";
 import { Icon, useTheme, Appbar } from "react-native-paper";
 import { Snackbar } from "../components/Notifications/Snackbar/Snackbar";
 import { SettingsScreenStack } from "./SettingsStack";
+import { useContext, useEffect } from "react";
+import { AppThemeContext } from "../contexts/AppThemeContext";
+import { theme as savedThemes } from "../theme/theme";
+import storage from "../utils/storage";
 
 const Tab = createBottomTabNavigator();
 
 export const AppBottomTab = () => {
   const theme = useTheme();
+
+  const appThemeContext = useContext(AppThemeContext);
+  useEffect(() => {
+    const setPreferredTheme = async () => {
+      const stored = await storage.get("preferredTheme");
+      if (!stored) {
+        return;
+      }
+      const scheme = JSON.parse(stored);
+      if (scheme === "light") {
+        appThemeContext.setTheme(savedThemes.light);
+      } else if (scheme === "dark") {
+        appThemeContext.setTheme(savedThemes.dark);
+      }
+    };
+    setPreferredTheme()
+  }, []);
 
   return (
     <>
@@ -24,7 +45,7 @@ export const AppBottomTab = () => {
       <Snackbar />
       <Tab.Navigator
         initialRouteName="WorkoutFoldersTab"
-        screenOptions={({ route }) => {
+        screenOptions={() => {
           return {
             tabBarStyle: {
               backgroundColor: theme.colors.background,
