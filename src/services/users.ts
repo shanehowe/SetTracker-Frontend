@@ -7,7 +7,7 @@ type Preferences = {
 };
 
 const updatePreferences = async (
-  updatedPreferences: Preferences
+  updatedPreferences: Partial<Preferences>
 ): Promise<void> => {
   const headers = {
     Authorization: `Bearer ${token}`,
