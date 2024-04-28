@@ -6,7 +6,7 @@ import { SettingsScreenStack } from "./SettingsStack";
 import { useContext, useEffect } from "react";
 import { AppThemeContext } from "../contexts/AppThemeContext";
 import { theme as savedThemes } from "../theme/theme";
-import storage from "../utils/storage";
+import storage, { StoredConsts } from "../utils/storage";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,18 +16,16 @@ export const AppBottomTab = () => {
   const appThemeContext = useContext(AppThemeContext);
   useEffect(() => {
     const setPreferredTheme = async () => {
-      const stored = await storage.get("preferredTheme");
-      if (!stored) {
+      const scheme = await storage.get(StoredConsts.PREFERRED_THEME);
+      if (!scheme) {
         return;
-      }
-      const scheme = JSON.parse(stored);
-      if (scheme === "light") {
+      } else if (scheme === "light") {
         appThemeContext.setTheme(savedThemes.light);
       } else if (scheme === "dark") {
         appThemeContext.setTheme(savedThemes.dark);
       }
     };
-    setPreferredTheme()
+    setPreferredTheme();
   }, []);
 
   return (
