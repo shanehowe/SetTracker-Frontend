@@ -13,9 +13,4 @@ describe("OptionsList", () => {
     const { getByText } = render(<OptionsList />, { wrapper: AllTheProviders });
     expect(getByText("Appearance")).toBeOnTheScreen();
   });
-
-  it("Renders a list item with the text 'Feedback'", () => {
-    const { getByText } = render(<OptionsList />, { wrapper: AllTheProviders });
-    expect(getByText("Feedback")).toBeOnTheScreen();
-  });
 })

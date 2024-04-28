@@ -1,4 +1,4 @@
-import { Divider, List, Surface } from "react-native-paper";
+import { List, Surface } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { SettingsStackParamList } from "../../../types";
@@ -17,12 +17,6 @@ export const OptionsList = () => {
         left={(props) => <List.Icon {...props} icon={"eye"} />}
         right={(props) => <List.Icon {...props} icon={"chevron-right"} />}
         onPress={() => navigation.navigate("Appearance")}
-      />
-      <Divider bold={true} />
-      <List.Item
-        title="Feedback"
-        left={(props) => <List.Icon {...props} icon={"message"} />}
-        right={(props) => <List.Icon {...props} icon={"chevron-right"} />}
       />
     </Surface>
   );
