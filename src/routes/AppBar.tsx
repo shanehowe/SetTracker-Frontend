@@ -36,21 +36,6 @@ export const AppBottomTab = () => {
     }
   }
 
-  const appThemeContext = useContext(AppThemeContext);
-  useEffect(() => {
-    const setPreferredTheme = async () => {
-      const scheme = await storage.get(StoredConsts.PREFERRED_THEME);
-      if (!scheme) {
-        return;
-      } else if (scheme === "light") {
-        appThemeContext.setTheme(savedThemes.light);
-      } else if (scheme === "dark") {
-        appThemeContext.setTheme(savedThemes.dark);
-      }
-    };
-    setPreferredTheme();
-  }, []);
-
   return (
     <>
       <Appbar.Header
