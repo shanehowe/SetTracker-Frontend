@@ -1,6 +1,11 @@
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
+export enum StoredConsts {
+    LOGGED_IN_USER = "loggedInUser",
+    PREFERRED_THEME = "preferredTheme"
+}
+
 interface Storage {
     set: (key: string, value: string) => Promise<void>;
     get: (key: string) => Promise<string | null>;
@@ -24,7 +29,6 @@ class AppStorage implements Storage {
 class BrowserStorage implements Storage {
     async set(key: string, value: string) {
         localStorage.setItem(key, value);
-        return await Promise.resolve();
     }
 
     async get(key: string) {
@@ -33,7 +37,6 @@ class BrowserStorage implements Storage {
 
     async remove(key: string) {
         localStorage.removeItem(key);
-        return Promise.resolve();
     }
 }
 
