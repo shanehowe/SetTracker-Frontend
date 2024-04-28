@@ -7,11 +7,13 @@ import { useContext, useEffect } from "react";
 import { AppThemeContext } from "../contexts/AppThemeContext";
 import { theme as savedThemes } from "../theme/theme";
 import storage, { StoredConsts } from "../utils/storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 export const AppBottomTab = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   const appThemeContext = useContext(AppThemeContext);
   useEffect(() => {
@@ -28,6 +30,12 @@ export const AppBottomTab = () => {
     setPreferredTheme();
   }, []);
 
+  const handleGoBackPress = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  }
+
   return (
     <>
       <Appbar.Header
@@ -37,8 +45,8 @@ export const AppBottomTab = () => {
           borderBottomWidth: 1,
         }}
       >
+        <Appbar.BackAction onPress={handleGoBackPress} />
         <Appbar.Content title="App name" />
-        <Appbar.Action icon="menu" />
       </Appbar.Header>
       <Snackbar />
       <Tab.Navigator
