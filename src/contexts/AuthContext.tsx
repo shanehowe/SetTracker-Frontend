@@ -39,7 +39,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
       await storage.set(StoredConsts.LOGGED_IN_USER, JSON.stringify(user));
       await storage.set(
         StoredConsts.PREFERRED_THEME,
-        JSON.stringify(user.preferences?.theme)
+        user.preferences?.theme as string
       );
       setUser(user);
     },
