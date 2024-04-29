@@ -18,6 +18,9 @@ export const Snackbar = () => {
         icon={snackState.severity === "error" ? "alert" : "check"}
         onIconPress={close}
         testID="snackbar"
+        style={{
+          bottom: 50
+        }}
       >
         {snackState.message}
       </PaperSnackbar>
