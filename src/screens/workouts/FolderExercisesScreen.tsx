@@ -13,6 +13,7 @@ import { useSnack } from "../../contexts/SnackbarContext";
 import { WorkoutFolder } from "../../types";
 import { ConfirmDeleteModal } from "../../components/Modals/ConfirmDeleteModal/ConfirmDeleteModal";
 import { useDeleteFolderMutation } from "../../hooks/useDeleteFolderMutation";
+import { LoadingScreen } from "../common/LoadingScreen";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -84,7 +85,7 @@ export const FolderExercisesScreen = ({
   });
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <LoadingScreen />;
   }
 
   return (
