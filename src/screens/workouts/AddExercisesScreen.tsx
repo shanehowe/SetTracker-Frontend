@@ -4,7 +4,7 @@ import { ExerciseCheckboxList } from "../../components/Workouts/ExerciseCheckbox
 import { useState } from "react";
 import { useExercises } from "../../hooks/useExercises";
 import { ScreenProps } from "../../interfaces";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import { useCheckboxGroup } from "../../hooks/useCheckboxGroup";
 import { Exercise } from "../../types";
 import { useFolder } from "../../hooks/useFolder";
@@ -13,6 +13,7 @@ import { useSnack } from "../../contexts/SnackbarContext";
 import { EmptyExerciseList } from "../../components/Workouts/EmptyExerciseList/EmptyExerciseList";
 import { AddCustomExerciseModal } from "../../components/Workouts/AddCustomExerciseModal/AddCustomExerciseModal";
 import { LoadingScreen } from "../common/LoadingScreen";
+import { TabsProvider, Tabs, TabScreen } from "react-native-paper-tabs";
 
 interface AddExercisesScreenProps extends ScreenProps {
   route: {
@@ -27,13 +28,13 @@ export const AddExercisesScreen = ({
   route,
 }: AddExercisesScreenProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [addExerciseModalVisible , setAddExerciseModalVisible] = useState(false);
+  const [addExerciseModalVisible, setAddExerciseModalVisible] = useState(false);
 
   const folderData = useFolder(route.params.folderId);
 
   const compareFunction = (item: Exercise, compareItem: Exercise) => {
     return item.id === compareItem.id;
-  }
+  };
 
   const { selected, handleSelect } = useCheckboxGroup<Exercise>(
     folderData.folder?.exercises.map((exercise: Exercise) => exercise) || [],
@@ -82,31 +83,55 @@ export const AddExercisesScreen = ({
         backgroundColor: theme.colors.background,
       }}
     >
+      <TabsProvider defaultIndex={0}>
+        <Tabs>
+          <TabScreen label="All Exercises">
+            <ScrollView
+              contentContainerStyle={[
+                styles.checkboxContainer,
+                { backgroundColor: theme.colors.background },
+              ]}
+            >
+              <View style={styles.searchbarContainer}>
+                <Searchbar
+                  searchFilter={searchQuery}
+                  handleSearchChange={onChangeSearch}
+                />
+              </View>
+              <ExerciseCheckboxList
+                exercises={exercises}
+                selectedExercises={selected}
+                onExerciseSelect={handleSelect}
+              />
+              {exercises.length === 0 && (
+                <EmptyExerciseList showModal={showModal} />
+              )}
+            </ScrollView>
+          </TabScreen>
+          <TabScreen label="Selected Exercises">
+            <ScrollView
+              contentContainerStyle={[
+                styles.checkboxContainer,
+                { backgroundColor: theme.colors.background },
+              ]}
+            >
+              <ExerciseCheckboxList
+                exercises={selected}
+                selectedExercises={selected}
+                onExerciseSelect={handleSelect}
+              />
+              {exercises.length === 0 && (
+                <EmptyExerciseList showModal={showModal} />
+              )}
+            </ScrollView>
+          </TabScreen>
+        </Tabs>
+      </TabsProvider>
       <AddCustomExerciseModal
         visible={addExerciseModalVisible}
         handleSearchChange={onChangeSearch}
         hideModal={hideModal}
       />
-      
-      <ScrollView
-        contentContainerStyle={[
-          styles.checkboxContainer,
-          { backgroundColor: theme.colors.background },
-        ]}
-      >
-        <View style={styles.searchbarContainer}>
-        <Searchbar
-          searchFilter={searchQuery}
-          handleSearchChange={onChangeSearch}
-        />
-      </View>
-        <ExerciseCheckboxList
-          exercises={exercises}
-          selectedExercises={selected}
-          onExerciseSelect={handleSelect}
-        />
-        {exercises.length === 0 && <EmptyExerciseList showModal={showModal} />}
-      </ScrollView>
       <View style={styles.buttonContainer}>
         <Button mode="contained" onPress={handleConfirm}>
           Confirm Selection
