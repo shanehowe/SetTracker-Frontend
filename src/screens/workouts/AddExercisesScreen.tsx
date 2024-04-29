@@ -12,6 +12,7 @@ import { useUpdateExercisesMutation } from "../../hooks/useUpdateExercisesMutati
 import { useSnack } from "../../contexts/SnackbarContext";
 import { EmptyExerciseList } from "../../components/Workouts/EmptyExerciseList/EmptyExerciseList";
 import { AddCustomExerciseModal } from "../../components/Workouts/AddCustomExerciseModal/AddCustomExerciseModal";
+import { LoadingScreen } from "../common/LoadingScreen";
 
 interface AddExercisesScreenProps extends ScreenProps {
   route: {
@@ -71,7 +72,7 @@ export const AddExercisesScreen = ({
   const handleConfirm = () => updateExercisesMutation.mutate(selected);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <LoadingScreen />;
   }
 
   return (
@@ -86,18 +87,19 @@ export const AddExercisesScreen = ({
         handleSearchChange={onChangeSearch}
         hideModal={hideModal}
       />
-      <View style={styles.searchbarContainer}>
-        <Searchbar
-          searchFilter={searchQuery}
-          handleSearchChange={onChangeSearch}
-        />
-      </View>
+      
       <ScrollView
         contentContainerStyle={[
           styles.checkboxContainer,
           { backgroundColor: theme.colors.background },
         ]}
       >
+        <View style={styles.searchbarContainer}>
+        <Searchbar
+          searchFilter={searchQuery}
+          handleSearchChange={onChangeSearch}
+        />
+      </View>
         <ExerciseCheckboxList
           exercises={exercises}
           selectedExercises={selected}
@@ -118,8 +120,8 @@ export const AddExercisesScreen = ({
 
 const styles = StyleSheet.create({
   searchbarContainer: {
-    padding: 10,
-    marginTop: 10,
+    padding: 5,
+    marginBottom: 10,
     width: "95%",
     alignSelf: "center",
   },
@@ -137,5 +139,6 @@ const styles = StyleSheet.create({
     gap: 10,
     width: "90%",
     alignSelf: "center",
+    flexDirection: "row",
   },
 });
