@@ -3,29 +3,28 @@ import { AddWorkoutFolderModal } from "../AddWorkoutFolderModal";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PaperProvider } from "react-native-paper";
+import * as workoutFolderValidation from "../../../../validation/workoutFolderValidation";
 
 const mockedMutation = jest.fn();
 
 jest.mock("../../../../hooks/useAddFolderMutation", () => ({
   useAddFolderMutation: () => ({
-    mutate: mockedMutation
-  })
+    mutate: mockedMutation,
+  }),
 }));
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
-    }
-  }
+    },
+  },
 });
 
 const wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <PaperProvider>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </PaperProvider>
   );
 };
@@ -56,7 +55,7 @@ describe("AddWorkoutFolderModal", () => {
       { wrapper }
     );
 
-    const textInput = getByTestId("add-folder-text-input");
+    const textInput = getByTestId("text-input");
     expect(textInput).toBeTruthy();
   });
 
@@ -85,13 +84,30 @@ describe("AddWorkoutFolderModal", () => {
       <AddWorkoutFolderModal visible={true} hideModal={() => {}} />,
       { wrapper }
     );
-    
-    const textInput = getByTestId("add-folder-text-input");
+
+    const textInput = getByTestId("text-input");
     const addButton = getByTestId("add-button");
 
     fireEvent.changeText(textInput, "some name");
     fireEvent.press(addButton);
 
     expect(mockedMutation).toHaveBeenCalledWith("some name");
+  });
+
+  it("displays an error message when pressing add button and input is invalid", () => {
+    const spy = jest
+      .spyOn(workoutFolderValidation, "isValidFolderName")
+      .mockReturnValue({ isValid: false, message: "should be on the screen" });
+    const { getByTestId, getByText } = render(
+      <AddWorkoutFolderModal visible={true} hideModal={() => {}} />,
+      { wrapper }
+    );
+    const addButton = getByTestId("add-button");
+
+    fireEvent.press(addButton);
+
+    expect(getByText("should be on the screen")).toBeOnTheScreen();
+    spy.mockReset();
+    spy.mockRestore();
   });
 });
