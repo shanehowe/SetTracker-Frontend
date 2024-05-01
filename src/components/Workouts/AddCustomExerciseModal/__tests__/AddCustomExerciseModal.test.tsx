@@ -31,7 +31,7 @@ describe("Add Custom Exercise Modal", () => {
       />,
       { wrapper: AllTheProviders }
     );
-    expect(getByText("Add Custom Exercise")).toBeTruthy();
+    expect(getByText("Create custom exercise")).toBeTruthy();
   });
 
   it("should render the correct input fields", () => {
@@ -44,7 +44,7 @@ describe("Add Custom Exercise Modal", () => {
       { wrapper: AllTheProviders }
     );
 
-    expect(getByTestId("exercise-name-input")).toBeTruthy();
+    expect(getByTestId("text-input")).toBeTruthy();
   });
 
   it("should render the correct buttons", () => {
@@ -57,7 +57,7 @@ describe("Add Custom Exercise Modal", () => {
       { wrapper: AllTheProviders }
     );
 
-    expect(getByTestId("cancel-button")).toBeTruthy();
+    expect(getByTestId("cancel-modal-button")).toBeTruthy();
     expect(getByTestId("add-button")).toBeTruthy();
   });
 
@@ -72,7 +72,7 @@ describe("Add Custom Exercise Modal", () => {
       { wrapper: AllTheProviders }
     );
 
-    const cancelButton = getByTestId("cancel-button");
+    const cancelButton = getByTestId("cancel-modal-button");
     fireEvent.press(cancelButton);
 
     expect(hideModal).toHaveBeenCalledTimes(1);
@@ -90,6 +90,9 @@ describe("Add Custom Exercise Modal", () => {
     );
 
     const addButton = getByTestId("add-button");
+    const inputField = getByTestId("text-input");
+    
+    fireEvent.changeText(inputField, "something")
     fireEvent.press(addButton);
 
     expect(mockedMutation).toHaveBeenCalledTimes(1);
