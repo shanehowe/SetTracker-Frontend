@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
 import { useState } from "react";
 import { useSnack } from "../../../contexts/SnackbarContext";
-import { isValidFolderName } from "../../../utils/validation";
+import { isValidFolderName } from "../../../validation/workoutFolderValidation";
 import { WorkoutFolder } from "../../../types";
 import { useAddFolderMutation } from "../../../hooks/useAddFolderMutation";
 import { TextInputModal } from "../../Modals/TextInputModal/TextInputModal";
@@ -16,12 +15,14 @@ export const AddWorkoutFolderModal = ({
   hideModal,
 }: AddWorkoutFolderModalProps) => {
   const [folderName, setFolderName] = useState("");
+  const [formErrorMessage, setFormErrorMessage] = useState("");
   const snackService = useSnack();
 
   const onAddWorkoutFolderSuccess = (data: WorkoutFolder) => {
     snackService.success(`Created folder ${data.name}`);
     hideModal();
     setFolderName("");
+    setFormErrorMessage("");
   };
 
   const onAddWorkoutFolderError = (error: Error) => {
@@ -41,16 +42,22 @@ export const AddWorkoutFolderModal = ({
     const trimmedFolderName = folderName.trim();
     const validationResult = isValidFolderName(trimmedFolderName);
     if (!validationResult.isValid) {
-      snackService.error(validationResult.message);
+      setFormErrorMessage(validationResult.message);
       return;
     }
     addWorkoutFolderMutation.mutate(trimmedFolderName);
   };
 
+  const handleModalDismiss = () => {
+    setFormErrorMessage("");
+    hideModal();
+  }
+
   return (
     <TextInputModal
+      errorMessage={formErrorMessage}
       visible={visible}
-      onDismiss={hideModal}
+      onDismiss={handleModalDismiss}
       title="Add Workout Folder"
       placeholder="Folder Name"
       onChageText={handleFolderNameChange}
@@ -60,17 +67,3 @@ export const AddWorkoutFolderModal = ({
   );
 };
 
-const styles = StyleSheet.create({
-  modal: {
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-    height: 300,
-    justifyContent: "space-around",
-  },
-  footer: {
-    gap: 10,
-    justifyContent: "space-evenly",
-    alignContent: "center",
-  },
-});
