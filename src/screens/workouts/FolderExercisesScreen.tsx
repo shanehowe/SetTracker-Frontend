@@ -14,6 +14,7 @@ import { WorkoutFolder } from "../../types";
 import { ConfirmDeleteModal } from "../../components/Modals/ConfirmDeleteModal/ConfirmDeleteModal";
 import { useDeleteFolderMutation } from "../../hooks/useDeleteFolderMutation";
 import { LoadingScreen } from "../common/LoadingScreen";
+import { isValidFolderName } from "../../validation/workoutFolderValidation";
 
 interface FolderExercisesScreenProps extends ScreenProps {
   route: {
@@ -32,6 +33,7 @@ export const FolderExercisesScreen = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
+  const [formError, setFormError] = useState("");
 
   const theme = useTheme();
   const snack = useSnack();
@@ -53,6 +55,11 @@ export const FolderExercisesScreen = ({
   );
 
   const handleRenameFolder = () => {
+    const validationResult = isValidFolderName(newFolderName);
+    if (!validationResult.isValid) {
+      setFormError(validationResult.message);
+      return
+    }
     renameFolderMutation.mutate(newFolderName);
     setModalVisible(false);
   };
@@ -76,6 +83,12 @@ export const FolderExercisesScreen = ({
     deleteFolderMutation.mutate();
     setDeleteModalVisible(false);
   };
+
+  const handleDismissRenameFolderModal = () => {
+    setModalVisible(false);
+    setFormError("");
+    setNewFolderName("")
+  }
 
   useFocusEffect(() => {
     setVisible(true);
@@ -110,9 +123,10 @@ export const FolderExercisesScreen = ({
         visible={modalVisible}
         placeholder="Folder Name"
         title="Rename Folder"
-        onDismiss={() => setModalVisible(false)}
+        onDismiss={handleDismissRenameFolderModal}
         onSubmit={handleRenameFolder}
         onChageText={(text) => setNewFolderName(text)}
+        errorMessage={formError}
         testID="rename-folder-modal"
       />
       <ConfirmDeleteModal
