@@ -6,6 +6,7 @@ describe("TextInputModal", () => {
   it("renders correctly", () => {
     const { getByTestId } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={() => {}}
         title="Title"
@@ -23,6 +24,7 @@ describe("TextInputModal", () => {
   it("renders title correctly", () => {
     const { getByText } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={() => {}}
         title="Title"
@@ -40,6 +42,7 @@ describe("TextInputModal", () => {
   it("renders placeholder correctly", () => {
     const { getAllByText } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={() => {}}
         title="Title"
@@ -58,6 +61,7 @@ describe("TextInputModal", () => {
     const onChageText = jest.fn();
     const { getByTestId } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={() => {}}
         title="Title"
@@ -69,7 +73,7 @@ describe("TextInputModal", () => {
       { wrapper: AllTheProviders }
     );
 
-    const input = getByTestId("add-folder-text-input");
+    const input = getByTestId("text-input");
     fireEvent.changeText(input, "new text");
 
     expect(onChageText).toHaveBeenCalledWith("new text");
@@ -79,6 +83,7 @@ describe("TextInputModal", () => {
     const onSubmit = jest.fn();
     const { getByTestId } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={() => {}}
         title="Title"
@@ -100,6 +105,7 @@ describe("TextInputModal", () => {
     const onDismiss = jest.fn();
     const { getByTestId } = render(
       <TextInputModal
+        errorMessage=""
         visible={true}
         onDismiss={onDismiss}
         title="Title"

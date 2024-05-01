@@ -17,6 +17,7 @@ interface TextInputModalProps {
   onChageText: (text: string) => void;
   onSubmit: () => void;
   testID: string;
+  errorMessage: string
 }
 
 export const TextInputModal = ({
@@ -27,6 +28,7 @@ export const TextInputModal = ({
   onChageText,
   onSubmit,
   testID,
+  errorMessage
 }: TextInputModalProps) => {
   const theme = useTheme();
   const bottom = useKeyboardAdjustment();
@@ -51,8 +53,11 @@ export const TextInputModal = ({
             onChangeText={onChageText}
             mode="outlined"
             label={placeholder}
-            testID="add-folder-text-input"
+            testID="text-input"
           />
+          <View>
+            <Text style={{ color: theme.colors.error, paddingVertical: 7 }}>{errorMessage}</Text>
+          </View>
         </View>
 
         <View style={styles.footer}>
