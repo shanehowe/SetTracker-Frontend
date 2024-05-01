@@ -12,6 +12,8 @@ import { useAddCustomExerciseMutation } from "../../../hooks/useAddCustomExercis
 import { useSnack } from "../../../contexts/SnackbarContext";
 import { Exercise } from "../../../types";
 import { useState } from "react";
+import { isValidExerciseName } from "../../../validation/exerciseValidation";
+import { TextInputModal } from "../../Modals/TextInputModal/TextInputModal";
 
 interface AddCustomExerciseModalProps {
   visible: boolean;
@@ -25,14 +27,14 @@ export const AddCustomExerciseModal = ({
   handleSearchChange
 }: AddCustomExerciseModalProps) => {
   const [exerciseName, setExerciseName] = useState("");
-  const bottom = useKeyboardAdjustment();
-  const theme = useTheme();
+  const [formErrorMessage, setFormErrorMessage] = useState("");
   const snackService = useSnack();
 
   const handleAddCustomExerciseSuccess = (createdExercise: Exercise) => {
     snackService.success(`Added ${createdExercise.name}!`);
     hideModal();
     setExerciseName("");
+    setFormErrorMessage("");
     handleSearchChange(createdExercise.name);
   };
 
@@ -45,46 +47,32 @@ export const AddCustomExerciseModal = ({
     handleAddCustomExerciseError
   );
 
+  const handleAddCustomExercise = () => {
+    const result = isValidExerciseName(exerciseName);
+    if (!result.isValid) {
+      setFormErrorMessage(result.message);
+      return;
+    }
+    addCustomExerciseMutation.mutate(exerciseName);
+  }
+
+  const handleModalDismiss = () => {
+    setFormErrorMessage("");
+    setExerciseName("");
+    hideModal();
+  }
+
   return (
-    <Portal>
-      <Modal
-        onDismiss={hideModal}
-        testID="add-custom-exercise-modal"
-        visible={visible}
-        contentContainerStyle={[
-          styles.modal,
-          { backgroundColor: theme.colors.surface, bottom },
-        ]}
-      >
-        <View style={styles.contentContainer}>
-          <View>
-            <Text>Add Custom Exercise</Text>
-          </View>
-
-          <View>
-            <TextInput
-              onChangeText={(text) => setExerciseName(text)}
-              mode="outlined"
-              label="Exercise Name"
-              testID="exercise-name-input"
-            />
-          </View>
-          <View style={styles.footer}>
-            <Button
-              testID="add-button"
-              mode="contained"
-              onPress={() => addCustomExerciseMutation.mutate(exerciseName)}
-            >
-              Add Exercise
-            </Button>
-
-            <Button testID="cancel-button" onPress={hideModal} mode="outlined">
-              Cancel
-            </Button>
-          </View>
-        </View>
-      </Modal>
-    </Portal>
+    <TextInputModal
+      visible={visible}
+      title="Create custom exercise"
+      onDismiss={handleModalDismiss}
+      placeholder="exercise name..."
+      onChageText={(text) => setExerciseName(text)}
+      onSubmit={handleAddCustomExercise}
+      testID="add-custom-exercise-modal"
+      errorMessage={formErrorMessage}
+    />
   );
 };
 
