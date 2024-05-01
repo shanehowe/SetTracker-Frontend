@@ -9,7 +9,6 @@ import { NumberInput } from "../NumberInput/NumberInput";
 import { Button, useTheme } from "react-native-paper";
 import { useReducedMotion } from "react-native-reanimated";
 import { useMemo, useState, forwardRef } from "react";
-import { DateAndTimePicker } from "../DateAndTimePicker/DateAndTimePicker";
 import { View } from "react-native";
 import { WeightIncrementToolbar } from "../WeightIncrementToolBar/WeightIncrementToolBar";
 import { useAddSetMutation } from "../../../hooks/useAddSetMutation";
