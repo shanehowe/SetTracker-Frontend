@@ -39,6 +39,7 @@ To set up the SetTracker frontend on your local machine, follow these steps:
 ```bash
 git clone https://github.com/yourusername/SetTracker-Frontend.git
 cd SetTracker-Frontend
+```
 2. **Install dependencies**
 ```bash
 npm Install
