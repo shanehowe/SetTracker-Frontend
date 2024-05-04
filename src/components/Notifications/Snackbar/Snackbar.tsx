@@ -19,7 +19,7 @@ export const Snackbar = () => {
         onIconPress={close}
         testID="snackbar"
         style={{
-          bottom: 50
+          bottom: 10
         }}
       >
         {snackState.message}
