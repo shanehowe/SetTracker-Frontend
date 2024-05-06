@@ -13,7 +13,7 @@ export const SignInForm = () => {
     const trimmedEmail = emailField.value.trim();
     const trimmedPassword = passwordField.value.trim();
     if (trimmedEmail && trimmedPassword) {
-      auth.signIn(trimmedEmail, trimmedPassword);
+      // Do nothing for now. Not implemented yet.
     } else {
       Alert.alert("Error", "Please fill in all fields");
     }

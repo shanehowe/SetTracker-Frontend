@@ -9,13 +9,13 @@ interface AuthContextProps {
 }
 
 type AuthContextType = {
-  signIn: (provider: string, token: string) => void;
+  signInWithOAuth: (provider: string, token: string) => void;
   signOut: () => void;
   user: User | null;
 };
 
 const AuthContext = React.createContext<AuthContextType>({
-  signIn: (provider: string, token: string) => {},
+  signInWithOAuth: (provider: string, token: string) => {},
   signOut: () => {},
   user: null,
 });
@@ -24,7 +24,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const queryClient = useQueryClient();
 
-  const signInMutation = useMutation({
+  const signInOAuthMutation = useMutation({
     mutationFn: async ({
       provider,
       token,
@@ -63,8 +63,8 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     checkAuth();
   }, []);
 
-  const signIn = async (provider: string, token: string) => {
-    signInMutation.mutate({ provider, token });
+  const signInWithOAuth = async (provider: string, token: string) => {
+    signInOAuthMutation.mutate({ provider, token });
   };
 
   const signOut = async () => {
@@ -73,7 +73,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   };
 
   const service = {
-    signIn,
+    signInWithOAuth,
     signOut,
     user,
   };

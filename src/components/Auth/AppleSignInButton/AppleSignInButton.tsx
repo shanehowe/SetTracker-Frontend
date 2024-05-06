@@ -14,7 +14,7 @@ export const AppleSignInButton = () => {
       });
 
       if (credential && credential.identityToken) {
-        auth.signIn('apple', credential.identityToken);
+        auth.signInWithOAuth('apple', credential.identityToken);
       }
 
     } catch (e: Error | any) {
