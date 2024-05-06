@@ -49,8 +49,7 @@ export type RootStackParamList = {
 
 export type AuthStackParamList = {
   SignIn: undefined;
-  SignUp: undefined;
-  SignInEmailPassword: undefined;
+  EmailLogInSignUpScreen: undefined;
 };
 
 export type SettingsStackParamList = {
