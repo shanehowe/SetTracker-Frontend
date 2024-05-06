@@ -13,7 +13,7 @@ const signIn = async (provider: string, token: string) => {
     provider,
     token,
   };
-  const response = await axios.post<User>(`${API_URL}/auth/signin`, payload);
+  const response = await axios.post<User>(`${API_URL}/auth/signin/oauth`, payload);
   return response.data;
 };
 
