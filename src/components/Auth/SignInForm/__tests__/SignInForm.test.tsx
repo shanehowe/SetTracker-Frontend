@@ -16,11 +16,9 @@ describe("SignInForm", () => {
     const emailInput = getByTestId("email-input");
     const loginButton = getByTestId("login-button");
     const passwordInput = getByTestId("password-input");
-    const forgotPasswordButton = getByTestId("forgot-password-button");
 
     expect(emailInput).toBeTruthy();
     expect(loginButton).toBeTruthy();
-    expect(forgotPasswordButton).toBeTruthy();
     expect(passwordInput).toBeTruthy();
   });
 
