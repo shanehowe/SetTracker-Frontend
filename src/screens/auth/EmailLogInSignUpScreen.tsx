@@ -2,6 +2,7 @@ import { SafeAreaView, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { TabScreen, Tabs, TabsProvider } from "react-native-paper-tabs";
 import { SignInForm } from "../../components/Auth/SignInForm/SignInForm";
+import { SignUpForm } from "../../components/Auth/SignUpForm/SignUpForm";
 
 export const EmailLogInSignUpScreen = () => {
   const theme = useTheme();
@@ -14,7 +15,7 @@ export const EmailLogInSignUpScreen = () => {
               <SignInForm />
             </TabScreen>
             <TabScreen label="Sign Up">
-              <Text>Hello</Text>
+              <SignUpForm />
             </TabScreen>
           </Tabs>
         </TabsProvider>
