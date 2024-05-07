@@ -8,15 +8,35 @@ const setToken = (newToken: string) => {
   token = newToken;
 };
 
-const signIn = async (provider: string, token: string) => {
+const signInOAuth = async (provider: string, token: string) => {
   const payload = {
     provider,
     token,
   };
-  const response = await axios.post<User>(`${API_URL}/auth/signin/oauth`, payload);
+  const response = await axios.post<User>(
+    `${API_URL}/auth/signin/oauth`,
+    payload
+  );
   return response.data;
 };
 
-const authService = { signIn, setToken };
+const handleSignInUp = async (email: string, password: string, path: string) => {
+  const payload = {
+    email,
+    password,
+  };
+  const response = await axios.post<User>(`${API_URL}/auth/${path}`, payload);
+  return response.data;
+};
+
+const signInEmailPassword = async (email: string, password: string) => {
+  return handleSignInUp(email, password, "signin");
+};
+
+const signUpEmailPassword = async (email: string, password: string) => {
+  return handleSignInUp(email, password, "signup");
+};
+
+const authService = { signInOAuth, setToken, signInEmailPassword, signUpEmailPassword };
 
 export default authService;
