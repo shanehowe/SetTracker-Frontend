@@ -8,14 +8,25 @@ interface AuthContextProps {
   children: React.ReactNode;
 }
 
+/*
+* TODO: refactor sign in functionality to use custom hooks
+* All we should have in here is sign out and set user
+* this will allow better error handling in the components
+* that use sign in functionality.
+* 
+* Right now for some reason we are getting duplicate responses from the server.
+*/
+
 type AuthContextType = {
-  signInWithOAuth: (provider: string, token: string) => void;
+  signUpEmailPassword: (email: string, password: string) => void;
+  onSignInSuccess: (user: User) => void;
   signOut: () => void;
   user: User | null;
 };
 
 const AuthContext = React.createContext<AuthContextType>({
-  signInWithOAuth: (provider: string, token: string) => {},
+  signUpEmailPassword: (email: string, password: string) => {},
+  onSignInSuccess: (user: User) => {},
   signOut: () => {},
   user: null,
 });
@@ -24,26 +35,30 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const queryClient = useQueryClient();
 
-  const signInOAuthMutation = useMutation({
+  const onSignInSuccess = async (user: User) => {
+    queryClient.invalidateQueries();
+    queryClient.setQueryData(["user"], user);
+    authService.setToken(user.token);
+    await storage.set(StoredConsts.LOGGED_IN_USER, JSON.stringify(user));
+    await storage.set(
+      StoredConsts.PREFERRED_THEME,
+      user.preferences?.theme as string
+    );
+    setUser(user);
+  };
+
+  const signUpEmailPasswordMutation = useMutation({
     mutationFn: async ({
-      provider,
-      token,
+      email,
+      password,
     }: {
-      provider: string;
-      token: string;
-    }) => await authService.signIn(provider, token),
-    onSuccess: async (user: User) => {
-      queryClient.invalidateQueries();
-      queryClient.setQueryData(["user"], user);
-      authService.setToken(user.token);
-      await storage.set(StoredConsts.LOGGED_IN_USER, JSON.stringify(user));
-      await storage.set(
-        StoredConsts.PREFERRED_THEME,
-        user.preferences?.theme as string
-      );
-      setUser(user);
+      email: string;
+      password: string;
+    }) => await authService.signUpEmailPassword(email, password),
+    onSuccess: onSignInSuccess,
+    onError: (error) => {
+      throw error;
     },
-    onError: (error) => console.error(error),
   });
 
   React.useEffect(() => {
@@ -63,8 +78,8 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
     checkAuth();
   }, []);
 
-  const signInWithOAuth = async (provider: string, token: string) => {
-    signInOAuthMutation.mutate({ provider, token });
+  const signUpEmailPassword = async (email: string, password: string) => {
+    await signUpEmailPasswordMutation.mutateAsync({ email, password });
   };
 
   const signOut = async () => {
@@ -73,9 +88,10 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
   };
 
   const service = {
-    signInWithOAuth,
     signOut,
     user,
+    signUpEmailPassword,
+    onSignInSuccess,
   };
 
   return (
