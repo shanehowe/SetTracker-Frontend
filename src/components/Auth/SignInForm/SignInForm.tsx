@@ -3,17 +3,42 @@ import { TextInput, Button, Surface, Text } from "react-native-paper";
 import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useField } from "../../../hooks/useField";
 import { useAuth } from "../../../contexts/AuthContext";
+import { isAxiosError } from "axios";
+import { useSignInWithEmailPasswordMutation } from "../../../hooks/useSignInWithEmailPasswordMutation";
 
 export const SignInForm = () => {
   const auth = useAuth();
   const emailField = useField("email");
   const passwordField = useField("password");
 
+  const onSignInError = (error: Error) => {
+    console.log(error);
+    if (isAxiosError(error)) {
+      const status = error.response?.status;
+      if (status === 422) {
+        Alert.alert("Error", "Please provide a valid email.");
+      } else {
+        Alert.alert("Error", error.response?.data.detail);
+      }
+    } else {
+      Alert.alert("Error", "An unexpected error occurred. Please try again later.");
+    }
+
+  };
+
+  const signInEmailPassswordMutation = useSignInWithEmailPasswordMutation(
+    auth.onSignInSuccess,
+    onSignInError
+  );
+
   const handleSignIn = () => {
-    const trimmedEmail = emailField.value.trim();
+    const trimmedEmail = emailField.value.trim().toLowerCase();
     const trimmedPassword = passwordField.value.trim();
     if (trimmedEmail && trimmedPassword) {
-      // Do nothing for now. Not implemented yet.
+      signInEmailPassswordMutation.mutate({
+        email: trimmedEmail,
+        password: trimmedPassword,
+      });
     } else {
       Alert.alert("Error", "Please fill in all fields");
     }
