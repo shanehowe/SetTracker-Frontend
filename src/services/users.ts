@@ -6,16 +6,21 @@ type Preferences = {
   theme: string;
 };
 
+const userClient = axios.create({
+  baseURL: `${API_URL}/me`,
+});
+
+userClient.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 const updatePreferences = async (
   updatedPreferences: Partial<Preferences>
 ): Promise<void> => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  const response = await axios.put<void>(
-    `${API_URL}/me/preferences`,
-    updatedPreferences,
-    { headers }
+  const response = await userClient.put<void>(
+    "/preferences",
+    updatedPreferences
   );
   return response.data;
 };

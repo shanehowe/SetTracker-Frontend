@@ -3,28 +3,27 @@ import axios from "axios";
 import { token } from "./auth";
 import { API_URL } from "./common";
 
-const getAll = async () => {
-  const headers = {
+const exerciseClient = axios.create({
+  baseURL: `${API_URL}/exercises`,
+  headers: {
     Authorization: `Bearer ${token}`,
-  };
-  const response = await axios.get<Exercise[]>(`${API_URL}/exercises/`, {
-    headers,
-  });
+  },
+});
+
+exerciseClient.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+const getAll = async () => {
+  const response = await exerciseClient.get<Exercise[]>("/");
   return response.data;
 };
 
 const createCustom = async (exerciseName: string): Promise<Exercise> => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  const payload = {
+  const response = await exerciseClient.post<Exercise>("/", {
     name: exerciseName,
-  };
-  const response = await axios.post<Exercise>(
-    `${API_URL}/exercises/`,
-    payload,
-    { headers }
-  );
+  });
   return response.data;
 };
 

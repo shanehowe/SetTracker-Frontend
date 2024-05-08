@@ -3,78 +3,53 @@ import { token } from "./auth";
 import axios from "axios";
 import { API_URL } from "./common";
 
+const workoutFolderClient = axios.create({
+  baseURL: `${API_URL}/workout-folders`,
+});
+
+workoutFolderClient.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 const getAll = async () => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  const response = await axios.get<WorkoutFolder[]>(
-    `${API_URL}/workout-folders/`,
-    { headers }
-  );
+  const response = await workoutFolderClient.get<WorkoutFolder[]>("/");
   return response.data;
 };
 
 const create = async (folderName: string) => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
   const payload = {
     name: folderName,
   };
-
-  const response = await axios.post<WorkoutFolder>(
-    `${API_URL}/workout-folders/`,
-    payload,
-    { headers }
-  );
+  const response = await workoutFolderClient.post<WorkoutFolder>("/", payload);
   return response.data;
 };
 
 const getById = async (folderId: string) => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  const response = await axios.get<WorkoutFolder>(
-    `${API_URL}/workout-folders/${folderId}`,
-    { headers }
-  );
+  const response = await workoutFolderClient.get<WorkoutFolder>(`/${folderId}`);
   return response.data;
 };
 
-const updateFolder = async (folderId: string, folder: Partial<WorkoutFolder>) => {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  const response = await axios.put<WorkoutFolder>(
-    `${API_URL}/workout-folders/${folderId}`,
-    folder,
-    { headers }
+const updateFolder = async (
+  folderId: string,
+  folder: Partial<WorkoutFolder>
+) => {
+  const response = await workoutFolderClient.put<WorkoutFolder>(
+    `/${folderId}`,
+    folder
   );
   return response.data;
-};
-
-const updateExercises = (folderId: string, exercises: string[]) => {
 };
 
 const remove = async (folderId: string) => {
-  const headers = {
-    Authorization: `Bearer ${token}`
-  };
-  const response = await axios.delete(
-    `${API_URL}/workout-folders/${folderId}`,
-    { headers }
-  );
+  const response = await workoutFolderClient.delete(`/${folderId}`);
   return response.data;
-};
-
-const rename = (folderId: string, name: string) => {
 };
 
 const workoutFolderService = {
   getAll,
   create,
   getById,
-  updateExercises,
   remove,
   updateFolder,
 };
