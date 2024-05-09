@@ -5,9 +5,6 @@ import { API_URL } from "./common";
 
 const exerciseClient = axios.create({
   baseURL: `${API_URL}/exercises`,
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
 });
 
 exerciseClient.interceptors.request.use((config) => {
