@@ -1,8 +1,34 @@
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { Surface, Text, TextInput, Button } from "react-native-paper";
 import { PasswordInput } from "../../PasswordInput/PasswordInput";
+import { useSignUpWithEmailPasswordMutation } from "../../../hooks/useSignUpWithEmailPasswordMutation";
+import { useAuth } from "../../../contexts/AuthContext";
+import { useField } from "../../../hooks/useField";
 
 export const SignUpForm = () => {
+  const auth = useAuth();
+  const signUpEmailPasswordMutation = useSignUpWithEmailPasswordMutation(
+    auth.onSignInSuccess,
+    console.error
+  );
+
+  const emailField = useField();
+  const passwordField = useField();
+  const confirmPasswordField = useField();
+
+  const handleSignUp = () => {
+    const email = emailField.value.trim().toLowerCase();
+    const password = passwordField.value;
+    const confirmPassword = confirmPasswordField.value;
+
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Password fields do not match");
+      return;
+    }
+
+    signUpEmailPasswordMutation.mutate({ email, password });
+  }
+
   return (
     <Surface mode="flat" style={styles.surfaceStyle}>
     <Text>Create an account</Text>
@@ -10,23 +36,25 @@ export const SignUpForm = () => {
       label="Email"
       mode="outlined"
       testID="email-input"
+      onChangeText={emailField.onChange}
     />
     <PasswordInput
       label="Password"
       mode="outlined"
       style={styles.defaultSpacing}
-      onChangeText={() => {}}
+      onChangeText={passwordField.onChange}
     />
     <PasswordInput
       label="Confirm Password"
       mode="outlined"
       style={styles.defaultSpacing}
-      onChangeText={() => {}}
+      onChangeText={confirmPasswordField.onChange}
     />
     <Button
       mode="contained"
       style={[styles.extraSpacing, styles.fullWidth]}
       testID="signup-button"
+      onPress={handleSignUp}
     >
       Sign Up
     </Button>
