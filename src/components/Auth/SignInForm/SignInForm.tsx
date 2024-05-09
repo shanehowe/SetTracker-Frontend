@@ -8,8 +8,8 @@ import { useSignInWithEmailPasswordMutation } from "../../../hooks/useSignInWith
 
 export const SignInForm = () => {
   const auth = useAuth();
-  const emailField = useField("email");
-  const passwordField = useField("password");
+  const emailField = useField();
+  const passwordField = useField();
 
   const onSignInError = (error: Error) => {
     console.log(error);
