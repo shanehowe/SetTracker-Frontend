@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export const useField = (name: string) => {
+export const useField = () => {
     const [value, setValue] = useState('');
 
     const onChange = (text: string) => {
         setValue(text);
     };
 
-    return { name, value, onChange };
+    return { value, onChange };
 }
