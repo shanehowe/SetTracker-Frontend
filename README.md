@@ -25,7 +25,7 @@ The SetTracker frontend is built using a range of modern technologies designed f
 Before you start setting up the SetTracker frontend, make sure the following prerequisite is met:
 
 - **Backend Setup**: The backend for SetTracker must be fully set up and operational. This includes having the Azure Function app running, and the CosmosDB properly configured as outlined in the backend repository. Ensure you have the backend's URL, as it will be required to configure the frontend to communicate with it.
-- **An iPhone or MacOS device** Since authentication is done through Apple you wont be able to get in otherwise.
+- **An iPhone or MacOS device** If you want to run the app on ios.
 - **ExpoGo App** If you want to run this app on your own iPhone then download this app.
 
 Make sure you have access to the backend repository and follow the setup instructions available there if you have not yet configured it.
@@ -65,8 +65,8 @@ API_URL="192.168.1.48:{BACKEND PORT NUMBER}"
 ```
 Make sure to replace the port number. It should be ```7071```.
 
-6. **Restart the application** Run the app again. You will see a QR code, scan it and it will open up ExpoGo or run it on ios simulator see [Expo iOS Simulator Setup](https://docs.expo.dev/workflow/ios-simulator/)
+6. **Restart the application** Run the app again. You will see a QR code, scan it and it will open up ExpoGo or run it on ios simulator see [Expo iOS Simulator Setup](https://docs.expo.dev/workflow/ios-simulator/). If you want to run the application on the web just enter 'w' and the application will open in your browser. Please not this app was not designed with the web in mind.
 
-7. Thats it if successful you should now have the app up and running along with the backend!!
+7. **Success** Thats it if successful you should now have the app up and running along with the backend!!
 
 
