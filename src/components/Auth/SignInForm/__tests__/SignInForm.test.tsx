@@ -1,18 +1,12 @@
 import { render, fireEvent } from "@testing-library/react-native";
 import { SignInForm } from "../SignInForm";
-import { Alert } from 'react-native';
 import { AllTheProviders } from "../../../../test-utils";
-
-const mockSignIn = jest.fn();
-jest.mock("../../../../contexts/AuthContext", () => ({
-  useAuth: () => ({
-    signIn: mockSignIn
-  })
-}));
 
 describe("SignInForm", () => {
   it("renders all children", () => {
-    const { getByTestId } = render(<SignInForm />, { wrapper: AllTheProviders });
+    const { getByTestId } = render(<SignInForm />, {
+      wrapper: AllTheProviders,
+    });
 
     const emailInput = getByTestId("email-input");
     const loginButton = getByTestId("login-button");
@@ -24,7 +18,9 @@ describe("SignInForm", () => {
   });
 
   it("shows banner text when password is blank", () => {
-    const { getByTestId, getByText } = render(<SignInForm />, { wrapper: AllTheProviders });
+    const { getByTestId, getByText } = render(<SignInForm />, {
+      wrapper: AllTheProviders,
+    });
 
     const loginButton = getByTestId("login-button");
     const emailInput = getByTestId("email-input");
@@ -36,7 +32,9 @@ describe("SignInForm", () => {
   });
 
   it("shows banner text when email is blank", () => {
-    const { getByTestId, getByText } = render(<SignInForm />, { wrapper: AllTheProviders });
+    const { getByTestId, getByText } = render(<SignInForm />, {
+      wrapper: AllTheProviders,
+    });
 
     const loginButton = getByTestId("login-button");
     const passwordInput = getByTestId("password-input");
@@ -46,4 +44,4 @@ describe("SignInForm", () => {
 
     expect(getByText("Please fill in all fields to continue.")).toBeTruthy();
   });
-})
+});
