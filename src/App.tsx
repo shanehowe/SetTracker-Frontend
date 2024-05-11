@@ -8,6 +8,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { AppThemeProvider } from "./contexts/AppThemeContext";
 
 import React from "react";
+import { BannerProvider } from "./contexts/BannerContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,14 +23,16 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvidor>
         <AppThemeProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
-              <SnackbarProvider>
-                <Router />
-                <StatusBar style="auto" />
-              </SnackbarProvider>
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
+          <BannerProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <BottomSheetModalProvider>
+                <SnackbarProvider>
+                  <Router />
+                  <StatusBar style="auto" />
+                </SnackbarProvider>
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </BannerProvider>
         </AppThemeProvider>
       </AuthProvidor>
     </QueryClientProvider>
