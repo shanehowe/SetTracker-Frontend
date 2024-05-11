@@ -8,15 +8,6 @@ interface AuthContextProps {
   children: React.ReactNode;
 }
 
-/*
-* TODO: refactor sign in functionality to use custom hooks
-* All we should have in here is sign out and set user
-* this will allow better error handling in the components
-* that use sign in functionality.
-* 
-* Right now for some reason we are getting duplicate responses from the server.
-*/
-
 type AuthContextType = {
   signUpEmailPassword: (email: string, password: string) => void;
   onSignInSuccess: (user: User) => void;
