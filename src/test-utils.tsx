@@ -6,6 +6,7 @@ import { SnackbarProvider } from "./contexts/SnackbarContext";
 import { NavigationContainer } from "@react-navigation/native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BannerProvider } from "./contexts/BannerContext";
 
 interface WrappperArgs {
   children: React.ReactNode;
@@ -32,11 +33,13 @@ export const AllTheProviders = ({ children }: WrappperArgs) => {
       <QueryClientProvider client={mockedQueryClient}>
         <PaperProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
+            <BannerProvider>
             <BottomSheetModalProvider>
               <NavigationContainer>
                 <SnackbarProvider>{children}</SnackbarProvider>
               </NavigationContainer>
             </BottomSheetModalProvider>
+            </BannerProvider>
           </GestureHandlerRootView>
         </PaperProvider>
       </QueryClientProvider>
