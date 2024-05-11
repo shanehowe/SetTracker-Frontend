@@ -4,12 +4,30 @@ import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useSignUpWithEmailPasswordMutation } from "../../../hooks/useSignUpWithEmailPasswordMutation";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useField } from "../../../hooks/useField";
+import { Banner } from "../../Notifications/Banner/Banner";
+import { useBanner } from "../../../contexts/BannerContext";
+import { isAxiosError } from "axios";
 
 export const SignUpForm = () => {
   const auth = useAuth();
+  const { show: showBanner } = useBanner();
+
+  const onSignUpError = (error: Error) => {
+    if (isAxiosError(error)) {
+      // 422 Unprocessable Entity. Only email field is validated.
+      if (error.response?.status === 422) {
+        showBanner("Please provide a valid email address to continue.");
+      } else {
+        showBanner(error.response?.data.detail);
+      }
+    } else {
+      showBanner("An unexpected error occurred. Please try again later.");
+    }
+  }
+
   const signUpEmailPasswordMutation = useSignUpWithEmailPasswordMutation(
     auth.onSignInSuccess,
-    console.error
+    onSignUpError
   );
 
   const emailField = useField();
@@ -22,7 +40,7 @@ export const SignUpForm = () => {
     const confirmPassword = confirmPasswordField.value;
 
     if (password !== confirmPassword) {
-      Alert.alert("Error", "Password fields do not match");
+      showBanner("Password fields do not match");
       return;
     }
 
@@ -30,6 +48,8 @@ export const SignUpForm = () => {
   }
 
   return (
+    <>
+    <Banner />
     <Surface mode="flat" style={styles.surfaceStyle}>
     <Text>Create an account</Text>
     <TextInput
@@ -59,6 +79,7 @@ export const SignUpForm = () => {
       Sign Up
     </Button>
   </Surface>
+  </>
   );
 };
 

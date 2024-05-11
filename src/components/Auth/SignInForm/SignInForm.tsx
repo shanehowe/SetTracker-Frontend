@@ -1,29 +1,30 @@
-import { Alert, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { TextInput, Button, Surface, Text } from "react-native-paper";
 import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useField } from "../../../hooks/useField";
 import { useAuth } from "../../../contexts/AuthContext";
 import { isAxiosError } from "axios";
 import { useSignInWithEmailPasswordMutation } from "../../../hooks/useSignInWithEmailPasswordMutation";
+import { Banner } from "../../Notifications/Banner/Banner";
+import { useBanner } from "../../../contexts/BannerContext";
 
 export const SignInForm = () => {
   const auth = useAuth();
   const emailField = useField();
   const passwordField = useField();
+  const { show: showBanner } = useBanner();
 
   const onSignInError = (error: Error) => {
-    console.log(error);
     if (isAxiosError(error)) {
       const status = error.response?.status;
       if (status === 422) {
-        Alert.alert("Error", "Please provide a valid email.");
+        showBanner("Please provide a valid email address to continue.");
       } else {
-        Alert.alert("Error", error.response?.data.detail);
+        showBanner(error.response?.data.detail);
       }
     } else {
-      Alert.alert("Error", "An unexpected error occurred. Please try again later.");
+      showBanner("An unexpected error occurred. Please try again later.");
     }
-
   };
 
   const signInEmailPassswordMutation = useSignInWithEmailPasswordMutation(
@@ -40,11 +41,13 @@ export const SignInForm = () => {
         password: trimmedPassword,
       });
     } else {
-      Alert.alert("Error", "Please fill in all fields");
+     showBanner("Please fill in all fields to continue.");
     }
   };
 
   return (
+    <>
+    <Banner />
     <Surface mode="flat" style={styles.surfaceStyle}>
       <Text>Sign in to your account</Text>
       <TextInput
@@ -68,6 +71,7 @@ export const SignInForm = () => {
         Sign In
       </Button>
     </Surface>
+    </>
   );
 };
 

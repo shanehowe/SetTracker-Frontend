@@ -1,6 +1,7 @@
 import { render, fireEvent } from "@testing-library/react-native";
 import { SignInForm } from "../SignInForm";
 import { Alert } from 'react-native';
+import { AllTheProviders } from "../../../../test-utils";
 
 const mockSignIn = jest.fn();
 jest.mock("../../../../contexts/AuthContext", () => ({
@@ -11,7 +12,7 @@ jest.mock("../../../../contexts/AuthContext", () => ({
 
 describe("SignInForm", () => {
   it("renders all children", () => {
-    const { getByTestId } = render(<SignInForm />);
+    const { getByTestId } = render(<SignInForm />, { wrapper: AllTheProviders });
 
     const emailInput = getByTestId("email-input");
     const loginButton = getByTestId("login-button");
@@ -22,45 +23,27 @@ describe("SignInForm", () => {
     expect(passwordInput).toBeTruthy();
   });
 
-  // Sign in with email and password is not implemented yet
-  // it("calls signIn when data is present in text inputs", () => {
-  //   const { getByTestId } = render(<SignInForm />);
-
-  //   const emailInput = getByTestId("email-input");
-  //   const passwordInput = getByTestId("password-input");
-  //   const loginButton = getByTestId("login-button");
-
-  //   fireEvent.changeText(emailInput, "test@email.com");
-  //   fireEvent.changeText(passwordInput, "bad-password");
-  //   fireEvent.press(loginButton);
-
-  //   expect(mockSignIn).toHaveBeenCalled();
-  //   expect(mockSignIn).toHaveBeenCalledWith("test@email.com", "bad-password");
-  // });
-
-  it("shows an Alert when password is blank", () => {
-    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
-    const { getByTestId } = render(<SignInForm />);
+  it("shows banner text when password is blank", () => {
+    const { getByTestId, getByText } = render(<SignInForm />, { wrapper: AllTheProviders });
 
     const loginButton = getByTestId("login-button");
     const emailInput = getByTestId("email-input");
 
     fireEvent.changeText(emailInput, "email@email.com");
     fireEvent.press(loginButton);
-    expect(alertSpy).toHaveBeenCalled();
-    alertSpy.mockRestore();
+
+    expect(getByText("Please fill in all fields to continue.")).toBeTruthy();
   });
 
-  it("shows an Alert when email is blank", () => {
-    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
-    const { getByTestId } = render(<SignInForm />);
+  it("shows banner text when email is blank", () => {
+    const { getByTestId, getByText } = render(<SignInForm />, { wrapper: AllTheProviders });
 
     const loginButton = getByTestId("login-button");
     const passwordInput = getByTestId("password-input");
 
     fireEvent.changeText(passwordInput, "testing");
     fireEvent.press(loginButton);
-    expect(alertSpy).toHaveBeenCalled();
-    alertSpy.mockRestore();
+
+    expect(getByText("Please fill in all fields to continue.")).toBeTruthy();
   });
 })
