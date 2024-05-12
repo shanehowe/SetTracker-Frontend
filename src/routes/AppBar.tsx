@@ -46,7 +46,7 @@ export const AppBottomTab = () => {
         }}
       >
         <Appbar.BackAction onPress={handleGoBackPress} />
-        <Appbar.Content title="App name" />
+        <Appbar.Content title="SetTracker" />
       </Appbar.Header>
       <Snackbar />
       <Tab.Navigator
