@@ -1,4 +1,4 @@
-import { Alert, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Surface, Text, TextInput, Button } from "react-native-paper";
 import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useSignUpWithEmailPasswordMutation } from "../../../hooks/useSignUpWithEmailPasswordMutation";
@@ -11,6 +11,10 @@ import { isAxiosError } from "axios";
 export const SignUpForm = () => {
   const auth = useAuth();
   const { show: showBanner } = useBanner();
+
+  const emailField = useField();
+  const passwordField = useField();
+  const confirmPasswordField = useField();
 
   const onSignUpError = (error: Error) => {
     if (isAxiosError(error)) {
@@ -30,15 +34,15 @@ export const SignUpForm = () => {
     onSignUpError
   );
 
-  const emailField = useField();
-  const passwordField = useField();
-  const confirmPasswordField = useField();
-
   const handleSignUp = () => {
     const email = emailField.value.trim().toLowerCase();
     const password = passwordField.value;
     const confirmPassword = confirmPasswordField.value;
-
+    if (!email || !password || !confirmPassword) {
+      showBanner("Please fill in all fields to continue.");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       showBanner("Password fields do not match");
       return;
