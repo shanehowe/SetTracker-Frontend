@@ -17,9 +17,9 @@ export const AvatarHeading = ({ title, icon }: AvatarHeadingProps) => {
               backgroundColor: theme.colors.primary,
               alignSelf: "center",
               flex: 0,
-              marginBottom: 20,
+              marginBottom: 5,
             }}
-            size={100}
+            size={90}
             icon={icon}
             testID="avatar-icon"
           />
