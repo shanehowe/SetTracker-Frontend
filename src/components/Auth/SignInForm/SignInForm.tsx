@@ -1,14 +1,16 @@
 import { StyleSheet } from "react-native";
-import { TextInput, Button, Surface, Text } from "react-native-paper";
+import { TextInput, Button, Surface } from "react-native-paper";
 import { PasswordInput } from "../../PasswordInput/PasswordInput";
 import { useField } from "../../../hooks/useField";
 import { useAuth } from "../../../contexts/AuthContext";
 import { isAxiosError } from "axios";
 import { useSignInWithEmailPasswordMutation } from "../../../hooks/useSignInWithEmailPasswordMutation";
-import { Banner } from "../../Notifications/Banner/Banner";
 import { useBanner } from "../../../contexts/BannerContext";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AuthStackParamList } from "../../../types";
 
 export const SignInForm = () => {
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   const auth = useAuth();
   const emailField = useField();
   const passwordField = useField();
@@ -41,36 +43,41 @@ export const SignInForm = () => {
         password: trimmedPassword,
       });
     } else {
-     showBanner("Please fill in all fields to continue.");
+      showBanner("Please fill in all fields to continue.");
     }
   };
 
   return (
     <>
-    <Banner />
-    <Surface mode="flat" style={styles.surfaceStyle}>
-      <Text>Sign in to your account</Text>
-      <TextInput
-        label="Email"
-        mode="outlined"
-        onChangeText={emailField.onChange}
-        testID="email-input"
-      />
-      <PasswordInput
-        label="Password"
-        mode="outlined"
-        onChangeText={passwordField.onChange}
-        style={styles.defaultSpacing}
-      />
-      <Button
-        mode="contained"
-        style={[styles.extraSpacing, styles.fullWidth]}
-        onPress={handleSignIn}
-        testID="login-button"
-      >
-        Sign In
-      </Button>
-    </Surface>
+      <Surface style={styles.surfaceStyle}>
+        <TextInput
+          label="Email"
+          mode="outlined"
+          onChangeText={emailField.onChange}
+          testID="email-input"
+        />
+        <PasswordInput
+          label="Password"
+          mode="outlined"
+          onChangeText={passwordField.onChange}
+          style={styles.defaultSpacing}
+        />
+        <Button
+          mode="contained"
+          style={[styles.extraSpacing, styles.fullWidth]}
+          onPress={handleSignIn}
+          testID="login-button"
+        >
+          Sign In
+        </Button>
+
+        <Button
+          style={[styles.defaultSpacing, styles.fullWidth]}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          I don't have an account
+        </Button>
+      </Surface>
     </>
   );
 };
@@ -92,7 +99,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     height: 300,
     justifyContent: "center",
-    marginTop: 50,
     borderRadius: 8,
   },
 });

@@ -1,8 +1,20 @@
-import { render, fireEvent } from "@testing-library/react-native";
+import { fireEvent, render } from "@testing-library/react-native";
 import { SignInForm } from "../SignInForm";
 import { AllTheProviders } from "../../../../test-utils";
+import { act } from "react-test-renderer";
+
+const mockMutate = jest.fn();
+jest.mock("../../../../hooks/useSignInWithEmailPasswordMutation", () => ({
+  useSignInWithEmailPasswordMutation: () => ({
+    mutate: mockMutate,
+  }),
+}));
 
 describe("SignInForm", () => {
+  beforeEach(() => {
+    mockMutate.mockClear();
+  });
+
   it("renders all children", () => {
     const { getByTestId } = render(<SignInForm />, {
       wrapper: AllTheProviders,
@@ -17,31 +29,46 @@ describe("SignInForm", () => {
     expect(passwordInput).toBeTruthy();
   });
 
-  it("shows banner text when password is blank", () => {
-    const { getByTestId, getByText } = render(<SignInForm />, {
+  it("calls signInEmailPasswordMutation.mutate on login button press", async () => {
+    const { getByTestId } = render(<SignInForm />, {
       wrapper: AllTheProviders,
     });
 
-    const loginButton = getByTestId("login-button");
     const emailInput = getByTestId("email-input");
+    const loginButton = getByTestId("login-button");
+    const passwordInput = getByTestId("password-input");
 
-    fireEvent.changeText(emailInput, "email@email.com");
-    fireEvent.press(loginButton);
+    await act(async () => {
+      fireEvent.changeText(emailInput, "something@someone.com");
+      fireEvent.changeText(passwordInput, "password");
+    });
 
-    expect(getByText("Please fill in all fields to continue.")).toBeTruthy();
+    await act(async () => {
+      fireEvent.press(loginButton);
+    });
+
+    expect(mockMutate).toHaveBeenCalledWith({
+      email: "something@someone.com",
+      password: "password",
+    });
   });
 
-  it("shows banner text when email is blank", () => {
-    const { getByTestId, getByText } = render(<SignInForm />, {
+  it("does not call the mutation email is empty", async () => {
+    const { getByTestId } = render(<SignInForm />, {
       wrapper: AllTheProviders,
     });
 
     const loginButton = getByTestId("login-button");
     const passwordInput = getByTestId("password-input");
 
-    fireEvent.changeText(passwordInput, "testing");
-    fireEvent.press(loginButton);
+    await act(async () => {
+      fireEvent.changeText(passwordInput, "password");
+    });
 
-    expect(getByText("Please fill in all fields to continue.")).toBeTruthy();
+    await act(async () => {
+      fireEvent.press(loginButton);
+    });
+
+    expect(mockMutate).not.toHaveBeenCalled();
   });
 });
