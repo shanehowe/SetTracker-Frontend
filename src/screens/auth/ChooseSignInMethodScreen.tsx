@@ -1,11 +1,13 @@
 import { View, SafeAreaView } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { AuthScreenProps } from "../../interfaces";
 import { AvatarHeading } from "../../components/Auth/AvatarHeading/AvatarHeading";
 import * as AppleAuthentication from "expo-apple-authentication";
 import { AppleSignInButton } from "../../components/Auth/AppleSignInButton/AppleSignInButton";
 import { useEffect, useState } from "react";
+import { SignInForm } from "../../components/Auth/SignInForm/SignInForm";
+import { Banner } from "../../components/Notifications/Banner/Banner";
 
 export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
   const [appleSignInIsAvailable, setAppleSignInIsAvailable] = useState(false);
@@ -24,44 +26,41 @@ export const ChooseSignInMethodScreen = ({ navigation }: AuthScreenProps) => {
     <SafeAreaView
       style={[{ backgroundColor: theme.colors.background, flex: 1 }]}
     >
-      <View style={styles.container}>
-        <AvatarHeading title="Choose a method of signing in" icon="lock" />
-        <View style={styles.buttonsView}>
-          {appleSignInIsAvailable && <AppleSignInButton />}
-          <Button
-            labelStyle={{
-              fontSize: 16,
-            }}
-            mode="contained"
-            style={styles.continueWithEmailButton}
-            onPress={() => navigation.navigate("EmailLogInSignUpScreen")}
-          >
-            Sign In/Up with email and password
-          </Button>
-        </View>
+      <Banner />
+      <View style={styles.headingView}>
+        <AvatarHeading title="Sign In" icon="lock" />
+      </View>
+      <View style={styles.mainContainer}>
+        <SignInForm />
+        {appleSignInIsAvailable && (
+          <>
+            <View style={styles.orStyle}>
+              <Text variant="titleMedium">OR</Text>
+            </View>
+            <View style={styles.appleButtonView}>
+              <AppleSignInButton />
+            </View>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  orStyle: {
+    marginVertical: 20,
+    alignItems: "center",
+  },
+  appleButtonView: {
+    alignItems: "center",
+  },
+  mainContainer: {
+    flex: 4,
+  },
+  headingView: {
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  buttonsView: {
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  continueWithEmailButton: {
-    marginTop: 20,
-    width: "90%",
-    borderRadius: 10,
-    paddingVertical: 10,
   },
 });
