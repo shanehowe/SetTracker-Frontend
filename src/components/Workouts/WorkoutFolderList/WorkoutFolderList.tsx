@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { ApiException, WorkoutFolder } from "../../../types";
+import { WorkoutFolder } from "../../../types";
 import { WorkoutFolderItem } from "../WorkoutFolderItem/WorkoutFolderItem";
 import { useQuery } from "@tanstack/react-query";
 import workoutFolderService from "../../../services/workoutFolders";
