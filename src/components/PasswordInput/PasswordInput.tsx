@@ -6,6 +6,7 @@ interface PasswordInputProps {
   onChangeText: (text: string) => void;
   mode: "flat" | "outlined";
   style?: object;
+  testID?: string;
 }
 
 export const PasswordInput = ({
@@ -13,6 +14,7 @@ export const PasswordInput = ({
   onChangeText,
   mode,
   style,
+  testID,
 }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -34,7 +36,7 @@ export const PasswordInput = ({
           onPress={toggleShowPassword}
         />
       }
-      testID="password-input"
+      testID={testID ? testID : "password-input"}
     />
   );
 };
