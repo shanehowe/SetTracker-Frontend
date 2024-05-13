@@ -38,6 +38,7 @@ const AuthProvidor: React.FC<AuthContextProps> = ({ children }) => {
 
   const signOut = async () => {
     await storage.remove(StoredConsts.LOGGED_IN_USER);
+    await storage.remove(StoredConsts.PREFERRED_THEME);
     setUser(null);
   };
 
