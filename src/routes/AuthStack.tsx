@@ -10,14 +10,8 @@ export const AuthStack = () => {
       initialRouteName="SignIn"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen
-        name="SignIn"
-        component={ChooseSignInMethodScreen}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={ChooseSignUpMethodScreen}
-      />
+      <Stack.Screen name="SignIn" component={ChooseSignInMethodScreen} />
+      <Stack.Screen name="SignUp" component={ChooseSignUpMethodScreen} />
     </Stack.Navigator>
   );
 };

@@ -12,34 +12,16 @@ export const WorkoutFoldersStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        gestureEnabled: true
+        gestureEnabled: true,
+        headerShown: false,
       }}
-      initialRouteName="WorkoutFolders">
-      <Stack.Screen
-        name="WorkoutFolders"
-        component={WorkoutFoldersScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="AllExercises"
-        component={AllExercisesScreen}
-        options={{ headerShown: false}}
-      />
-      <Stack.Screen
-        name="FolderExercises"
-        component={FolderExercisesScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="AddExercises"
-        component={AddExercisesScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SetHistory"
-        component={SetHistoryScreen}
-        options={{ headerShown: false}}
-      />
+      initialRouteName="WorkoutFolders"
+    >
+      <Stack.Screen name="WorkoutFolders" component={WorkoutFoldersScreen} />
+      <Stack.Screen name="AllExercises" component={AllExercisesScreen} />
+      <Stack.Screen name="FolderExercises" component={FolderExercisesScreen} />
+      <Stack.Screen name="AddExercises" component={AddExercisesScreen} />
+      <Stack.Screen name="SetHistory" component={SetHistoryScreen} />
     </Stack.Navigator>
   );
 };

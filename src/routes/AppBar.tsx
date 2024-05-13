@@ -34,7 +34,7 @@ export const AppBottomTab = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
     }
-  }
+  };
 
   return (
     <>
