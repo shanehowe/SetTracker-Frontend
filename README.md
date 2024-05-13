@@ -69,4 +69,9 @@ Make sure to replace the port number. It should be ```7071```.
 
 7. **Success** Thats it if successful you should now have the app up and running along with the backend!!
 
-
+## Running unit tests
+Each component has unit tests written with jest for testing their functionality. The backend service calls are mocked so you do not need to have the backend set up for this.  
+From the root of the project, open of the command line and run
+```bash
+npm run test
+```
