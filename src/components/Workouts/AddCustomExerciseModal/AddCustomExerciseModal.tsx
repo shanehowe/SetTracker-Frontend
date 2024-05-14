@@ -1,13 +1,3 @@
-import { View, StyleSheet } from "react-native";
-import {
-  Modal,
-  Button,
-  Text,
-  Portal,
-  TextInput,
-  useTheme,
-} from "react-native-paper";
-import { useKeyboardAdjustment } from "../../../hooks/useKeyboardAdjustment";
 import { useAddCustomExerciseMutation } from "../../../hooks/useAddCustomExerciseMutation";
 import { useSnack } from "../../../contexts/SnackbarContext";
 import { Exercise } from "../../../types";
@@ -75,21 +65,3 @@ export const AddCustomExerciseModal = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  modal: {
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-    height: 300,
-  },
-  footer: {
-    gap: 10,
-    justifyContent: "space-evenly",
-    alignContent: "center",
-  },
-  contentContainer: {
-    justifyContent: "space-evenly",
-    height: "100%",
-  },
-});

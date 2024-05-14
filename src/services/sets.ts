@@ -1,6 +1,7 @@
 import { ExerciseSet, SetHistory } from "../types";
 import axios from "axios";
-import { API_URL, authHeaderInterceptor } from "./common";
+import { API_URL } from "./common";
+import { authHeaderInterceptor } from "./interceptors";
 
 const setClient = axios.create({
   baseURL: `${API_URL}/sets`,

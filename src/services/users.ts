@@ -1,5 +1,6 @@
 import axios from "axios";
-import { API_URL, authHeaderInterceptor } from "./common";
+import { API_URL } from "./common";
+import { authHeaderInterceptor } from "./interceptors";
 
 type Preferences = {
   theme: string;
