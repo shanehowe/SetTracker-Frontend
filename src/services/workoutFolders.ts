@@ -1,16 +1,12 @@
 import { WorkoutFolder } from "../types";
-import { token } from "./auth";
 import axios from "axios";
-import { API_URL } from "./common";
+import { API_URL, authHeaderInterceptor } from "./common";
 
 const workoutFolderClient = axios.create({
   baseURL: `${API_URL}/workout-folders`,
 });
 
-workoutFolderClient.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+workoutFolderClient.interceptors.request.use(authHeaderInterceptor);
 
 const getAll = async () => {
   const response = await workoutFolderClient.get<WorkoutFolder[]>("/");

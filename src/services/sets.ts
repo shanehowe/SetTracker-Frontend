@@ -1,16 +1,12 @@
 import { ExerciseSet, SetHistory } from "../types";
 import axios from "axios";
-import { token } from "./auth";
-import { API_URL } from "./common";
+import { API_URL, authHeaderInterceptor } from "./common";
 
 const setClient = axios.create({
   baseURL: `${API_URL}/sets`,
 });
 
-setClient.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+setClient.interceptors.request.use(authHeaderInterceptor);
 
 const getSetHistory = async (exerciseId: string): Promise<SetHistory[]> => {
   const response = await setClient.get<SetHistory[]>(`/${exerciseId}`);

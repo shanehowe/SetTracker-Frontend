@@ -1,16 +1,12 @@
 import { Exercise } from "../types";
 import axios from "axios";
-import { token } from "./auth";
-import { API_URL } from "./common";
+import { API_URL, authHeaderInterceptor } from "./common";
 
 const exerciseClient = axios.create({
   baseURL: `${API_URL}/exercises`,
 });
 
-exerciseClient.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+exerciseClient.interceptors.request.use(authHeaderInterceptor);
 
 const getAll = async () => {
   const response = await exerciseClient.get<Exercise[]>("/");

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { token } from "./auth";
-import { API_URL } from "./common";
+import { API_URL, authHeaderInterceptor } from "./common";
 
 type Preferences = {
   theme: string;
@@ -10,10 +9,7 @@ const userClient = axios.create({
   baseURL: `${API_URL}/me`,
 });
 
-userClient.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+userClient.interceptors.request.use(authHeaderInterceptor);
 
 const updatePreferences = async (
   updatedPreferences: Partial<Preferences>
