@@ -13,6 +13,8 @@ import { View } from "react-native";
 import { WeightIncrementToolbar } from "../WeightIncrementToolBar/WeightIncrementToolBar";
 import { useAddSetMutation } from "../../../hooks/useAddSetMutation";
 import { useSnack } from "../../../contexts/SnackbarContext";
+import { ExerciseSet } from "../../../types";
+import { HelperText } from "../../Notifications/HelperText/HelperText";
 
 interface AddSetBottomSheetProps {
   ref: React.RefObject<BottomSheetModal>;
@@ -26,21 +28,45 @@ export const AddSetBottomSheet = forwardRef<
 >(({ handleModalClose, exerciseId }, ref) => {
   const [weight, setWeight] = useState("");
   const [reps, setReps] = useState("");
+  const [weightHelperTextVisible, setWeightHelperTextVisible] = useState(false);
+  const [repsHelperTextVisible, setRepsHelperTextVisible] = useState(false);
 
   const snack = useSnack();
   const id = "weightId";
 
-  const addSetMutation = useAddSetMutation(
-    (createdSet) => {
-      snack.success("Set created!")
-      handleModalClose();
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
+  const closeModal = () => {
+    setReps("");
+    setWeight("");
+    setRepsHelperTextVisible(false);
+    setWeightHelperTextVisible(false);
+    handleModalClose();
+  };
+
+  const onAddSetSuccess = (createdSet: ExerciseSet) => {
+    snack.success("Set created!");
+    closeModal();
+  };
+
+  const onAddSetError = (error: Error) => {
+    snack.error("Failed to create set. Please try again.");
+  };
+
+  const addSetMutation = useAddSetMutation(onAddSetSuccess, onAddSetError);
 
   const handleAddSetPress = () => {
+    const weightNumber = Number(weight);
+    const repsNumber = Number(reps);
+
+    if (isNaN(weightNumber) || weightNumber <= 0) {
+      setWeightHelperTextVisible(true);
+      return;
+    }
+
+    if (isNaN(repsNumber) || repsNumber <= 0) {
+      setRepsHelperTextVisible(true);
+      return;
+    }
+
     addSetMutation.mutate({
       exerciseId,
       weight: Number(weight),
@@ -56,7 +82,7 @@ export const AddSetBottomSheet = forwardRef<
       newWeight = Number(weight) + weightIncrement;
     }
 
-    if (newWeight < 0) {
+    if (newWeight < 0 || isNaN(newWeight)) {
       setWeight("0");
     } else {
       setWeight(newWeight.toString());
@@ -98,12 +124,20 @@ export const AddSetBottomSheet = forwardRef<
             label="Weight"
             inputAccessoryViewID={id}
           />
+          <HelperText
+            visible={weightHelperTextVisible}
+            text="Weight must be a valid number greather than zero."
+          />
           <NumberInput
             increment={1}
             decrement={1}
             value={reps}
             onChange={setReps}
             label="Reps"
+          />
+          <HelperText
+            visible={repsHelperTextVisible}
+            text="Reps must be a valid number greather than zero."
           />
         </KeyboardAvoidingView>
         <View style={styles.buttonsContainer}>
@@ -114,7 +148,7 @@ export const AddSetBottomSheet = forwardRef<
           >
             Add Set
           </Button>
-          <Button onPress={handleModalClose}>Close</Button>
+          <Button onPress={closeModal}>Close</Button>
         </View>
       </View>
       {Platform.OS === "ios" && (
