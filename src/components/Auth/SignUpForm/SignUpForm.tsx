@@ -9,6 +9,8 @@ import { isAxiosError } from "axios";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AuthStackParamList } from "../../../types";
 
+const MIN_PASSWORD_LENGTH = 6;
+
 export const SignUpForm = () => {
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
   const auth = useAuth();
@@ -47,6 +49,11 @@ export const SignUpForm = () => {
 
     if (password !== confirmPassword) {
       showBanner("Password fields do not match");
+      return;
+    }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      showBanner("Password must be at least 6 characters long.");
       return;
     }
 
